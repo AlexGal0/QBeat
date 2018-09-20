@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QBeat</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_dashboard">Buscar</string>
+    <string name="title_notifications">Perfil</string>
+    <string name="my_recipe">Mis Recetas</string>
+</resources>
