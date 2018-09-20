@@ -27,17 +27,17 @@
             android:id="@+id/imageButton1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-
             android:layout_marginBottom="-7dp"
-            android:layout_marginRight="-7dp"
+
             android:layout_marginLeft="-7dp"
+            android:layout_marginRight="-7dp"
             android:layout_marginTop="-7dp"
+            android:layout_weight="1"
 
             android:backgroundTint="@color/colorPrimary"
             android:baselineAlignBottom="false"
             android:cropToPadding="false"
-            app:srcCompat="@drawable/ic_notifications_black_24dp" />
+            android:src="@mipmap/home"/>
 
         <ImageButton
             android:id="@+id/imageButton2"
@@ -51,7 +51,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            app:srcCompat="@mipmap/search" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_dashboard_black_24dp" />
+            app:srcCompat="@mipmap/book" />
 
         <ImageButton
             android:layout_marginBottom="-7dp"
@@ -76,7 +76,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="?android:attr/textSelectHandle" />
+            app:srcCompat="@mipmap/user" />
 
     </LinearLayout>
 

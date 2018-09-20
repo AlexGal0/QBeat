@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void setChecked(int position){
         for(int i = 0; i < 4; i++)
             menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-        menu[position].setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+        menu[position].setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ce6804")));
     }
 
     private void setInitialFragment() {
