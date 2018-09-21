@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             fragments = new Fragment[mNumberOfFragment];
             fragments[0] = new HomeFragment();
             fragments[1] = new SearchFragment();
-            fragments[2] = new ProfileFragment();
-            fragments[3] = new MyRecipeFragment();
+            fragments[2] = new MyRecipeFragment();
+            fragments[3] = new ProfileFragment();
         }
 
         if(menu == null){
