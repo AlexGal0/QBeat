@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private final int mNumberOfFragment = 4;
@@ -118,26 +118,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
         mViewPager.setCurrentItem(0);
         setChecked(0);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.home_button:
-                mViewPager.setCurrentItem(0);
-                break;
-            case R.id.search_navigator_bottom:
-                mViewPager.setCurrentItem(1);
-                break;
-            case R.id.profile_button:
-                mViewPager.setCurrentItem(2);
-                break;
-            case R.id.my_recipe_button:
-                mViewPager.setCurrentItem(3);
-                break;
-        }
-        return true;
     }
 
 }
