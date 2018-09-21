@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //AQuÏ PRRO
 
         mViewPager = new ViewPageFragment(this);
         mViewPager.setId(R.id.view_pager);
