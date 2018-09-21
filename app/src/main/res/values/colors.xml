@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#ce6804</color>
     <color name="colorAccent">#05e6ff</color>
     <color name="ColorSecundary">#ce6804</color>
+    <color name="ColorBannerProfile">#FFF5B577</color>
+    <color name="BlackText">#000</color>
 </resources>
