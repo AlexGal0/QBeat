@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private final int mNumberOfFragment = 4;
