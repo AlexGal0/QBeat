@@ -35,8 +35,6 @@
             android:layout_weight="1"
 
             android:backgroundTint="@color/colorPrimary"
-            android:baselineAlignBottom="false"
-            android:cropToPadding="false"
             android:src="@mipmap/home"/>
 
         <ImageButton
@@ -51,7 +49,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@mipmap/search" />
+            android:src="@mipmap/search" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -64,19 +62,20 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@mipmap/book" />
+            android:src="@mipmap/book" />
 
         <ImageButton
+
+            android:id="@+id/imageButton4"
             android:layout_marginBottom="-7dp"
             android:layout_marginRight="-7dp"
             android:layout_marginLeft="-7dp"
             android:layout_marginTop="-7dp"
-            android:id="@+id/imageButton4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@mipmap/user" />
+            android:src="@mipmap/user" />
 
     </LinearLayout>
 
