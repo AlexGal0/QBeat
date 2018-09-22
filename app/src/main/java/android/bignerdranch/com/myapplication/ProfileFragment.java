@@ -24,6 +24,9 @@ public class ProfileFragment extends Fragment {
         ProgressBar bar = v.findViewById(R.id.progressbar_profile);
         bar.setProgress((int) user.getCurrentExperience());
 
+        TextView nivel = v.findViewById(R.id.number_level);
+        nivel.setText(user.getLevel());
+
         return v;
 
     }

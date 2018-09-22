@@ -37,19 +37,38 @@
                     android:layout_margin="5dp"
                     android:fontFamily="@font/orangeblossoms"
                     android:gravity="left"
-                    android:text="NombreDeUsuario"
+                    android:text="Nombre"
                     android:textColor="@color/BlackText"
                     android:textSize="40sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/cryogenix"
-                    android:gravity="left"
-                    android:text="@string/nivel_text"
-                    android:textSize="30sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cryogenix"
+                        android:gravity="left|center"
+                        android:text="@string/nivel_text"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/number_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="left|center"
+                        android:layout_margin="5dp"
+                        android:textSize="30sp"
+
+                        android:fontFamily="@font/cryogenix"
+                        android:text="0" />
+                </LinearLayout>
 
                 <ProgressBar
                     android:id="@+id/progressbar_profile"
