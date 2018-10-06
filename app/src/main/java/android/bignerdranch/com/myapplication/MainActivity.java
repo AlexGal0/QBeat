@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < 4; i++){
             menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
         }
-        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary));
+        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary
+        ));
     }
 
     private void setInitialFragment() {
