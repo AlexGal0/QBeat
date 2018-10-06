@@ -16,7 +16,7 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Usuario user = new Usuario("Carlos Santana");
-        user.addExperience(100);
+        user.addExperience(99);
 
         TextView nombre = v.findViewById(R.id.username_profile);
         nombre.setText(user.getName());
