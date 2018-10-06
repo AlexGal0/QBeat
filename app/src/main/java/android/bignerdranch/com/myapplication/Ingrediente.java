@@ -13,7 +13,8 @@ public class Ingrediente {
     /*
         constructors
      */
-    public Ingrediente(){
+    public Ingrediente(String name){
+        this.name=name;
         this.id = UUID.randomUUID();
     }
 

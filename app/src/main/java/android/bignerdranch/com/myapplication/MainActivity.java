@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.bignerdranch.com.myapplication.baseTest1;
+
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +31,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //rteerxrdytjt
-
+        baseTest1 b = new baseTest1();
+        Usuario user = new Usuario("johann rojas");
+        b.addUser(user);
+        String descripcion = "A esta preparación se le agregan verduras como el ají, el pimentón, zanahoria en cubos, apio, habichuelas, cebolla, maíz desgranado";
+        Receta receta = new Receta("Arroz",descripcion, UUID.randomUUID());
+        b.addRecipe(receta);
         mViewPager = new ViewPageFragment(this);
         mViewPager.setId(R.id.view_pager);
 

@@ -11,8 +11,8 @@ public class Usuario {
     private String name;
     private int level;
     private double currentExperience;
-    private ArrayList<Receta> misRecetas;
-    private ArrayList<Receta> misRecetasGuardadas;
+    private ArrayList<Integer> misRecetas;
+    private ArrayList<Integer> misRecetasGuardadas;
     private ImageView imageView;
 
     /*
@@ -20,9 +20,15 @@ public class Usuario {
      */
     public Usuario(String name){
         id = UUID.randomUUID();
-        misRecetas = new ArrayList<>();
-        misRecetasGuardadas = new ArrayList<>();
-        level = 0;
+        ArrayList<Integer>a=new ArrayList<>();
+        a.add(2);
+        a.add(4);
+        a.add(6);
+
+        misRecetas =a;
+        ArrayList<Integer>b=new ArrayList<>();
+        misRecetasGuardadas = b;
+        level = 50;
         this.name = name;
     }
 
@@ -38,11 +44,11 @@ public class Usuario {
         return level;
     }
 
-    public ArrayList<Receta> getMisRecetas() {
+    public ArrayList<Integer> getMisRecetas() {
         return misRecetas;
     }
 
-    public ArrayList<Receta> getMisRecetasGuardadas() {
+    public ArrayList<Integer> getMisRecetasGuardadas() {
         return misRecetasGuardadas;
     }
 
@@ -62,7 +68,7 @@ public class Usuario {
         this.imageView = imageView;
     }
 
-    public boolean addReceta(Receta receta){
+   /** public boolean addReceta(Receta receta){
         if(receta == null)
             throw new NullPointerException();
         if(receta.chefId.equals(this.id)){
@@ -76,7 +82,7 @@ public class Usuario {
             return misRecetasGuardadas.add(receta);
         }
     }
-
+**/
     public boolean addExperience(double exp){
         if(Double.isInfinite(exp))
             throw new IllegalArgumentException("Infinite Experience");

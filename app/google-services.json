@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "866299498253",
+    "firebase_url": "https://basedatosqbeat.firebaseio.com",
+    "project_id": "basedatosqbeat",
+    "storage_bucket": "basedatosqbeat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866299498253:android:2b5de074a3724092",
+        "android_client_info": {
+          "package_name": "android.bignerdranch.com.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866299498253-6u41sda1fqlou38v438piosv0q419nug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApy5tpr8kTOoDKtN2ol5qVek1a51YZaPg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
