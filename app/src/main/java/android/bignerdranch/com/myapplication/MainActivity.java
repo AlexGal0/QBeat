@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.bignerdranch.com.myapplication.baseTest1;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,19 +26,25 @@ public class MainActivity extends AppCompatActivity {
     private final int mNumberOfFragment = 4;
     private Fragment[] fragments;
     private ImageButton[] menu;
-
+    public String descripcion = "A esta preparación se le agregan verduras como el ají, el pimentón, zanahoria en cubos, apio, habichuelas, cebolla, maíz desgranado";
+    public Receta receta = new Receta("Arroz6",descripcion, UUID.randomUUID());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //rteerxrdytjt
+
         baseTest1 b = new baseTest1();
-        Usuario user = new Usuario("johann rojas");
-        b.addUser(user);
-        String descripcion = "A esta preparación se le agregan verduras como el ají, el pimentón, zanahoria en cubos, apio, habichuelas, cebolla, maíz desgranado";
-        Receta receta = new Receta("Arroz",descripcion, UUID.randomUUID());
-        b.addRecipe(receta);
+        //b.addRecipe2(receta);
+        //Paso paso1 = new Paso("Cortar","cortar la papa");
+        //Paso paso2 = new Paso("Hervir","hervir el agua");
+        //receta.addPaso(paso1);
+        //receta.addPaso(paso2);
+        //b.addRecipe2(receta);
+        b.getRecipe("27f1fb11-d177-4f57-8303-2f6aafc9ac9e");
+
+        //Receta receta3 = new Receta("Pollo", receta2.getDescription(),UUID.randomUUID());
+        //b.addRecipe2(receta3);
         mViewPager = new ViewPageFragment(this);
         mViewPager.setId(R.id.view_pager);
 

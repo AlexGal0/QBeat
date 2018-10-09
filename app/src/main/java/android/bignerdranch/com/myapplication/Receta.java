@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Receta {
-    public UUID id;
-    public UUID chefId;
+    public String id;
+    public String chefId;
     private ArrayList<Paso> pasos;
     private String name;
     private String description;
@@ -17,11 +17,12 @@ public class Receta {
     /*
         constructors
      */
+    public Receta(){};
     public Receta(UUID chefId){
-        this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID().toString();
         this.pasos = new ArrayList<>();
         this.images = new ArrayList<>();
-        this.chefId = chefId;
+        this.chefId = chefId.toString();
     }
 
     public Receta(String title, String description, UUID chefId){
@@ -35,6 +36,13 @@ public class Receta {
      */
     public String getName() {
         return name + "";
+    }
+
+    public String getId() {
+        return id.toString();
+    }
+    public String getChefId() {
+        return chefId.toString();
     }
 
     public String getDescription() {
