@@ -52,7 +52,7 @@ public class baseTest1 {
                 Log.d("id", rec.getId());
                 Log.d("name", rec.getName());
                 ArrayList<Paso> pasos = rec.getPasos();
-                Log.d("Paso 1", pasos.get(0).getTitle());
+                Log.d("Paso 1", pasos.get(0).getTitle()+"");
                 Log.d("Paso 2", pasos.get(1).getTitle());
             }
         });
