@@ -1,10 +1,16 @@
 package android.bignerdranch.com.myapplication;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +32,20 @@ public class HomeFragment extends Fragment {
                 viewPager.setEnable(b);
             }
 
+        });
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentActivity activity = getActivity();
+                if(activity == null)
+                    Log.i("FAIL", "Fragment Activity in NULL");
+                Intent i = new Intent(activity, CreateRecipe.class);
+
+               activity.startActivity(i);
+            }
         });
 
         return view;

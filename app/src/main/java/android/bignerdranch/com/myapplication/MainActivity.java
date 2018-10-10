@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setChecked(int position){
         for(int i = 0; i < 4; i++){
-            menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
+            menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.transparent));
         }
         menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary
         ));

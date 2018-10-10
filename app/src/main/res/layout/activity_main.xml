@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <FrameLayout
         android:id="@+id/main_fragment_placeholder"
@@ -20,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:dividerPadding="10dp"
-        android:divider="@color/pink"
+
+        android:background="@color/colorPrimary"
 
         >
 
@@ -30,70 +31,76 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
 
-            android:layout_marginTop="-7dp"
+            android:theme="@style/NavigatorButton"
+
             android:layout_marginLeft="-7dp"
-            android:layout_marginRight="-3dp"
             android:layout_marginBottom="-7dp"
+            android:layout_marginTop="-7dp"
+            android:layout_marginRight="-7dp"
 
             android:layout_weight="1"
 
-            android:backgroundTint="@color/colorPrimary"
 
+            android:backgroundTint="@color/transparent"
             android:src="@mipmap/home"
-            android:theme="@style/NavigatorButton" />
+           />
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
 
-            android:layout_marginTop="-7dp"
+
             android:layout_marginLeft="-7dp"
-            android:layout_marginRight="-3dp"
             android:layout_marginBottom="-7dp"
+            android:layout_marginTop="-7dp"
+            android:layout_marginRight="-7dp"
+
+
+            android:theme="@style/NavigatorButton"
 
             android:layout_weight="1"
-
-            android:backgroundTint="@color/colorPrimary"
-
+            android:backgroundTint="@color/transparent"
             android:src="@mipmap/search"
-            android:theme="@style/NavigatorButton" />
+            />
 
         <ImageButton
             android:id="@+id/imageButton3"
 
-            android:layout_marginTop="-7dp"
             android:layout_marginLeft="-7dp"
-            android:layout_marginRight="-3dp"
             android:layout_marginBottom="-7dp"
+            android:layout_marginTop="-7dp"
+            android:layout_marginRight="-7dp"
+
+            android:theme="@style/NavigatorButton"
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
 
-            android:backgroundTint="@color/colorPrimary"
-
+            android:backgroundTint="@color/transparent"
             android:src="@mipmap/book"
-            android:theme="@style/NavigatorButton" />
+            />
 
         <ImageButton
 
             android:id="@+id/imageButton4"
             android:layout_width="wrap_content"
 
-            android:layout_marginTop="-7dp"
             android:layout_marginLeft="-7dp"
-            android:layout_marginRight="-7dp"
             android:layout_marginBottom="-7dp"
+            android:layout_marginTop="-7dp"
+            android:layout_marginRight="-7dp"
+
+            android:theme="@style/NavigatorButton"
 
 
             android:layout_height="match_parent"
             android:layout_weight="1"
 
-            android:backgroundTint="@color/colorPrimary"
-
+            android:backgroundTint="@color/transparent"
             android:src="@mipmap/user"
-            android:theme="@style/NavigatorButton" />
+            />
 
     </LinearLayout>
 
