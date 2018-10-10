@@ -11,4 +11,5 @@
     <color name="progress">#1aef0b</color>
     <color name="backgroundSplash">#730101</color>
     <color name="white">#FFFFFF</color>
+    <color name="transparent">#00ffffff</color>
 </resources>
