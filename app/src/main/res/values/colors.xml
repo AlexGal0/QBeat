@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f48942</color>
-    <color name="colorPrimaryDark">#ce6804</color>
-    <color name="colorAccent">#05e6ff</color>
-    <color name="ColorSecundary">#ce6804</color>
-    <color name="ColorBannerProfile">#62ed9744</color>
+    <color name="colorPrimary">#ea3c3a</color>
+    <color name="colorPrimaryDark">#730101</color>
+    <color name="colorAccent">#1c2bca</color>
+    <color name="ColorSecundary">#b90101</color>
+    <color name="ColorBannerProfile">#62ff0000</color>
     <color name="BlackText">#000</color>
     <color name="pink">#ff05d9</color>
     <color name="red">#ff0000</color>

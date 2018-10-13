@@ -39,12 +39,15 @@ public class HomeFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentActivity activity = getActivity();
-                if(activity == null)
-                    Log.i("FAIL", "Fragment Activity in NULL");
-                Intent i = new Intent(activity, CreateRecipe.class);
+                if(!DataBase.getDataBase().isNull()){
+                    FragmentActivity activity = getActivity();
+                    if(activity == null) {
+                        Log.i("FAIL", "Fragment Activity in NULL");
+                    }
+                    Intent i = new Intent(activity, CreateRecipe.class);
 
-               activity.startActivity(i);
+                    activity.startActivity(i);
+                }
             }
         });
 

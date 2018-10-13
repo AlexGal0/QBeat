@@ -1,41 +1,29 @@
 package android.bignerdranch.com.myapplication;
 
+import android.text.Editable;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Paso {
-    private ArrayList<Ingrediente> ingredientes;
+public class Paso implements Serializable{
     private String description;
     private ImageView image;
     private long time;
-    private String title;
 
     /*
         constructors
      */
     public Paso(){
-        ingredientes = new ArrayList<>();
     }
 
-    public Paso(String title){
-        this();
-        setTitle(title);
-    }
-
-    public Paso(String title, String description){
-        this(title);
+    public Paso(String description){
         setDescription(description);
     }
 
-    public Paso(ArrayList<Ingrediente> listIngredientes){
-        this();
-        setIngredientes(listIngredientes);
-    }
 
-    public Paso(String title, String description, ArrayList<Ingrediente> listIngredientes, ImageView image, long time){
-        this(title, description);
-        setIngredientes(listIngredientes);
+    public Paso(String description, ImageView image, long time){
+        this(description);
         setImage(image);
         setTime(time);
     }
@@ -43,10 +31,6 @@ public class Paso {
     /*
         getters and setters
      */
-    public ArrayList<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -59,13 +43,7 @@ public class Paso {
         return time;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -79,21 +57,6 @@ public class Paso {
         if(time < 0)
             throw new IllegalArgumentException("Negative Time");
         this.time = time;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    /*
-        Add one ingredient to list of ingredients
-     */
-    public boolean addIngredient(Ingrediente ingrediente){
-        if(ingrediente == null)
-            throw new NullPointerException();
-        if(this.ingredientes.contains(ingrediente))
-            return true;
-        return ingredientes.add(ingrediente);
     }
 
 }

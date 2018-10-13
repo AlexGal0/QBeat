@@ -9,7 +9,7 @@
     </style>
 
     <style name="NavigatorButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/white</item>
         <item name="colorBackgroundFloating">@color/pink</item>
     </style>
 

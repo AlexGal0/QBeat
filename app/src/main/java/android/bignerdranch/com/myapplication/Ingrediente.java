@@ -1,11 +1,13 @@
 package android.bignerdranch.com.myapplication;
 
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Ingrediente {
-    public UUID id;
+public class Ingrediente implements Serializable, Comparable {
+    private String id;
     private String name;
     private ImageView image;
 
@@ -13,9 +15,12 @@ public class Ingrediente {
     /*
         constructors
      */
+    public Ingrediente(){
+        this.id = UUID.randomUUID().toString();
+    }
     public Ingrediente(String name){
-        this.name=name;
-        this.id = UUID.randomUUID();
+        this();
+        this.name = name;
     }
 
     /*
@@ -37,10 +42,26 @@ public class Ingrediente {
         this.image = image;
     }
 
+    public String getId(){
+        return id  + "";
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Receta))
+        if(!(obj instanceof Ingrediente))
             return false;
         return this.id.equals(((Ingrediente)obj).id);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        if(!(o instanceof Ingrediente ))
+            throw new IllegalArgumentException();
+        return this.name.compareTo(((Ingrediente) o).name);
     }
 }

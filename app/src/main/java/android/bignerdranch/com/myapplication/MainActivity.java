@@ -3,6 +3,7 @@ package android.bignerdranch.com.myapplication;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.bignerdranch.com.myapplication.baseTest1;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] fragments;
     private ImageButton[] menu;
     public String descripcion = "A esta preparación se le agregan verduras como el ají, el pimentón, zanahoria en cubos, apio, habichuelas, cebolla, maíz desgranado";
-    public Receta receta = new Receta("Arroz6",descripcion, UUID.randomUUID());
+    public Receta receta = new Receta("Arroz6",descripcion, UUID.randomUUID().toString());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        baseTest1 b = new baseTest1();
-        //b.addRecipe2(receta);
-        //Paso paso1 = new Paso("Cortar","cortar la papa");
-        //Paso paso2 = new Paso("Hervir","hervir el agua");
-        //receta.addPaso(paso1);
-        //receta.addPaso(paso2);
-        //b.addRecipe2(receta);
-        b.getRecipe("27f1fb11-d177-4f57-8303-2f6aafc9ac9e");
+        DataBase.getDataBase(); // Start Database
 
-        //Receta receta3 = new Receta("Pollo", receta2.getDescription(),UUID.randomUUID());
-        //b.addRecipe2(receta3);
+
+
         mViewPager = new ViewPageFragment(this);
         mViewPager.setId(R.id.view_pager);
 

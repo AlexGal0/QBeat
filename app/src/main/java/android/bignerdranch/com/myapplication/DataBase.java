@@ -1,9 +1,12 @@
 package android.bignerdranch.com.myapplication;
 
+import android.content.Context;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Printer;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,10 +39,19 @@ public class DataBase {
 
     private Receta receta;
     private ArrayList<Ingrediente> listIngredients;
+    private static DataBase dataBase;
+
 
     public static FirebaseFirestore db= FirebaseFirestore.getInstance();
 
-    public DataBase() {
+
+    public static DataBase getDataBase(){
+        if(dataBase == null){
+            dataBase = new DataBase();
+        }
+        return dataBase;
+    }
+    private DataBase() {
         getIngredientesDB();
     }
 
@@ -48,7 +60,7 @@ public class DataBase {
         Query query = userRef.whereEqualTo("name", user.getName());
     }
 
-    public void addRecipe2(Receta receta){
+    public void addRecipe(Receta receta){
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).set(receta);
     }
 
@@ -63,8 +75,6 @@ public class DataBase {
                 Log.d("id", receta.getId());
                 Log.d("name", receta.getName());
                 ArrayList<Paso> pasos = receta.getPasos();
-                Log.d("Paso 1", pasos.get(0).getTitle()+"");
-                Log.d("Paso 2", pasos.get(1).getTitle());
             }
         });
 
@@ -107,5 +117,10 @@ public class DataBase {
         if(this.listIngredients == null)
             return new ArrayList<>();
         return new ArrayList<>(this.listIngredients);
+    }
+
+
+    public boolean isNull(){
+        return listIngredients == null;
     }
 }
