@@ -23,7 +23,7 @@
         <activity android:name=".CreateRecipe"/>
         <activity android:name=".SelectIngredientActivity"/>
         <activity android:name=".EditStepActivity"/>
-        <activity android:name=".Recipe_View" />
+        <activity android:name=".RecipeView" />
     </application>
 
 </manifest>
