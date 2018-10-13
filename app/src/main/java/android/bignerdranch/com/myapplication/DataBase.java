@@ -18,20 +18,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.ref.Reference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.UUID;
+
+import javax.annotation.Nullable;
 
 import static android.content.ContentValues.TAG;
 
@@ -39,6 +45,7 @@ public class DataBase {
 
     private Receta receta;
     private ArrayList<Ingrediente> listIngredients;
+    private ArrayList<Receta> listRecipe;
     private static DataBase dataBase;
 
 
@@ -53,6 +60,9 @@ public class DataBase {
     }
     private DataBase() {
         getIngredientesDB();
+        listRecipe = new ArrayList<>();
+        getRecetaDB(User.id);
+        Log.i("INGREDIENTE","COMPLETE :)");
     }
 
     public static void Buscar (Usuario user){
@@ -92,7 +102,7 @@ public class DataBase {
         Task<QuerySnapshot> query = collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isComplete()){
+                if(task.isSuccessful()){
 
                     listIngredients = new ArrayList<>((task.getResult().size()));
                     Ingrediente ingrediente;
@@ -101,7 +111,7 @@ public class DataBase {
                         //Log.i("INGREDIENTE", doc.getString("name") + "    " + i.getId());
                         listIngredients.add(ingrediente);
                     }
-                    Log.i("INGREDIENTE","COMPLETE :)");
+
 
                 }
                 else{
@@ -112,6 +122,35 @@ public class DataBase {
         });
     }
 
+    private void getRecetaDB(String id){
+        CollectionReference collectionReference = db.collection(References.RECETAS_REFERENCE);
+        collectionReference
+                .whereEqualTo("chefId", id)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(e != null){
+                            Log.w("ERROR", "Listen ERROR", e);
+                            return;
+                        }
+
+                        for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
+                            Receta receta = documentChange.getDocument().toObject(Receta.class);
+                            switch (documentChange.getType()){
+                                case ADDED:
+                                    listRecipe.add(receta);
+                                    break;
+                                case MODIFIED:
+                                    break;
+                                case REMOVED:
+                                    listRecipe.remove(receta);
+                                    break;
+                            }
+                        }
+                    }
+                });
+    }
+
 
     public ArrayList<Ingrediente> getListIngredients() {
         if(this.listIngredients == null)
@@ -119,6 +158,11 @@ public class DataBase {
         return new ArrayList<>(this.listIngredients);
     }
 
+    public ArrayList<Receta> getListReceta(String id){
+        if(this.listRecipe == null)
+            return new ArrayList<>();
+        return new ArrayList<>(this.listRecipe);
+    }
 
     public boolean isNull(){
         return listIngredients == null;

@@ -28,7 +28,7 @@ public class Usuario {
         misRecetas =a;
         ArrayList<Integer>b=new ArrayList<>();
         misRecetasGuardadas = b;
-        level = 50;
+        level = 0;
         this.name = name;
     }
 
