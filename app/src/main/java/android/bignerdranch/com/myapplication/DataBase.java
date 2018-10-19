@@ -1,8 +1,10 @@
 package android.bignerdranch.com.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.util.Printer;
 import android.widget.ListView;
@@ -12,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +51,10 @@ public class DataBase {
     private ArrayList<Ingrediente> listIngredients;
     private ArrayList<Receta> listRecipe;
     private static DataBase dataBase;
+    public Usuario currentUser;
+    public boolean ingredientComplete;
+    public boolean userComplete;
+    public boolean recipeComplete;
 
 
     public static FirebaseFirestore db= FirebaseFirestore.getInstance();
@@ -61,7 +69,6 @@ public class DataBase {
     private DataBase() {
         getIngredientesDB();
         listRecipe = new ArrayList<>();
-        getRecetaDB(User.id);
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -73,6 +80,9 @@ public class DataBase {
     public void addRecipe(Receta receta){
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).set(receta);
     }
+    public void addUser(Usuario usuario) {
+        db.collection(References.USERS_REFERENCE).document(usuario.id).set(usuario);
+    }
 
     public Receta getRecipe (String id){
         DocumentReference docRer= db.collection(References.RECETAS_REFERENCE).document(id);
@@ -80,10 +90,6 @@ public class DataBase {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                receta = documentSnapshot.toObject(Receta.class);
-                Log.d("chefid", receta.getChefId());
-                Log.d("descripcion", receta.getDescription());
-                Log.d("id", receta.getId());
-                Log.d("name", receta.getName());
                 ArrayList<Paso> pasos = receta.getPasos();
             }
         });
@@ -98,21 +104,20 @@ public class DataBase {
     }
 
     private void getIngredientesDB(){
+        ingredientComplete = false;
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
         Task<QuerySnapshot> query = collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-
                     listIngredients = new ArrayList<>((task.getResult().size()));
                     Ingrediente ingrediente;
-                    for(DocumentSnapshot doc : task.getResult()){
+                    for(DocumentSnapshot doc : task.getResult()) {
                         ingrediente = doc.toObject(Ingrediente.class);
                         //Log.i("INGREDIENTE", doc.getString("name") + "    " + i.getId());
                         listIngredients.add(ingrediente);
                     }
-
-
+                    DataBase.this.ingredientComplete = true;
                 }
                 else{
                     Log.i("INGREDIENTE","Error getting documents: ");
@@ -123,9 +128,10 @@ public class DataBase {
     }
 
     private void getRecetaDB(String id){
+        recipeComplete = false;
         CollectionReference collectionReference = db.collection(References.RECETAS_REFERENCE);
         collectionReference
-                .whereEqualTo("chefId", id)
+                .whereEqualTo("chefId", currentUser.id)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -147,6 +153,7 @@ public class DataBase {
                                     break;
                             }
                         }
+                        recipeComplete = true;
                     }
                 });
     }
@@ -166,5 +173,27 @@ public class DataBase {
 
     public boolean isNull(){
         return listIngredients == null;
+    }
+
+    public void setUser() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String email = currentUser.getEmail();
+        userComplete = false;
+
+        Task<QuerySnapshot> documentSnapshotTask = db.collection(References.USERS_REFERENCE).whereEqualTo("email", email).get();
+        documentSnapshotTask.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                DataBase.this.currentUser = task.getResult().getDocuments().get(0).toObject(Usuario.class);
+                getRecetaDB(User.id);
+                userComplete = true;
+            }
+        });
+    }
+
+    public void cleanUser() {
+        currentUser = null;
+        listRecipe = new ArrayList<>();
     }
 }

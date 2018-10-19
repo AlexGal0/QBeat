@@ -21,7 +21,7 @@ public class Receta {
      */
     public Receta(){
         this.id = UUID.randomUUID().toString();
-        this.chefId = User.id;
+        this.chefId = DataBase.getDataBase().currentUser.id;
     };
     public Receta(String chefId){
         this();

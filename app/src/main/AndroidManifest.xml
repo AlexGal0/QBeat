@@ -24,6 +24,8 @@
         <activity android:name=".SelectIngredientActivity"/>
         <activity android:name=".EditStepActivity"/>
         <activity android:name=".RecipeView" />
+        <activity android:name=".Login" />
+        <activity android:name=".Registrar" />
     </application>
 
 </manifest>

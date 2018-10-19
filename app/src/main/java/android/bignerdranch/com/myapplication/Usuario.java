@@ -1,5 +1,6 @@
 package android.bignerdranch.com.myapplication;
 
+import android.util.MonthDisplayHelper;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -7,30 +8,43 @@ import java.util.UUID;
 
 public class Usuario {
     public final static double MAX_EXP = 100.0;
-    public UUID id;
+    public String id;
     private String name;
+    private String email;
     private int level;
     private double currentExperience;
-    private ArrayList<Integer> misRecetas;
-    private ArrayList<Integer> misRecetasGuardadas;
+    private ArrayList<String> misRecetas;
+    private ArrayList<String> misRecetasGuardadas;
     private ImageView imageView;
 
     /*
         constructor
      */
-    public Usuario(String name){
-        id = UUID.randomUUID();
-        ArrayList<Integer>a=new ArrayList<>();
-        a.add(2);
-        a.add(4);
-        a.add(6);
 
-        misRecetas =a;
-        ArrayList<Integer>b=new ArrayList<>();
-        misRecetasGuardadas = b;
+    public Usuario(){
+        id = UUID.randomUUID().toString();
+        misRecetas = new ArrayList<>();
+        misRecetasGuardadas = new ArrayList<>();
         level = 0;
-        this.name = name;
+        currentExperience = 0;
     }
+    public Usuario(String email, String name){
+        this();
+        this.name = name;
+        this.email = email;
+    }
+
+    public Usuario(Usuario usuario){
+        this.id = usuario.id;
+        this.misRecetas = usuario.misRecetas;
+        this.misRecetasGuardadas = usuario.misRecetasGuardadas;
+        this.level = usuario.level;
+        this.currentExperience = usuario.currentExperience;
+        this.email = usuario.email;
+        this.imageView = usuario.imageView;
+    }
+
+
 
     /*
         getters and setters
@@ -40,15 +54,21 @@ public class Usuario {
         return name;
     }
 
+
+    public String getEmail() {
+        return email;
+    }
+
+
     public int getLevel() {
         return level;
     }
 
-    public ArrayList<Integer> getMisRecetas() {
+    public ArrayList<String> getMisRecetas() {
         return misRecetas;
     }
 
-    public ArrayList<Integer> getMisRecetasGuardadas() {
+    public ArrayList<String> getMisRecetasGuardadas() {
         return misRecetasGuardadas;
     }
 
@@ -68,21 +88,6 @@ public class Usuario {
         this.imageView = imageView;
     }
 
-   /** public boolean addReceta(Receta receta){
-        if(receta == null)
-            throw new NullPointerException();
-        if(receta.chefId.equals(this.id)){
-            if(misRecetas.contains(receta))
-                return true;
-            return misRecetas.add(receta);
-        }
-        else{
-            if(misRecetasGuardadas.contains(receta))
-                return true;
-            return misRecetasGuardadas.add(receta);
-        }
-    }
-**/
     public boolean addExperience(double exp){
         if(Double.isInfinite(exp))
             throw new IllegalArgumentException("Infinite Experience");

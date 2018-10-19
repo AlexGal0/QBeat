@@ -114,6 +114,8 @@ public class CreateRecipe extends FragmentActivity {
                     receta.setIngredientes(ingredientes);
                     receta.setPasos(pasos);
 
+
+
                     ingredientes = null;
                     pasos = null;
 

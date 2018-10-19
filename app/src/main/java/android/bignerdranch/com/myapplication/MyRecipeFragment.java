@@ -21,7 +21,7 @@ public class MyRecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_recipe, container, false);
-
+        Log.i("RECIPE_FRAGMENT", "OnCreateView()");
         return view;
     }
 
@@ -52,6 +52,7 @@ public class MyRecipeFragment extends Fragment {
         super.onResume();
         if(!DataBase.getDataBase().isNull())
             updateRecipes(getView(), getLayoutInflater());
+        Log.i("RECIPE_FRAGMENT", "OnResume()");
     }
 
     private class onRecipeListClick implements View.OnClickListener{

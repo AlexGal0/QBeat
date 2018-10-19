@@ -1,42 +1,77 @@
 package android.bignerdranch.com.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int mNumberOfFragment = 4;
     private ViewPager mViewPager;
-    private final int mNumberOfFragment = 4;
     private Fragment[] fragments;
     private ImageButton[] menu;
-    public String descripcion = "A esta preparación se le agregan verduras como el ají, el pimentón, zanahoria en cubos, apio, habichuelas, cebolla, maíz desgranado";
-    public Receta receta = new Receta("Arroz6",descripcion, UUID.randomUUID().toString());
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            finish();
+            return;
+        }
+        DataBase.getDataBase().setUser();
         DataBase.getDataBase(); // Start Database
 
+
+
+
+        setContentView(R.layout.activity_main);
+
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Conectando");
+        progress.setMessage("Por favor espere mientras conectamos...");
+        progress.show();
+
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                progress.cancel();
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);
 
 
         mViewPager = new ViewPageFragment(this);
@@ -74,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) { }
         });
 
-
     }
+
 
     private void setChecked(int position){
         for(int i = 0; i < 4; i++){
@@ -131,5 +166,8 @@ public class MainActivity extends AppCompatActivity {
         setChecked(0);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 }
