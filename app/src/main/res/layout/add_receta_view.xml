@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Ingrediente"
-        android:inputType="textPersonName" />
+        android:inputType="textAutoComplete" />
 
     <Button
         android:id="@+id/add_ingredient_button"
