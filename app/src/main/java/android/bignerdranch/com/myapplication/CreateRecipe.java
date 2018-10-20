@@ -94,11 +94,12 @@ public class CreateRecipe extends FragmentActivity {
             }
         });
 
-        Button create = findViewById(R.id.create_recipe_button);
+        final Button create = findViewById(R.id.create_recipe_button);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                create.setEnabled(false);
                 if(name.getText().length() == 0)
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
                 else if(description.getText().length() == 0)

@@ -101,6 +101,7 @@ public class DataBase {
 
     public void addIngrediente(Ingrediente ingrediente){
         db.collection(References.INGREDIENTE_REFERENCE).document(ingrediente.getId()).set(ingrediente);
+        listIngredients.add(ingrediente);
     }
 
     private void getIngredientesDB(){
