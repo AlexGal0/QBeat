@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -49,7 +51,7 @@ public class DataBase {
 
     private Receta receta;
     private ArrayList<Ingrediente> listIngredients;
-    private ArrayList<Receta> listRecipe;
+    private Set<Receta> listRecipe;
     private static DataBase dataBase;
     public Usuario currentUser;
     public boolean ingredientComplete;
@@ -67,8 +69,9 @@ public class DataBase {
         return dataBase;
     }
     private DataBase() {
+        listRecipe = new TreeSet<>();
+        listIngredients = new ArrayList<>();
         getIngredientesDB();
-        listRecipe = new ArrayList<>();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -106,22 +109,27 @@ public class DataBase {
     private void getIngredientesDB(){
         ingredientComplete = false;
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
-        Task<QuerySnapshot> query = collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    listIngredients = new ArrayList<>((task.getResult().size()));
-                    Ingrediente ingrediente;
-                    for(DocumentSnapshot doc : task.getResult()) {
-                        ingrediente = doc.toObject(Ingrediente.class);
-                        //Log.i("INGREDIENTE", doc.getString("name") + "    " + i.getId());
-                        listIngredients.add(ingrediente);
-                    }
-                    DataBase.this.ingredientComplete = true;
-                }
-                else{
-                    Log.i("INGREDIENTE","Error getting documents: ");
 
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.w("ERROR", "Listen ERROR", e);
+                    return;
+                }
+
+                for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
+                    Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
+                    switch (documentChange.getType()){
+                        case ADDED:
+                            listIngredients.add(ingrediente);
+                            break;
+                        case MODIFIED:
+                            break;
+                        case REMOVED:
+                            listIngredients.remove(ingrediente);
+                            break;
+                    }
                 }
             }
         });
@@ -194,6 +202,10 @@ public class DataBase {
 
     public void cleanUser() {
         currentUser = null;
-        listRecipe = new ArrayList<>();
+        listRecipe.clear();
+    }
+
+    public void removeRecipe(Receta receta) {
+        db.collection(References.RECETAS_REFERENCE).document(receta.getId()).delete();
     }
 }

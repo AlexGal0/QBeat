@@ -4,12 +4,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/pp"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".Splash"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,14 +20,17 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".CreateRecipe"/>
-        <activity android:name=".SelectIngredientActivity"/>
-        <activity android:name=".EditStepActivity"/>
-        <activity android:name=".RecipeView" />
-        <activity android:name=".Login" />
-        <activity android:name=".Registrar" />
+        <activity android:name=".CreateRecipe"              android:screenOrientation="portrait" />
+        <activity android:name=".SelectIngredientActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".EditStepActivity"          android:screenOrientation="portrait"/>
+        <activity android:name=".RecipeView"                android:screenOrientation="portrait"/>
+        <activity android:name=".Login"                     android:screenOrientation="portrait"/>
+        <activity android:name=".Registrar"                 android:screenOrientation="portrait"/>
+        <activity android:name=".Add_Ingredient"            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

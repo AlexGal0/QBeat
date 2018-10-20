@@ -18,6 +18,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 public class HomeFragment extends Fragment {
+    private FloatingActionButton addIngredient;
+    private FloatingActionButton floatingActionButton;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,11 +38,12 @@ public class HomeFragment extends Fragment {
 
         });
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
+        floatingActionButton = view.findViewById(R.id.floatingActionButton);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                floatingActionButton.setEnabled(false);
                 if(!DataBase.getDataBase().isNull()){
                     FragmentActivity activity = getActivity();
                     if(activity == null) {
@@ -51,6 +56,36 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        addIngredient = view.findViewById(R.id.floating_ingredient);
+
+        addIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addIngredient.setEnabled(false);
+                if(!DataBase.getDataBase().isNull()){
+                    FragmentActivity activity = getActivity();
+                    if(activity == null) {
+                        Log.i("FAIL", "Fragment Activity in NULL");
+                    }
+                    Intent i = new Intent(activity, Add_Ingredient.class);
+
+                    activity.startActivity(i);
+                }
+                else
+                    addIngredient.setEnabled(true);
+
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        floatingActionButton.setEnabled(true);
+        addIngredient.setEnabled(true);
+
     }
 }

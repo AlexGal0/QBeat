@@ -37,11 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
@@ -169,5 +164,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         return;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(FirebaseAuth.getInstance().getCurrentUser() == null)
+            finish();
+
     }
 }

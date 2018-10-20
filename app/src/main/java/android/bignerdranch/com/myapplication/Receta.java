@@ -1,12 +1,13 @@
 package android.bignerdranch.com.myapplication;
 
 import android.media.Image;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Receta {
+public class Receta implements Comparable {
     public String id;
     public String chefId;
     private ArrayList<Paso> pasos;
@@ -130,5 +131,10 @@ public class Receta {
         if(!(obj instanceof Receta))
             return false;
         return this.id.equals(((Receta) obj).id);
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return this.name.compareTo(((Receta)o).name);
     }
 }

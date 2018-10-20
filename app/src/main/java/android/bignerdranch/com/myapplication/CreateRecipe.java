@@ -94,19 +94,28 @@ public class CreateRecipe extends FragmentActivity {
             }
         });
 
-        Button create = findViewById(R.id.create_recipe_button);
+        final Button create = findViewById(R.id.create_recipe_button);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(name.getText().length() == 0)
+                create.setEnabled(false);
+                if(name.getText().length() == 0){
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
-                else if(description.getText().length() == 0)
+                    create.setEnabled(true);
+                }
+                else if(description.getText().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
-                else if(ingredientes.size() == 0)
+                    create.setEnabled(true);
+                }
+                else if(ingredientes.size() == 0) {
                     Toast.makeText(getApplicationContext(), "Ingredientes vacios", Toast.LENGTH_SHORT).show();
-                else if(pasos.size() == 0)
+                    create.setEnabled(true);
+                }
+                else if(pasos.size() == 0) {
                     Toast.makeText(getApplicationContext(), "Pasos vacios", Toast.LENGTH_SHORT).show();
+                    create.setEnabled(true);
+                }
                 else{
                     Receta receta = new Receta();
                     receta.setName(name.getText().toString());
