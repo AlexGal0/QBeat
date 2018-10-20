@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -49,7 +51,7 @@ public class DataBase {
 
     private Receta receta;
     private ArrayList<Ingrediente> listIngredients;
-    private ArrayList<Receta> listRecipe;
+    private Set<Receta> listRecipe;
     private static DataBase dataBase;
     public Usuario currentUser;
     public boolean ingredientComplete;
@@ -67,7 +69,7 @@ public class DataBase {
         return dataBase;
     }
     private DataBase() {
-        listRecipe = new ArrayList<>();
+        listRecipe = new TreeSet<>();
         listIngredients = new ArrayList<>();
         getIngredientesDB();
         Log.i("INGREDIENTE","COMPLETE :)");
@@ -200,7 +202,7 @@ public class DataBase {
 
     public void cleanUser() {
         currentUser = null;
-        listRecipe = new ArrayList<>();
+        listRecipe.clear();
     }
 
     public void removeRecipe(Receta receta) {
