@@ -124,6 +124,7 @@ public class CreateRecipe extends FragmentActivity {
                     Toast.makeText(getApplicationContext(), "Receta creada exitosamente!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+                create.setEnabled(true);
             }
         });
 
