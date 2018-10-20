@@ -26,6 +26,8 @@
         <activity android:name=".RecipeView" />
         <activity android:name=".Login" />
         <activity android:name=".Registrar" />
+        <activity android:name=".Add_Ingredient" />
+
     </application>
 
 </manifest>

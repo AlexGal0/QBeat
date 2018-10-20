@@ -34,7 +34,7 @@ public class Login extends FragmentActivity {
 
         final EditText password = findViewById(R.id.password_login);
         Button signInButton = findViewById(R.id.login_button);
-        TextView registrar = findViewById(R.id.registrar_login);
+        final TextView registrar = findViewById(R.id.registrar_login);
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -45,19 +45,34 @@ public class Login extends FragmentActivity {
 
                 Log.i("REGISTER", email);
 
+                if(email.length() == 0){
+                    Toast.makeText(Login.this, "Email vacio",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(pass.length() == 0){
+                    Toast.makeText(Login.this, "Contraseña vacia",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                registrar.setEnabled(false);
+
                 progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth.getInstance()
                         .signInWithEmailAndPassword(email, pass)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
                                 if(task.isSuccessful()){
                                     finish();
                                     return;
                                 }
                                 Toast.makeText(Login.this, "Credenciales incorrectas",
                                         Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                registrar.setEnabled(true);
+
                             }});
             }
         });

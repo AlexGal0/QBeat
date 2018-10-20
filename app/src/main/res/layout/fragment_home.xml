@@ -23,4 +23,15 @@
         app:backgroundTint="@android:color/holo_red_light"
         app:fabSize="normal"
         app:srcCompat="@mipmap/pacman"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="15dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_red_light"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 </FrameLayout>

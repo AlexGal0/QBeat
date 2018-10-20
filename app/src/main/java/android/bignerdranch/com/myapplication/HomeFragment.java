@@ -51,6 +51,23 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        FloatingActionButton addIngredient = view.findViewById(R.id.floating_ingredient);
+
+        addIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!DataBase.getDataBase().isNull()){
+                    FragmentActivity activity = getActivity();
+                    if(activity == null) {
+                        Log.i("FAIL", "Fragment Activity in NULL");
+                    }
+                    Intent i = new Intent(activity, Add_Ingredient.class);
+
+                    activity.startActivity(i);
+                }
+            }
+        });
+
         return view;
     }
 }
