@@ -28,7 +28,7 @@ public class Add_Ingredient extends FragmentActivity{
                     return;
                 }
 
-                Ingrediente ingrediente = new Ingrediente(name.getText().toString());
+                Ingrediente ingrediente = new Ingrediente(name.getText().toString().trim());
 
                 if(DataBase.getDataBase().isNull()){
                     Toast.makeText(view.getContext(), "Fail to connect with database :(", Toast.LENGTH_SHORT).show();
