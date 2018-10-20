@@ -67,8 +67,9 @@ public class DataBase {
         return dataBase;
     }
     private DataBase() {
-        getIngredientesDB();
         listRecipe = new ArrayList<>();
+        listIngredients = new ArrayList<>();
+        getIngredientesDB();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -101,28 +102,32 @@ public class DataBase {
 
     public void addIngrediente(Ingrediente ingrediente){
         db.collection(References.INGREDIENTE_REFERENCE).document(ingrediente.getId()).set(ingrediente);
-        listIngredients.add(ingrediente);
     }
 
     private void getIngredientesDB(){
         ingredientComplete = false;
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
-        Task<QuerySnapshot> query = collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    listIngredients = new ArrayList<>((task.getResult().size()));
-                    Ingrediente ingrediente;
-                    for(DocumentSnapshot doc : task.getResult()) {
-                        ingrediente = doc.toObject(Ingrediente.class);
-                        //Log.i("INGREDIENTE", doc.getString("name") + "    " + i.getId());
-                        listIngredients.add(ingrediente);
-                    }
-                    DataBase.this.ingredientComplete = true;
-                }
-                else{
-                    Log.i("INGREDIENTE","Error getting documents: ");
 
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.w("ERROR", "Listen ERROR", e);
+                    return;
+                }
+
+                for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
+                    Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
+                    switch (documentChange.getType()){
+                        case ADDED:
+                            listIngredients.add(ingrediente);
+                            break;
+                        case MODIFIED:
+                            break;
+                        case REMOVED:
+                            listIngredients.remove(ingrediente);
+                            break;
+                    }
                 }
             }
         });
@@ -196,5 +201,9 @@ public class DataBase {
     public void cleanUser() {
         currentUser = null;
         listRecipe = new ArrayList<>();
+    }
+
+    public void removeRecipe(Receta receta) {
+        db.collection(References.RECETAS_REFERENCE).document(receta.getId()).delete();
     }
 }

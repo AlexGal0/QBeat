@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nombre"
-            android:inputType="textPersonName" />
+            android:inputType="textCapSentences|textAutoComplete" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
