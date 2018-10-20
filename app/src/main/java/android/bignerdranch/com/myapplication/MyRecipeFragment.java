@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class MyRecipeFragment extends Fragment {
     public static final String TAG_RECIPE = "android.bignerdranch.com.myapplication.my_recipe.recipe";
@@ -50,8 +53,8 @@ public class MyRecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(!DataBase.getDataBase().isNull())
-            updateRecipes(getView(), getLayoutInflater());
+        ((LinearLayout)getView().findViewById(R.id.my_recipe_container)).removeAllViews();
+        updateRecipes(getView(), getLayoutInflater());
         Log.i("RECIPE_FRAGMENT", "OnResume()");
     }
 
