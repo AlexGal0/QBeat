@@ -3,6 +3,7 @@ package android.bignerdranch.com.myapplication;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -41,12 +42,14 @@ public class RecipeView extends FragmentActivity {
 
         for(Ingrediente ingrediente: listIngredients){
             TextView text = new TextView(this);
+            text.setPadding(5,2,5,2);
             text.setText(ingrediente.getName());
             ingredientsContainer.addView(text);
         }
 
         for(int i = 0; i < listStep.size(); i++){
             TextView text = new TextView(this);
+            text.setPadding(5,25,5,5);
             text.setText((i+1) + ": " + listStep.get(i).getDescription());
             stepContainer.addView(text);
         }
@@ -61,7 +64,7 @@ public class RecipeView extends FragmentActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-                builder.setTitle("¿Desea eliminar la receta : " + receta.getName() + "?");
+                builder.setTitle("¿Desea eliminar la receta: " + receta.getName() + "?");
                 builder.setMessage("La receta se va a eliminar para siempre y no se podra recuperar");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
