@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SelectIngredient extends ListFragment {
     public final static String SELECT_INGREDIENT = "android.bignerdranch.com.myapplication.select_ingredient";
@@ -26,6 +29,13 @@ public class SelectIngredient extends ListFragment {
 
 
         ingredientes = SetIngredientes.getListIngredientes();
+
+        Collections.sort(ingredientes, new Comparator<Ingrediente>() {
+            @Override
+            public int compare(Ingrediente x, Ingrediente y) {
+                return x.getName().toLowerCase().compareTo(y.getName().toLowerCase());
+            }
+        });
 
         for(Ingrediente i: ingredientes){
             Log.i("INGREDIENTE", i.getName() + " " + i.getId());

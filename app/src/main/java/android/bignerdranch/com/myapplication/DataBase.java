@@ -58,8 +58,8 @@ public class DataBase {
     public boolean userComplete;
     public boolean recipeComplete;
 
-
     public static FirebaseFirestore db= FirebaseFirestore.getInstance();
+    public int loadLogin;
 
 
     public static DataBase getDataBase(){
@@ -69,9 +69,9 @@ public class DataBase {
         return dataBase;
     }
     private DataBase() {
+        loadLogin = 0;
         listRecipe = new TreeSet<>();
         listIngredients = new ArrayList<>();
-        getIngredientesDB();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -96,9 +96,11 @@ public class DataBase {
                 ArrayList<Paso> pasos = receta.getPasos();
             }
         });
-
-
         return new Receta(receta);
+    }
+
+    public void setCampo(String campo, String newValue){
+        db.collection(References.USERS_REFERENCE).document(currentUser.id).update(campo, newValue);
     }
 
 
@@ -106,8 +108,7 @@ public class DataBase {
         db.collection(References.INGREDIENTE_REFERENCE).document(ingrediente.getId()).set(ingrediente);
     }
 
-    private void getIngredientesDB(){
-        ingredientComplete = false;
+    private void getIngredientesDB(final MainActivity mainActivity){
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -117,6 +118,8 @@ public class DataBase {
                     Log.w("ERROR", "Listen ERROR", e);
                     return;
                 }
+
+
 
                 for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
                     Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
@@ -130,6 +133,12 @@ public class DataBase {
                             listIngredients.remove(ingrediente);
                             break;
                     }
+                }
+
+
+                if((loadLogin&1) == 0){
+                    loadLogin |= 1;
+                    mainActivity.updateFrame();
                 }
             }
         });
@@ -161,7 +170,7 @@ public class DataBase {
                                     break;
                             }
                         }
-                        recipeComplete = true;
+
                     }
                 });
     }
@@ -183,7 +192,7 @@ public class DataBase {
         return listIngredients == null;
     }
 
-    public void setUser() {
+    public void setUser(final MainActivity mainActivity) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String email = currentUser.getEmail();
@@ -196,6 +205,8 @@ public class DataBase {
                 DataBase.this.currentUser = task.getResult().getDocuments().get(0).toObject(Usuario.class);
                 getRecetaDB(User.id);
                 userComplete = true;
+                loadLogin |= 1 << 1;
+                mainActivity.updateFrame();
             }
         });
     }
@@ -207,5 +218,10 @@ public class DataBase {
 
     public void removeRecipe(Receta receta) {
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).delete();
+    }
+
+    public void updateLogin(MainActivity mainActivity) {
+        this.setUser(mainActivity);
+        this.getIngredientesDB(mainActivity);
     }
 }

@@ -12,7 +12,7 @@ public class Add_Ingredient extends FragmentActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_receta_view);
+        setContentView(R.layout.add_ingredient_view);
 
 
         final EditText name = findViewById(R.id.add_ingredient_name);

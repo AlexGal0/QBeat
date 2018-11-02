@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] fragments;
     private ImageButton[] menu;
 
+    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,66 +46,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-        DataBase.getDataBase().setUser();
-        DataBase.getDataBase(); // Start Database
+        DataBase.getDataBase().updateLogin(this);
 
 
+        progressBar = new ProgressBar(this);
+        setContentView(progressBar);
 
-
-        setContentView(R.layout.activity_main);
-
-        final ProgressDialog progress = new ProgressDialog(this);
-        progress.setTitle("Conectando");
-        progress.setMessage("Por favor espere mientras conectamos...");
-        progress.show();
-
-        Runnable progressRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                progress.cancel();
-            }
-        };
-
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 3000);
-
-
-        mViewPager = new ViewPageFragment(this);
-        mViewPager.setId(R.id.view_pager);
-
-
-        final FrameLayout frameLayout = findViewById(R.id.main_fragment_placeholder);
-        frameLayout.addView(mViewPager);
-
-        FragmentManager fm = getSupportFragmentManager();
-        setInitialFragment();
-
-        mViewPager.setAdapter(new FragmentPagerAdapter(fm){
-                @Override
-                public Fragment getItem(int position) {
-                    return fragments[position];
-                }
-
-                @Override
-                public int getCount() {
-                    return mNumberOfFragment;
-                }
-        });
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
-            @Override
-            public void onPageSelected(int position) {
-               setChecked(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) { }
-        });
-
+        progressBar.setIndeterminate(true);
     }
 
 
@@ -159,6 +108,50 @@ public class MainActivity extends AppCompatActivity {
         });
         mViewPager.setCurrentItem(0);
         setChecked(0);
+    }
+
+
+    public void updateFrame(){
+        if(DataBase.getDataBase().loadLogin == (1<<2) - 1){
+            setContentView(R.layout.activity_main);
+
+
+
+            mViewPager = new ViewPageFragment(this);
+            mViewPager.setId(R.id.view_pager);
+
+
+            final FrameLayout frameLayout = findViewById(R.id.main_fragment_placeholder);
+            frameLayout.addView(mViewPager);
+
+            FragmentManager fm = getSupportFragmentManager();
+            setInitialFragment();
+
+            mViewPager.setAdapter(new FragmentPagerAdapter(fm){
+                @Override
+                public Fragment getItem(int position) {
+                    return fragments[position];
+                }
+
+                @Override
+                public int getCount() {
+                    return mNumberOfFragment;
+                }
+            });
+
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+                @Override
+                public void onPageSelected(int position) {
+                    setChecked(position);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) { }
+            });
+        }
     }
 
     @Override
