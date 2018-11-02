@@ -16,7 +16,19 @@ public class ImageViewCompleteFragment extends FragmentActivity {
 
         ImageView imageView = findViewById(R.id.image_complete);
 
-        byte[] bit = getIntent().getByteArrayExtra(KEY_IMAGE);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(bit, 0, bit.length));
+        int num = getIntent().getIntExtra(KEY_IMAGE, -1);
+        byte[] bit = null;
+        if(num == 1)
+            bit = ProfileFragment.profileFragment.bit;
+        else if(num == 2)
+            bit = RecipeView.recipeView.bit;
+
+        if(bit == null){
+            finish();
+        }
+        else{
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(bit, 0, bit.length));
+
+        }
     }
 }

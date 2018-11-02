@@ -45,13 +45,17 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
     private static final int RESULT_LOAD_IMAGE = 1;
 
+
+    public static ProfileFragment profileFragment;
+
     private ImageView userImage;
     private ProgressBar progressBar;
 
-    private byte[] bit = null;
+    public byte[] bit = null;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        profileFragment = this;
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         final Usuario user = DataBase.getDataBase().currentUser;
@@ -86,7 +90,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), ImageViewCompleteFragment.class);
-                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, bit);
+                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 1);
                 startActivity(i);
             }
         });
@@ -97,7 +101,7 @@ public class ProfileFragment extends Fragment {
 
             StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("ProfileImages/"+ user.getImageReference());
 
-            final long ONE_MEGABYTE = 1024 * 1024;
+            final long ONE_MEGABYTE = 1024 * 1024 * 30;
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {

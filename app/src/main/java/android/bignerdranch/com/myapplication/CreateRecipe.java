@@ -79,6 +79,7 @@ public class CreateRecipe extends FragmentActivity {
 
 
         description = findViewById(R.id.description_text);
+
         addIngredient = findViewById(R.id.add_ingredient_button);
         Log.i("INGREDIENTE", SetIngredientes.size()+ "");
         addIngredient.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +119,7 @@ public class CreateRecipe extends FragmentActivity {
                 linearLayout.addView(newStep);
             }
         });
+
 
         progressBar = findViewById(R.id.progressBarCreateRecipe);
         progressBar.setVisibility(View.GONE);

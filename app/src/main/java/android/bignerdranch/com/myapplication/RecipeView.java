@@ -29,13 +29,16 @@ import java.util.ArrayList;
 
 public class RecipeView extends FragmentActivity {
 
+    public static RecipeView recipeView;
+
     private ImageView recipeImage;
     private ProgressBar progressBar;
-    private byte[] bit;
+    public byte[] bit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        recipeView = this;
         setContentView(R.layout.recipe_view);
 
 
@@ -53,8 +56,7 @@ public class RecipeView extends FragmentActivity {
             public void onClick(View view) {
                 recipeImage.setEnabled(false);
                 Intent i = new Intent(RecipeView.this, ImageViewCompleteFragment.class);
-                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, bit);
-
+                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 2);
                 startActivity(i);
             }
         });
@@ -66,7 +68,7 @@ public class RecipeView extends FragmentActivity {
         else {
             StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
 
-            final long ONE_MEGABYTE = 1024 * 1024;
+            final long ONE_MEGABYTE = 1024 * 1024 * 30;
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
@@ -80,7 +82,7 @@ public class RecipeView extends FragmentActivity {
                     int Y = bit.getHeight();
 
                     if(Y > X){
-                        bit = Bitmap.createBitmap(bit, 0, (Y-X) / 2, X, X);
+                        bit = Bitmap.createBitmap(bit, 0, (Y-X)/2, X, X);
                     }
 
                     //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
