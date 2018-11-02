@@ -16,10 +16,10 @@
         android:id="@+id/add_ingredient_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_margin="5dp"
+        android:ems="10"
         android:hint="Ingrediente"
-        android:inputType="textAutoComplete" />
+        android:inputType="textCapSentences|textAutoComplete" />
 
     <Button
         android:id="@+id/add_ingredient_button"
