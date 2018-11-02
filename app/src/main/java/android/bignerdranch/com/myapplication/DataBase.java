@@ -50,7 +50,7 @@ import static android.content.ContentValues.TAG;
 public class DataBase {
 
     private Receta receta;
-    private ArrayList<Ingrediente> listIngredients;
+    private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
     private static DataBase dataBase;
     public Usuario currentUser;
@@ -71,7 +71,7 @@ public class DataBase {
     private DataBase() {
         loadLogin = 0;
         listRecipe = new TreeSet<>();
-        listIngredients = new ArrayList<>();
+        listIngredients = new TreeSet<>();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -111,37 +111,39 @@ public class DataBase {
     private void getIngredientesDB(final MainActivity mainActivity){
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
 
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.w("ERROR", "Listen ERROR", e);
-                    return;
-                }
+        if((loadLogin&1) == 0) {
+            collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w("ERROR", "Listen ERROR", e);
+                        return;
+                    }
 
 
+                    for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
+                        Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
 
-                for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
-                    Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
-                    switch (documentChange.getType()){
-                        case ADDED:
-                            listIngredients.add(ingrediente);
-                            break;
-                        case MODIFIED:
-                            break;
-                        case REMOVED:
-                            listIngredients.remove(ingrediente);
-                            break;
+                        switch (documentChange.getType()) {
+                            case ADDED:
+                                listIngredients.add(ingrediente);
+                                break;
+                            case MODIFIED:
+                                break;
+                            case REMOVED:
+                                listIngredients.remove(ingrediente);
+                                break;
+                        }
+                    }
+
+
+                    if ((loadLogin & 1) == 0) {
+                        loadLogin |= 1;
+                        mainActivity.updateFrame();
                     }
                 }
-
-
-                if((loadLogin&1) == 0){
-                    loadLogin |= 1;
-                    mainActivity.updateFrame();
-                }
-            }
-        });
+            });
+        }
     }
 
     private void getRecetaDB(String id){
@@ -157,8 +159,10 @@ public class DataBase {
                             return;
                         }
 
+
                         for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
                             Receta receta = documentChange.getDocument().toObject(Receta.class);
+
                             switch (documentChange.getType()){
                                 case ADDED:
                                     listRecipe.add(receta);

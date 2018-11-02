@@ -1,10 +1,16 @@
 package android.bignerdranch.com.myapplication;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +31,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+
 import io.grpc.Context;
 
 import static android.app.Activity.RESULT_OK;
@@ -35,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private ImageView userImage;
     private ProgressBar progressBar;
 
+    private byte[] bit = null;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -48,13 +62,32 @@ public class ProfileFragment extends Fragment {
 
         progressBar.setVisibility(View.GONE);
 
+
         userImage = v.findViewById(R.id.profile_photo);
+        userImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(bit != null){
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(android.content.Context.VIBRATOR_SERVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+                    } else {
+                        //deprecated in API 26
+                        vibrator.vibrate(50);
+                    }
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, RESULT_LOAD_IMAGE);
+                }
+                return false;
+            }
+        });
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, RESULT_LOAD_IMAGE);
+                Intent i = new Intent(getContext(), ImageViewCompleteFragment.class);
+                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, bit);
+                startActivity(i);
             }
         });
 
@@ -68,7 +101,21 @@ public class ProfileFragment extends Fragment {
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                    bit = bytes;
+                    Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+
+                    int X = bit.getWidth();
+                    int Y = bit.getHeight();
+
+                    if(Y > X){
+
+                        bit = Bitmap.createBitmap(bit, 0, (Y-X) / 2, X, X);
+                    }
+
+                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
+
+                    userImage.setImageBitmap(bit);
                     progressBar.setVisibility(View.GONE);
                     userImage.setVisibility(View.VISIBLE);
 
@@ -114,6 +161,7 @@ public class ProfileFragment extends Fragment {
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             final Uri imageUri = data.getData();
 
+
             userImage.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
 
@@ -123,7 +171,6 @@ public class ProfileFragment extends Fragment {
 
 
             final UploadTask uploadTask = riversRef.putFile(imageUri);
-            // Register observers to listen for when the download is done or if it fails
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
@@ -133,11 +180,35 @@ public class ProfileFragment extends Fragment {
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    userImage.setImageURI(imageUri);
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
                     userImage.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     Log.i("Upload Image", riversRef.getName());
+
+                    userImage.setMaxHeight(150);
+                    userImage.setMaxWidth(150);
+
+                    InputStream iStream = null;
+                    try {
+                        iStream = getActivity().getContentResolver().openInputStream(imageUri);
+                        bit = Util.getBytes(iStream);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    Bitmap bits = BitmapFactory.decodeByteArray(bit, 0, bit.length);
+
+
+                    int X = bits.getWidth();
+                    int Y = bits.getHeight();
+
+                    if(Y > X){
+                        bits = Bitmap.createBitmap(bits, 0, (Y-X) / 2, X, X);
+                    }
+                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
+
+                    userImage.setImageBitmap(bits);
 
 
                     if(DataBase.getDataBase().currentUser.getImageReference() != null)

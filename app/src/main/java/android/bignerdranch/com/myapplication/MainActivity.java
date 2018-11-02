@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-        DataBase.getDataBase().updateLogin(this);
+        if(DataBase.getDataBase().loadLogin == 0)
+            DataBase.getDataBase().updateLogin(this);
 
 
         progressBar = new ProgressBar(this);

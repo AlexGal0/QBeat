@@ -30,12 +30,7 @@ public class SelectIngredient extends ListFragment {
 
         ingredientes = SetIngredientes.getListIngredientes();
 
-        Collections.sort(ingredientes, new Comparator<Ingrediente>() {
-            @Override
-            public int compare(Ingrediente x, Ingrediente y) {
-                return x.getName().toLowerCase().compareTo(y.getName().toLowerCase());
-            }
-        });
+
 
         for(Ingrediente i: ingredientes){
             Log.i("INGREDIENTE", i.getName() + " " + i.getId());

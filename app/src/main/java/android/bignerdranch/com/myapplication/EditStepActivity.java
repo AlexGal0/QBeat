@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class EditStepActivity extends FragmentActivity{
+
+    private Paso step;
+    private TextInputEditText description;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,25 +23,32 @@ public class EditStepActivity extends FragmentActivity{
         setContentView(R.layout.edit_step_view);
 
         int index = getIntent().getIntExtra(CreateRecipe.TAG_NUMBER_STEP, -1);
-        final Paso step = CreateRecipe.pasos.get(index);
+        step = CreateRecipe.pasos.get(index);
 
         final TextView number = findViewById(R.id.number_edit_step);
 
         number.setText((index + 1) + "");
 
-        final TextInputEditText description = findViewById(R.id.new_description_step);
-        description.setText(step.getDescription());
+        description = findViewById(R.id.new_description_step);
+        if(step.getDescription() != null && step.getDescription().trim().length() != 0)
+            description.setText(step.getDescription());
 
         Button finish = findViewById(R.id.finish_button_step);
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                step.setDescription(description.getText().toString());
+                step.setDescription(description.getText().toString().trim());
                 finish();
             }
         });
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        step.setDescription(description.getText().toString().trim());
+        finish();
+    }
 }

@@ -3,24 +3,41 @@ package android.bignerdranch.com.myapplication;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class RecipeView extends FragmentActivity {
+
+    private ImageView recipeImage;
+    private ProgressBar progressBar;
+    private byte[] bit;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_view);
+
 
         int index = getIntent().getIntExtra(MyRecipeFragment.TAG_RECIPE, -1);
 
@@ -29,6 +46,57 @@ public class RecipeView extends FragmentActivity {
         ArrayList<Ingrediente>  listIngredients = receta.getIngredientes();
         ArrayList<Paso>         listStep       = receta.getPasos();
 
+        progressBar = findViewById(R.id.image_progress);
+        recipeImage = findViewById(R.id.image_recipe_view);
+        recipeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recipeImage.setEnabled(false);
+                Intent i = new Intent(RecipeView.this, ImageViewCompleteFragment.class);
+                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, bit);
+
+                startActivity(i);
+            }
+        });
+
+        recipeImage.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        if(receta.getRecipeImage() == null)
+            progressBar.setVisibility(View.GONE);
+        else {
+            StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+
+                    bit = bytes;
+
+                    Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+
+                    int X = bit.getWidth();
+                    int Y = bit.getHeight();
+
+                    if(Y > X){
+                        bit = Bitmap.createBitmap(bit, 0, (Y-X) / 2, X, X);
+                    }
+
+                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
+
+                    recipeImage.setImageBitmap(bit);
+                    progressBar.setVisibility(View.GONE);
+                    recipeImage.setVisibility(View.VISIBLE);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
 
         final TextView name = findViewById(R.id.name_recipe_view);
         TextView description = findViewById(R.id.description_recipe_view);
@@ -85,5 +153,13 @@ public class RecipeView extends FragmentActivity {
                 builder.show();
             }
         });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recipeImage.setEnabled(true);
     }
 }
