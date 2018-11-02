@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Password"
+            android:hint="Contraseña"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@color/progress" />

@@ -21,39 +21,39 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:textColor="@color/white"
-            android:textColorHint="@color/progress"/>
+            android:textColorHint="@color/progress" />
 
         <EditText
             android:id="@+id/name_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Nombre"
             android:inputType="textPersonName"
             android:textColor="@color/white"
-            android:textColorHint="@color/progress"/>
+            android:textColorHint="@color/progress" />
 
         <EditText
             android:id="@+id/password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Password"
+            android:hint="Contraseña"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/progress"/>
+            android:textColorHint="@color/progress" />
 
         <EditText
             android:id="@+id/cpassword_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Confirmar Password"
+            android:hint="Confirmar Contraseña"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/progress"/>
+            android:textColorHint="@color/progress" />
 
         <Button
             android:id="@+id/create_register"

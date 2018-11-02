@@ -68,7 +68,7 @@ public class RecipeView extends FragmentActivity {
         else {
             StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
 
-            final long ONE_MEGABYTE = 1024 * 1024 * 30;
+            final long ONE_MEGABYTE = 1024 * 1024 * 2;
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
@@ -141,6 +141,10 @@ public class RecipeView extends FragmentActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DataBase.getDataBase().removeRecipe(receta);
+                        if(receta.getRecipeImage() != null){
+                            FirebaseStorage.getInstance().getReference().child("Recetas Images/" + receta.getRecipeImage()).delete();
+                        }
+
                         Toast.makeText(view.getContext(), "La receta ha sido eliminada correctamente", Toast.LENGTH_SHORT).show();
                         finish();
                     }

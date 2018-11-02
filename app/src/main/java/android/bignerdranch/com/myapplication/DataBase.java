@@ -58,6 +58,8 @@ public class DataBase {
     public boolean userComplete;
     public boolean recipeComplete;
 
+    public byte[] f;
+
     public static FirebaseFirestore db= FirebaseFirestore.getInstance();
     public int loadLogin;
 
@@ -200,6 +202,7 @@ public class DataBase {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String email = currentUser.getEmail();
+        Log.i("LOGIN", email);
         userComplete = false;
 
         Task<QuerySnapshot> documentSnapshotTask = db.collection(References.USERS_REFERENCE).whereEqualTo("email", email).get();
@@ -218,6 +221,7 @@ public class DataBase {
     public void cleanUser() {
         currentUser = null;
         listRecipe.clear();
+        loadLogin = 0;
     }
 
     public void removeRecipe(Receta receta) {

@@ -2,6 +2,8 @@ package android.bignerdranch.com.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.ByteArrayOutputStream;
+
 public class Splash extends FragmentActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
@@ -28,8 +32,12 @@ public class Splash extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBase.getDataBase();
         setContentView(R.layout.splash);
+
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.santana);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        DataBase.getDataBase().f = stream.toByteArray();
 
         Button anfitrion = findViewById(R.id.invited);
         Button user = findViewById(R.id.sign_in);

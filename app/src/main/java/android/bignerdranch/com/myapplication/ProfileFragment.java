@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
     private ImageView userImage;
     private ProgressBar progressBar;
 
-    public byte[] bit = null;
+    public byte[] bit;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
 
             StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("ProfileImages/"+ user.getImageReference());
 
-            final long ONE_MEGABYTE = 1024 * 1024 * 30;
+            final long ONE_MEGABYTE = 1024 * 1024 * 2;
             islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
@@ -131,6 +131,9 @@ public class ProfileFragment extends Fragment {
                     userImage.setVisibility(View.VISIBLE);
                 }
             });
+        }
+        else{
+            bit = DataBase.getDataBase().f;
         }
 
 
@@ -164,7 +167,18 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             final Uri imageUri = data.getData();
+            InputStream iStream = null;
+            try {
+                iStream = getActivity().getContentResolver().openInputStream(imageUri);
+                bit = Util.getBytes(iStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+            if(bit.length > 1024 * 1024 * 2){
+                Toast.makeText(getContext(), "La imagen excede el tamaño", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             userImage.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
@@ -192,13 +206,7 @@ public class ProfileFragment extends Fragment {
                     userImage.setMaxHeight(150);
                     userImage.setMaxWidth(150);
 
-                    InputStream iStream = null;
-                    try {
-                        iStream = getActivity().getContentResolver().openInputStream(imageUri);
-                        bit = Util.getBytes(iStream);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
 
 
                     Bitmap bits = BitmapFactory.decodeByteArray(bit, 0, bit.length);

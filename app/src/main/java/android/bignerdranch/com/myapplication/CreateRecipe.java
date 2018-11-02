@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -178,6 +179,8 @@ public class CreateRecipe extends FragmentActivity {
                     StorageReference storageRef = storage.getReference();
                     final StorageReference riversRef = storageRef.child("Recetas Images/" + imageUri.getLastPathSegment());
 
+
+
                     receta.setRecipeImage(riversRef.getName());
 
                     ingredientes = null;
@@ -215,6 +218,21 @@ public class CreateRecipe extends FragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             imageUri = data.getData();
+
+            InputStream iStream = null;
+            byte[] bit = null;
+            try {
+                iStream = getContentResolver().openInputStream(imageUri);
+                bit = Util.getBytes(iStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            if(bit == null || bit.length > 1024 * 1024 * 2){
+                Toast.makeText(this, "La imagen excede el tamaño", Toast.LENGTH_SHORT).show();
+                return;
+            }
             recipeImage.setImageURI(imageUri);
         }
     }
