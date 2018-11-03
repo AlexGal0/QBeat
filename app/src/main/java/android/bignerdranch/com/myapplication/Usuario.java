@@ -15,7 +15,7 @@ public class Usuario {
     private double currentExperience;
     private ArrayList<String> misRecetas;
     private ArrayList<String> misRecetasGuardadas;
-    private ImageView imageView;
+    private String imageReference;
 
     /*
         constructor
@@ -41,7 +41,7 @@ public class Usuario {
         this.level = usuario.level;
         this.currentExperience = usuario.currentExperience;
         this.email = usuario.email;
-        this.imageView = usuario.imageView;
+        this.imageReference = usuario.imageReference;
     }
 
 
@@ -50,6 +50,9 @@ public class Usuario {
         getters and setters
      */
 
+    public String getImageReference(){
+        return imageReference;
+    }
     public String getName() {
         return name;
     }
@@ -72,9 +75,6 @@ public class Usuario {
         return misRecetasGuardadas;
     }
 
-    public ImageView getImageView() {
-        return imageView;
-    }
 
     public double getCurrentExperience() {
         return currentExperience;
@@ -84,9 +84,10 @@ public class Usuario {
         this.name = name;
     }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
+    public void setImageReference(String imageReference) {
+        this.imageReference = imageReference;
     }
+
 
     public boolean addExperience(double exp){
         if(Double.isInfinite(exp))
@@ -109,5 +110,6 @@ public class Usuario {
         }
         return true;
     }
+
 
 }

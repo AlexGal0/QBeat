@@ -50,7 +50,7 @@ import static android.content.ContentValues.TAG;
 public class DataBase {
 
     private Receta receta;
-    private ArrayList<Ingrediente> listIngredients;
+    private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
     private static DataBase dataBase;
     public Usuario currentUser;
@@ -58,8 +58,10 @@ public class DataBase {
     public boolean userComplete;
     public boolean recipeComplete;
 
+    public byte[] f;
 
     public static FirebaseFirestore db= FirebaseFirestore.getInstance();
+    public int loadLogin;
 
 
     public static DataBase getDataBase(){
@@ -69,9 +71,9 @@ public class DataBase {
         return dataBase;
     }
     private DataBase() {
+        loadLogin = 0;
         listRecipe = new TreeSet<>();
-        listIngredients = new ArrayList<>();
-        getIngredientesDB();
+        listIngredients = new TreeSet<>();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -96,9 +98,11 @@ public class DataBase {
                 ArrayList<Paso> pasos = receta.getPasos();
             }
         });
-
-
         return new Receta(receta);
+    }
+
+    public void setCampo(String campo, String newValue){
+        db.collection(References.USERS_REFERENCE).document(currentUser.id).update(campo, newValue);
     }
 
 
@@ -106,33 +110,42 @@ public class DataBase {
         db.collection(References.INGREDIENTE_REFERENCE).document(ingrediente.getId()).set(ingrediente);
     }
 
-    private void getIngredientesDB(){
-        ingredientComplete = false;
+    private void getIngredientesDB(final MainActivity mainActivity){
         CollectionReference collectionReference = db.collection(References.INGREDIENTE_REFERENCE);
 
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.w("ERROR", "Listen ERROR", e);
-                    return;
-                }
+        if((loadLogin&1) == 0) {
+            collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w("ERROR", "Listen ERROR", e);
+                        return;
+                    }
 
-                for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
-                    Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
-                    switch (documentChange.getType()){
-                        case ADDED:
-                            listIngredients.add(ingrediente);
-                            break;
-                        case MODIFIED:
-                            break;
-                        case REMOVED:
-                            listIngredients.remove(ingrediente);
-                            break;
+
+                    for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
+                        Ingrediente ingrediente = documentChange.getDocument().toObject(Ingrediente.class);
+
+                        switch (documentChange.getType()) {
+                            case ADDED:
+                                listIngredients.add(ingrediente);
+                                break;
+                            case MODIFIED:
+                                break;
+                            case REMOVED:
+                                listIngredients.remove(ingrediente);
+                                break;
+                        }
+                    }
+
+
+                    if ((loadLogin & 1) == 0) {
+                        loadLogin |= 1;
+                        mainActivity.updateFrame();
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void getRecetaDB(String id){
@@ -148,8 +161,10 @@ public class DataBase {
                             return;
                         }
 
+
                         for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
                             Receta receta = documentChange.getDocument().toObject(Receta.class);
+
                             switch (documentChange.getType()){
                                 case ADDED:
                                     listRecipe.add(receta);
@@ -161,7 +176,7 @@ public class DataBase {
                                     break;
                             }
                         }
-                        recipeComplete = true;
+
                     }
                 });
     }
@@ -183,10 +198,11 @@ public class DataBase {
         return listIngredients == null;
     }
 
-    public void setUser() {
+    public void setUser(final MainActivity mainActivity) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String email = currentUser.getEmail();
+        Log.i("LOGIN", email);
         userComplete = false;
 
         Task<QuerySnapshot> documentSnapshotTask = db.collection(References.USERS_REFERENCE).whereEqualTo("email", email).get();
@@ -196,6 +212,8 @@ public class DataBase {
                 DataBase.this.currentUser = task.getResult().getDocuments().get(0).toObject(Usuario.class);
                 getRecetaDB(User.id);
                 userComplete = true;
+                loadLogin |= 1 << 1;
+                mainActivity.updateFrame();
             }
         });
     }
@@ -203,9 +221,15 @@ public class DataBase {
     public void cleanUser() {
         currentUser = null;
         listRecipe.clear();
+        loadLogin = 0;
     }
 
     public void removeRecipe(Receta receta) {
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).delete();
+    }
+
+    public void updateLogin(MainActivity mainActivity) {
+        this.setUser(mainActivity);
+        this.getIngredientesDB(mainActivity);
     }
 }

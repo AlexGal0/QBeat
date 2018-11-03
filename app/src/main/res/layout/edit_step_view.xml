@@ -34,7 +34,7 @@
             android:id="@+id/new_description_step"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="hint"
+            android:hint="Ingrese una drescripcion"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>

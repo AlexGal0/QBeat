@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:layout_marginRight="16dp"
         android:layout_weight="100"
-        android:text="TextView" />
+        android:hint="Ingrese una descripcion" />
 
     <ImageButton
         android:id="@+id/edit_step"

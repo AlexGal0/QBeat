@@ -15,6 +15,7 @@ public class Receta implements Comparable {
     private String description;
     private ArrayList<ImageView> images;
     private ArrayList<Ingrediente> ingredientes;
+    private String recipeImage;
 
 
     /*
@@ -40,8 +41,8 @@ public class Receta implements Comparable {
     public Receta(Receta receta){
         this(receta.name, receta.description, receta.chefId);
         setPasos(receta.getPasos());
-        setImages(receta.getImages());
         setIngredientes(receta.ingredientes);
+        setRecipeImage(receta.recipeImage);
     }
 
     /*
@@ -54,16 +55,9 @@ public class Receta implements Comparable {
     public String getId() {
         return id;
     }
-    public String getChefId() {
-        return chefId;
-    }
 
     public String getDescription() {
         return description + "";
-    }
-
-    public ArrayList<ImageView> getImages() {
-        return images;
     }
 
     public ArrayList<Paso> getPasos() {
@@ -106,16 +100,6 @@ public class Receta implements Comparable {
         return true;
     }
 
-    public boolean setImages(ArrayList<ImageView> images){
-        if(images == null)
-            return false;
-        if(this.images == null)
-            this.images = new ArrayList<>(images);
-        else
-            this.images.addAll(images);
-        return true;
-    }
-
     public boolean setIngredientes(ArrayList<Ingrediente> ingredientes){
         if(ingredientes == null)
             return false;
@@ -136,5 +120,13 @@ public class Receta implements Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         return this.name.compareTo(((Receta)o).name);
+    }
+
+    public String getRecipeImage() {
+        return recipeImage;
+    }
+
+    public void setRecipeImage(String recipeImage) {
+        this.recipeImage = recipeImage;
     }
 }
