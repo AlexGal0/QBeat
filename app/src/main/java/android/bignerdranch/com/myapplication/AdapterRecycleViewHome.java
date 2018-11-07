@@ -66,10 +66,13 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
     public void onBindViewHolder(@NonNull final AdapterRecycleViewHome.ViewHolder holder, int position) {
         final Receta receta = recetas.get(position);
         holder.titulo.setText(receta.getName());
-        if(receta.getChefName() == null)
+        if(receta.getChefName() == null){
             holder.chef.setVisibility(View.GONE);
-        else
+        }
+        else{
+            holder.chef.setVisibility(View.VISIBLE);
             holder.chef.setText(receta.getChefName());
+        }
         holder.descripcion.setText(receta.getDescription());
 
         holder.fecha.setText(new SimpleDateFormat("hh/MM/dd").format(receta.getCreate()));

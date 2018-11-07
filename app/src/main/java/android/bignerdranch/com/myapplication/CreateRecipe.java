@@ -175,6 +175,7 @@ public class CreateRecipe extends FragmentActivity {
                     receta.setIngredientes(ingredientes);
                     receta.setPasos(pasos);
                     receta.setCreate(new Date(System.currentTimeMillis()));
+                    receta.setChefName(DataBase.getDataBase().currentUser.getName());
 
 
                     FirebaseStorage storage = FirebaseStorage.getInstance();
