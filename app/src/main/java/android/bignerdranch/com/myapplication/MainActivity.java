@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
+        Log.i("FLUSH", "OnCreate() MainActivity");
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             finish();
@@ -118,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
 
 
-
             mViewPager = new ViewPageFragment(this);
             mViewPager.setId(R.id.view_pager);
+            mViewPager.setOffscreenPageLimit(4);
 
 
             final FrameLayout frameLayout = findViewById(R.id.main_fragment_placeholder);

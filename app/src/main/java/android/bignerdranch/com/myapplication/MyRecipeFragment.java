@@ -23,20 +23,22 @@ public class MyRecipeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setRetainInstance(true);
         View view = inflater.inflate(R.layout.fragment_my_recipe, container, false);
         Log.i("RECIPE_FRAGMENT", "OnCreateView()");
         return view;
     }
 
     private void updateRecipes(View view, LayoutInflater inflater){
-        recetas = DataBase.getDataBase().getListReceta(User.id);
+        recetas = DataBase.getDataBase().getListReceta();
         LinearLayout linearLayout = view.findViewById(R.id.my_recipe_container);
 
         linearLayout.removeAllViews();
         Log.i("INGREDIENTE", recetas.size() + "");
         for(int i = 0; i < recetas.size(); i++){
-
             Receta r = recetas.get(i);
+            if(!r.chefId.equals(DataBase.getDataBase().currentUser.id))
+                continue;
             View recipe_view = inflater.inflate(R.layout.single_recipe_list, null);
 
             Button textView = recipe_view.findViewById(R.id.my_recipe_name_list);

@@ -16,6 +16,7 @@ public class Usuario {
     private ArrayList<String> misRecetas;
     private ArrayList<String> misRecetasGuardadas;
     private String imageReference;
+    private byte[] image;
 
     /*
         constructor
@@ -112,4 +113,11 @@ public class Usuario {
     }
 
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

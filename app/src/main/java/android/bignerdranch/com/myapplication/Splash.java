@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.MonthDisplayHelper;
 import android.view.Menu;
 import android.view.View;
@@ -57,24 +58,22 @@ public class Splash extends FragmentActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
+        Log.i("FLUSH", "OnStart() Splash");
         DataBase.getDataBase();
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
         if(user != null){
             Intent intent = new Intent(Splash.this, MainActivity.class);
             Splash.this.startActivity(intent);
         }
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        user = mAuth.getCurrentUser();
-        if(user != null){
-            Intent intent = new Intent(Splash.this, MainActivity.class);
-            Splash.this.startActivity(intent);
-        }
+        Log.i("FLUSH", "OnResume() Splash");
+
     }
 }

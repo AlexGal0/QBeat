@@ -28,7 +28,6 @@ public class ImageViewCompleteFragment extends FragmentActivity {
         }
         else{
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(bit, 0, bit.length));
-
         }
     }
 }

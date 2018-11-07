@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class RecipeView extends FragmentActivity {
@@ -33,6 +34,8 @@ public class RecipeView extends FragmentActivity {
 
     private ImageView recipeImage;
     private ProgressBar progressBar;
+    private TextView fecha;
+
     public byte[] bit;
 
     @Override
@@ -44,7 +47,7 @@ public class RecipeView extends FragmentActivity {
 
         int index = getIntent().getIntExtra(MyRecipeFragment.TAG_RECIPE, -1);
 
-        final Receta receta = DataBase.getDataBase().getListReceta(User.id).get(index);
+        final Receta receta = DataBase.getDataBase().getListReceta().get(index);
 
         ArrayList<Ingrediente>  listIngredients = receta.getIngredientes();
         ArrayList<Paso>         listStep       = receta.getPasos();
@@ -66,42 +69,42 @@ public class RecipeView extends FragmentActivity {
         if(receta.getRecipeImage() == null)
             progressBar.setVisibility(View.GONE);
         else {
-            StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
+            if(receta.getImage() == null){
+                StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
 
-            final long ONE_MEGABYTE = 1024 * 1024 * 2;
-            islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
+                final long ONE_MEGABYTE = 1024 * 1024 * 2;
+                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        bit = bytes;
+                        receta.setImage(bytes);
 
-                    bit = bytes;
+                        recipeImage.setImageBitmap(Util.fixSize(bytes));
+                        progressBar.setVisibility(View.GONE);
+                        recipeImage.setVisibility(View.VISIBLE);
 
-                    Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-
-                    int X = bit.getWidth();
-                    int Y = bit.getHeight();
-
-                    if(Y > X){
-                        bit = Bitmap.createBitmap(bit, 0, (Y-X)/2, X, X);
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+            else{
+                bit = receta.getImage();
+                recipeImage.setImageBitmap(Util.fixSize(receta.getImage()));
+                progressBar.setVisibility(View.GONE);
+                recipeImage.setVisibility(View.VISIBLE);
+            }
 
-                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
-
-                    recipeImage.setImageBitmap(bit);
-                    progressBar.setVisibility(View.GONE);
-                    recipeImage.setVisibility(View.VISIBLE);
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
         }
 
         final TextView name = findViewById(R.id.name_recipe_view);
         TextView description = findViewById(R.id.description_recipe_view);
+
+        fecha = findViewById(R.id.fecha_recipe_view);
+        fecha.setText(new SimpleDateFormat("yy/MM/dd HH:mm").format(receta.getCreate()));
 
         LinearLayout ingredientsContainer   = findViewById(R.id.ingredients_container_recipe_view);
         LinearLayout stepContainer          = findViewById(R.id.step_container_recipe_view);

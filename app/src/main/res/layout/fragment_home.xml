@@ -5,18 +5,19 @@
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Muro principal" />
-
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="8dp"
         android:text="Activar swipe  " />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recicle_view_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -27,7 +28,7 @@
         android:clickable="true"
         app:backgroundTint="@android:color/holo_red_light"
         app:fabSize="normal"
-        app:srcCompat="@mipmap/pacman"/>
+        app:srcCompat="@mipmap/pacman" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_ingredient"
