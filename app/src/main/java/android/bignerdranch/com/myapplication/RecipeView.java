@@ -104,7 +104,7 @@ public class RecipeView extends FragmentActivity {
         TextView description = findViewById(R.id.description_recipe_view);
 
         fecha = findViewById(R.id.fecha_recipe_view);
-        fecha.setText(new SimpleDateFormat("yy/MM/dd HH:mm").format(receta.getCreate()));
+        fecha.setText("akjlsfhjahf" + new SimpleDateFormat("yy/MM/dd HH:mm").format(receta.getCreate()));
 
         LinearLayout ingredientsContainer   = findViewById(R.id.ingredients_container_recipe_view);
         LinearLayout stepContainer          = findViewById(R.id.step_container_recipe_view);
@@ -121,10 +121,22 @@ public class RecipeView extends FragmentActivity {
         }
 
         for(int i = 0; i < listStep.size(); i++){
-            TextView text = new TextView(this);
-            text.setPadding(5,25,5,5);
-            text.setText((i+1) + ": " + listStep.get(i).getDescription());
-            stepContainer.addView(text);
+            if(i%2==0){
+                View view = getLayoutInflater().inflate(R.layout.stepview, null);
+                TextView textN=view.findViewById(R.id.textView9);
+                textN.setText(i+1);
+                TextView textS=view.findViewById(R.id.textView10);
+                textS.setText(listStep.get(i).getDescription());
+                stepContainer.addView(view);
+            }else {
+                View view = getLayoutInflater().inflate(R.layout.stepview2, null);
+                TextView textN=view.findViewById(R.id.textView7);
+                textN.setText(i+1);
+                TextView textS=view.findViewById(R.id.textView8);
+                textS.setText(listStep.get(i).getDescription());
+                stepContainer.addView(view);
+            }
+
         }
 
 

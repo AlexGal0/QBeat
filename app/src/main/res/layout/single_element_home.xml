@@ -6,7 +6,7 @@
     android:layout_margin="6dp"
     android:maxHeight="100dp"
     card_view:cardBackgroundColor="@color/card_backgroud"
-    card_view:cardCornerRadius="3dp"
+    card_view:cardCornerRadius="13dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true"
     card_view:layout_constraintHeight_max="100dp">
@@ -57,8 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:src="@mipmap/santana" />
 
         <ProgressBar

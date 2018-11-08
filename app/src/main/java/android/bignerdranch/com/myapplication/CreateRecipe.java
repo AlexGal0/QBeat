@@ -303,6 +303,7 @@ public class CreateRecipe extends FragmentActivity {
         View view = getLayoutInflater().inflate(R.layout.single_ingredient, null);
 
 
+
         TextView name = view.findViewById(R.id.name_ingredient);
         name.setText(ingrediente.getName());
 
