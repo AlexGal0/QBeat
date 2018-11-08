@@ -81,7 +81,7 @@
             android:drawableEnd="@drawable/ic_cosecha"
             android:text="Ingredientes"
             android:textAlignment="center"
-            android:textSize="23sp"
+            android:textSize="34sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
