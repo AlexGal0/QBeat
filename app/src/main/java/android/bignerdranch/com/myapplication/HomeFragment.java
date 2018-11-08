@@ -10,22 +10,69 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Switch;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private FloatingActionButton addIngredient;
     private FloatingActionButton floatingActionButton;
+    private RecyclerView recipeView;
 
+
+    private ArrayList<Receta> recetas;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        setRetainInstance(true);
+
+        recipeView = view.findViewById(R.id.recicle_view_home);
+
+
+        recipeView.setHasFixedSize(true);
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recipeView.setLayoutManager(linearLayoutManager);
+        recetas = DataBase.getDataBase().getListReceta();
+
+        final AdapterRecycleViewHome adapter = new AdapterRecycleViewHome(recetas);
+
+
+        recipeView.setAdapter(adapter);
+
+        DataBase.db.collection(References.RECETAS_REFERENCE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("ERROR", "Listen ERROR", e);
+                    return;
+                }
+                Log.i("CHANGES", "NOTIFY CHANGE IN HOMEFRAGMENT");
+                adapter.recetas = DataBase.getDataBase().getListReceta();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
+
+
 
         Switch switch1 = view.findViewById(R.id.switch1);
 

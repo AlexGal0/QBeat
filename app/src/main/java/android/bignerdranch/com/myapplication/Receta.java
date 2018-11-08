@@ -5,17 +5,21 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class Receta implements Comparable {
     public String id;
     public String chefId;
+    private String chefName;
     private ArrayList<Paso> pasos;
     private String name;
     private String description;
     private ArrayList<ImageView> images;
     private ArrayList<Ingrediente> ingredientes;
     private String recipeImage;
+    private byte[] image;
+    private Date create;
 
 
     /*
@@ -43,6 +47,8 @@ public class Receta implements Comparable {
         setPasos(receta.getPasos());
         setIngredientes(receta.ingredientes);
         setRecipeImage(receta.recipeImage);
+        setChefName(receta.getChefName());
+        setCreate(receta.getCreate());
     }
 
     /*
@@ -119,7 +125,9 @@ public class Receta implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return this.name.compareTo(((Receta)o).name);
+        if(this.create.equals(((Receta)o).create))
+            return this.name.compareTo(((Receta)o).name);
+        return -this.create.compareTo(((Receta)o).create);
     }
 
     public String getRecipeImage() {
@@ -128,5 +136,29 @@ public class Receta implements Comparable {
 
     public void setRecipeImage(String recipeImage) {
         this.recipeImage = recipeImage;
+    }
+
+    public String getChefName() {
+        return chefName;
+    }
+
+    public void setChefName(String chefName) {
+        this.chefName = chefName;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Date getCreate() {
+        return create;
+    }
+
+    public void setCreate(Date create) {
+        this.create = create;
     }
 }

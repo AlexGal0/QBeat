@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class DataBase {
     public boolean ingredientComplete;
     public boolean userComplete;
     public boolean recipeComplete;
+
 
     public byte[] f;
 
@@ -148,11 +150,10 @@ public class DataBase {
         }
     }
 
-    private void getRecetaDB(String id){
+    private void getRecetaDB(final MainActivity mainActivity){
         recipeComplete = false;
         CollectionReference collectionReference = db.collection(References.RECETAS_REFERENCE);
         collectionReference
-                .whereEqualTo("chefId", currentUser.id)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -160,8 +161,6 @@ public class DataBase {
                             Log.w("ERROR", "Listen ERROR", e);
                             return;
                         }
-
-
                         for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
                             Receta receta = documentChange.getDocument().toObject(Receta.class);
 
@@ -170,6 +169,9 @@ public class DataBase {
                                     listRecipe.add(receta);
                                     break;
                                 case MODIFIED:
+                                    Log.i("CHANGES", "CHANGE A VALUE");
+                                    listRecipe.remove(receta);
+                                    listRecipe.add(receta);
                                     break;
                                 case REMOVED:
                                     listRecipe.remove(receta);
@@ -177,6 +179,12 @@ public class DataBase {
                             }
                         }
 
+                        Log.i("CHANGES", "NOTIFY CHANGE IN DATABASE");
+
+                        if ((loadLogin & (1 << 1)) == 0) {
+                            loadLogin |= 1 << 1;
+                            mainActivity.updateFrame();
+                        }
                     }
                 });
     }
@@ -188,7 +196,7 @@ public class DataBase {
         return new ArrayList<>(this.listIngredients);
     }
 
-    public ArrayList<Receta> getListReceta(String id){
+    public ArrayList<Receta> getListReceta(){
         if(this.listRecipe == null)
             return new ArrayList<>();
         return new ArrayList<>(this.listRecipe);
@@ -206,16 +214,20 @@ public class DataBase {
         userComplete = false;
 
         Task<QuerySnapshot> documentSnapshotTask = db.collection(References.USERS_REFERENCE).whereEqualTo("email", email).get();
-        documentSnapshotTask.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        documentSnapshotTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                DataBase.this.currentUser = task.getResult().getDocuments().get(0).toObject(Usuario.class);
-                getRecetaDB(User.id);
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                DataBase.this.currentUser = queryDocumentSnapshots.getDocuments().get(0).toObject(Usuario.class);
+                getRecetaDB(mainActivity);
                 userComplete = true;
-                loadLogin |= 1 << 1;
-                mainActivity.updateFrame();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mainActivity.getApplicationContext(), "FALLO CON LA DESCARGA DEL USUARIO", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     public void cleanUser() {
@@ -231,5 +243,11 @@ public class DataBase {
     public void updateLogin(MainActivity mainActivity) {
         this.setUser(mainActivity);
         this.getIngredientesDB(mainActivity);
+    }
+
+    public void updateAllRecipes() {
+        for(Receta e: listRecipe){
+            db.collection(References.RECETAS_REFERENCE).document(e.getId()).update("create", new Date(System.currentTimeMillis()));
+        }
     }
 }

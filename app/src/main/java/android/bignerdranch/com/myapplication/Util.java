@@ -1,5 +1,8 @@
 package android.bignerdranch.com.myapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,5 +18,15 @@ public class Util {
             byteBuffer.write(buffer, 0, len);
         }
         return byteBuffer.toByteArray();
+    }
+
+    public static Bitmap fixSize(byte[] bytes){
+        Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        int X = bit.getWidth();
+        int Y = bit.getHeight();
+
+        if(Y > X)
+            bit = Bitmap.createBitmap(bit, 0, (Y-X) / 2, X, X);
+        return bit;
     }
 }

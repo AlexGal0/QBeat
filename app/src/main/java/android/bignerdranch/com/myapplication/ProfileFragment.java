@@ -57,6 +57,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         profileFragment = this;
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        setRetainInstance(true);
 
         final Usuario user = DataBase.getDataBase().currentUser;
 
@@ -96,41 +97,40 @@ public class ProfileFragment extends Fragment {
         });
 
         if(user.getImageReference() != null){
-            progressBar.setVisibility(View.VISIBLE);
-            userImage.setVisibility(View.GONE);
+            if(user.getImage() == null){
 
-            StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("ProfileImages/"+ user.getImageReference());
+                progressBar.setVisibility(View.VISIBLE);
+                userImage.setVisibility(View.GONE);
 
-            final long ONE_MEGABYTE = 1024 * 1024 * 2;
-            islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    bit = bytes;
-                    Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("ProfileImages/"+ user.getImageReference());
 
+                final long ONE_MEGABYTE = 1024 * 1024 * 2;
+                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        bit = bytes;
+                        user.setImage(bytes);
+                        //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
+                        userImage.setImageBitmap(Util.fixSize(bytes));
+                        progressBar.setVisibility(View.GONE);
+                        userImage.setVisibility(View.VISIBLE);
 
-                    int X = bit.getWidth();
-                    int Y = bit.getHeight();
-
-                    if(Y > X){
-
-                        bit = Bitmap.createBitmap(bit, 0, (Y-X) / 2, X, X);
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        progressBar.setVisibility(View.GONE);
+                        userImage.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+            else{
+                bit = user.getImage();
+                userImage.setImageBitmap(Util.fixSize(user.getImage()));
+                progressBar.setVisibility(View.GONE);
+                userImage.setVisibility(View.VISIBLE);
+            }
 
-                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
-
-                    userImage.setImageBitmap(bit);
-                    progressBar.setVisibility(View.GONE);
-                    userImage.setVisibility(View.VISIBLE);
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    progressBar.setVisibility(View.GONE);
-                    userImage.setVisibility(View.VISIBLE);
-                }
-            });
         }
         else{
             bit = DataBase.getDataBase().f;
@@ -206,22 +206,10 @@ public class ProfileFragment extends Fragment {
                     userImage.setMaxHeight(150);
                     userImage.setMaxWidth(150);
 
-
-
-
-                    Bitmap bits = BitmapFactory.decodeByteArray(bit, 0, bit.length);
-
-
-                    int X = bits.getWidth();
-                    int Y = bits.getHeight();
-
-                    if(Y > X){
-                        bits = Bitmap.createBitmap(bits, 0, (Y-X) / 2, X, X);
-                    }
-                    //Log.i("MT", b.getHeight() + "   x  "  + b.getWidth()+ "   x  " + min);
+                    Bitmap bits = Util.fixSize(bit);
 
                     userImage.setImageBitmap(bits);
-
+                    DataBase.getDataBase().currentUser.setImage(bit);
 
                     if(DataBase.getDataBase().currentUser.getImageReference() != null)
                         FirebaseStorage.getInstance().getReference().child("ProfileImages/" + DataBase.getDataBase().currentUser.getImageReference()).delete();

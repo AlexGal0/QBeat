@@ -21,6 +21,12 @@
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
+        <TextView
+            android:id="@+id/fecha_recipe_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha" />
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

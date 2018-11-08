@@ -40,6 +40,7 @@ import org.w3c.dom.Text;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -173,40 +174,53 @@ public class CreateRecipe extends FragmentActivity {
                     receta.setDescription(description.getText().toString());
                     receta.setIngredientes(ingredientes);
                     receta.setPasos(pasos);
+                    receta.setCreate(new Date(System.currentTimeMillis()));
+                    receta.setChefName(DataBase.getDataBase().currentUser.getName());
 
 
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
-                    final StorageReference riversRef = storageRef.child("Recetas Images/" + imageUri.getLastPathSegment());
 
 
 
-                    receta.setRecipeImage(riversRef.getName());
+                    if(imageUri != null){
 
-                    ingredientes = null;
-                    pasos = null;
+                        final StorageReference riversRef = storageRef.child("Recetas Images/" + imageUri.getLastPathSegment() + System.currentTimeMillis());
 
-                    DataBase.getDataBase().addRecipe(receta);
+                        receta.setRecipeImage(riversRef.getName());
 
-                    final UploadTask uploadTask = riversRef.putFile(imageUri);
+                        ingredientes = null;
+                        pasos = null;
 
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(CreateRecipe.this, "Fallo al crear la receta", Toast.LENGTH_SHORT).show();
-                            DataBase.getDataBase().removeRecipe(receta);
-                            progressBar.setVisibility(View.GONE);
 
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressBar.setVisibility(View.GONE);
-                            Log.i("Upload Image", riversRef.getName());
-                            Toast.makeText(getApplicationContext(), "Receta creada exitosamente!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
+                        final UploadTask uploadTask = riversRef.putFile(imageUri);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(CreateRecipe.this, "Fallo al crear la receta", Toast.LENGTH_SHORT).show();
+                                DataBase.getDataBase().removeRecipe(receta);
+                                progressBar.setVisibility(View.GONE);
+
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressBar.setVisibility(View.GONE);
+                                Log.i("Upload Image", riversRef.getName());
+                                Toast.makeText(getApplicationContext(), "Receta creada exitosamente!", Toast.LENGTH_SHORT).show();
+                                DataBase.getDataBase().addRecipe(receta);
+                                finish();
+                            }
+                        });
+                    }
+                    else{
+                        DataBase.getDataBase().addRecipe(receta);
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Receta creada exitosamente!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
                 }
             }
         });
