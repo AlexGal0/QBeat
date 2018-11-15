@@ -95,8 +95,8 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
                 holder.download.setVisibility(View.GONE);
             }
         }
-
     }
+
 
     @Override
     public int getItemCount() {

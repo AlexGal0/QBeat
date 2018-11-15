@@ -10,10 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -70,19 +73,33 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-
-
-        Switch switch1 = view.findViewById(R.id.switch1);
-
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ViewPageFragment viewPager = (ViewPageFragment) container;
-                viewPager.setEnable(b);
+        final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override public boolean onSingleTapUp(MotionEvent e) {
+                return true;
             }
+        });
 
+        recipeView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                CardView cardView = (CardView) rv.findChildViewUnder(e.getX(),e.getY());
+
+
+                if(cardView != null && mGestureDetector.onTouchEvent(e)){
+                    final int index = rv.getChildAdapterPosition(cardView);
+                    Log.i("CLICK HOME", "CLICK");
+                    Intent i = new Intent(getContext(), RecipeView.class);
+                    i.putExtra(MyRecipeFragment.TAG_RECIPE, index);
+                    startActivity(i);
+                    return true;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {}
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
         });
 
         floatingActionButton = view.findViewById(R.id.floatingActionButton);

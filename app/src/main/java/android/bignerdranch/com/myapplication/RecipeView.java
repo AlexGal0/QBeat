@@ -124,14 +124,14 @@ public class RecipeView extends FragmentActivity {
             if(i%2==0){
                 View view = getLayoutInflater().inflate(R.layout.stepview, null);
                 TextView textN=view.findViewById(R.id.textView9);
-                textN.setText(i+1);
+                textN.setText((i+1) +"");
                 TextView textS=view.findViewById(R.id.textView10);
                 textS.setText(listStep.get(i).getDescription());
                 stepContainer.addView(view);
             }else {
                 View view = getLayoutInflater().inflate(R.layout.stepview2, null);
                 TextView textN=view.findViewById(R.id.textView7);
-                textN.setText(i+1);
+                textN.setText((i+1) + "");
                 TextView textS=view.findViewById(R.id.textView8);
                 textS.setText(listStep.get(i).getDescription());
                 stepContainer.addView(view);
