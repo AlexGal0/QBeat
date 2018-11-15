@@ -142,7 +142,7 @@ public class RecipeView extends FragmentActivity {
 
         final Button delete = findViewById(R.id.delete_recipe_button);
 
-        if(!receta.getChefName().equals(DataBase.getDataBase().currentUser.getName()))
+        if(receta.getChefName() != null && !receta.getChefName().equals(DataBase.getDataBase().currentUser.getName()))
             delete.setVisibility(View.GONE);
 
 
