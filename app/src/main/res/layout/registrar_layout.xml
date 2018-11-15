@@ -16,16 +16,6 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/email_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
-
-        <EditText
             android:id="@+id/name_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +24,16 @@
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white"/>
+
+        <EditText
+            android:id="@+id/email_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/password_register"
