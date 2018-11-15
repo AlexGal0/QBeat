@@ -152,4 +152,5 @@ public class HomeFragment extends Fragment {
         addIngredient.setEnabled(true);
 
     }
+
 }
