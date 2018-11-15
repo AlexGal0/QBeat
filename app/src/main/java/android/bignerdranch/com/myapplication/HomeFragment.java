@@ -2,9 +2,11 @@ package android.bignerdranch.com.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton addIngredient;
     private FloatingActionButton floatingActionButton;
     private RecyclerView recipeView;
+    private AdapterRecycleViewHome adapter;
 
 
     private ArrayList<Receta> recetas;
@@ -55,7 +58,7 @@ public class HomeFragment extends Fragment {
         recipeView.setLayoutManager(linearLayoutManager);
         recetas = DataBase.getDataBase().getListReceta();
 
-        final AdapterRecycleViewHome adapter = new AdapterRecycleViewHome(recetas);
+        adapter = new AdapterRecycleViewHome(recetas);
 
 
         recipeView.setAdapter(adapter);
@@ -75,6 +78,8 @@ public class HomeFragment extends Fragment {
 
         final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override public boolean onSingleTapUp(MotionEvent e) {
+                boolean buttonState = e.isButtonPressed(0);
+                Log.i("CLICK", buttonState + "");
                 return true;
             }
         });
@@ -147,10 +152,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        adapter.notifyDataSetChanged();
         floatingActionButton.setEnabled(true);
         addIngredient.setEnabled(true);
 
     }
+
 
 }
