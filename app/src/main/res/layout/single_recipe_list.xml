@@ -9,5 +9,10 @@
         android:id="@+id/my_recipe_name_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Button" />
+        android:text="Button"
+
+        android:background="@drawable/style_button_recipe"
+        android:textColor="@color/backgroundSplash"
+        android:shadowColor="@color/BlackText"
+        android:layout_margin="5dp"/>
 </FrameLayout>
