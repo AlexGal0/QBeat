@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:text="Titulo"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textStyle="bold|italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,32 +34,37 @@
                 android:id="@+id/chef_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="5"
-                android:text="Autor" />
+                android:text="Autor"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/fecha_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Fecha" />
+                android:text="Fecha"
+                android:textStyle="italic" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/description_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:maxLines="3"
             android:text="Descripcion" />
 
         <ImageView
             android:id="@+id/image_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/santana" />
 
         <ProgressBar
