@@ -47,6 +47,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:text="Fecha"
+                android:textAlignment="viewEnd"
                 android:textStyle="italic" />
         </LinearLayout>
 
