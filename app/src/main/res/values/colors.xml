@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ea3c3a</color>
+    <color name="colorPrimary">#730101</color>
     <color name="colorPrimaryDark">#730101</color>
-    <color name="colorAccent">#1c2bca</color>
+    <color name="colorAccent">#ff0000</color>
     <color name="ColorSecundary">#b90101</color>
     <color name="ColorBannerProfile">#62ff0000</color>
     <color name="BlackText">#000</color>
@@ -12,5 +12,5 @@
     <color name="backgroundSplash">#730101</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00ffffff</color>
-    <color name="card_backgroud">#d7be80</color>
+    <color name="card_backgroud">#ffa250</color>
 </resources>
