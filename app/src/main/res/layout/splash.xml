@@ -13,36 +13,41 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/splash"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/invited"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="90dp"
+        android:layout_width="124dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/style_button"
+
+        android:padding="10dp"
         android:text="Invitado"
+        android:textColor="@color/white"
         app:layout_constrainedHeight="false"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_in"
-        app:layout_constraintEnd_toStartOf="@+id/sign_in"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sign_in"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/sign_in"
-        android:layout_width="87dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
-        android:layout_marginEnd="90dp"
-        android:text="Iniciar Sesion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="124dp"
+        android:layout_height="46dp"
+
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/style_button"
+        android:padding="10dp"
+        android:text="Iniciar Sesión"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView3"
@@ -51,11 +56,12 @@
         android:text="@string/texto_inicio"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.152" />
 
 </android.support.constraint.ConstraintLayout>
