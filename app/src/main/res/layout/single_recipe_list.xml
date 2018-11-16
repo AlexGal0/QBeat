@@ -14,5 +14,7 @@
         android:background="@drawable/style_button_recipe"
         android:textColor="@color/backgroundSplash"
         android:shadowColor="@color/BlackText"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:fontFamily="@font/orangeblossoms"
+        android:textSize="18sp"/>
 </FrameLayout>

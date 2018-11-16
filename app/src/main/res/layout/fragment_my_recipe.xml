@@ -15,12 +15,20 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mis Recetas" />
+            android:text="Mis Recetas"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:textSize="23sp"
+            android:textColor="@color/backgroundSplash"
+            android:fontFamily="@font/orangeblossoms"
+            />
 
         <LinearLayout
             android:id="@+id/my_recipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
