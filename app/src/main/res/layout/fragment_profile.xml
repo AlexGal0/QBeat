@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/home_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -101,9 +102,15 @@
 
             <Button
                 android:id="@+id/logout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cerrar Sesion" />
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="Cerrar Sesion"
+                android:textColor="@color/white"
+                android:layout_gravity="right"
+                android:background="@drawable/style_button"
+                android:layout_margin="10dp"/>
 
 
         </LinearLayout>
