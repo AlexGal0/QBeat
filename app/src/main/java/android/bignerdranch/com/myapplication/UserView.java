@@ -113,7 +113,10 @@ public class UserView extends FragmentActivity {
 
         }
         else{
-            imageView.setVisibility(View.GONE);
+            usuario.setImage(DataBase.getDataBase().f);
+            imageView.setImageBitmap(Util.fixSize(usuario.getImage()));
+            imageProgressBar.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
         }
 
 

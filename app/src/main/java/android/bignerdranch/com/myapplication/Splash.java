@@ -35,7 +35,7 @@ public class Splash extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.santana);
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.non_image);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         DataBase.getDataBase().f = stream.toByteArray();
