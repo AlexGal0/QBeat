@@ -31,6 +31,7 @@
         <activity android:name=".Login"                     android:screenOrientation="portrait"/>
         <activity android:name=".Registrar"                 android:screenOrientation="portrait"/>
         <activity android:name=".Add_Ingredient"            android:screenOrientation="portrait"/>
+        <activity android:name=".UserView"                  android:screenOrientation="portrait"/>
         <activity android:name=".ImageViewCompleteFragment"/>
 
     </application>

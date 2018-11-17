@@ -93,10 +93,12 @@ public class HomeFragment extends Fragment {
 
                 if(cardView != null && mGestureDetector.onTouchEvent(e)){
                     final int index = rv.getChildAdapterPosition(cardView);
-                    Log.i("CLICK HOME", "CLICK");
-                    Intent i = new Intent(getContext(), RecipeView.class);
-                    i.putExtra(MyRecipeFragment.TAG_RECIPE, index);
-                    startActivity(i);
+                    Receta receta = DataBase.getDataBase().getListReceta().get(index);
+                    if(DataBase.getDataBase().getCurrentRecipe() == null) {
+                        DataBase.getDataBase().setCurrentRecipe(receta);
+                        Intent intent = new Intent(getContext(), RecipeView.class);
+                        startActivity(intent);
+                    }
                     return true;
                 }
                 return false;

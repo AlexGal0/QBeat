@@ -31,10 +31,12 @@ import java.util.ArrayList;
 public class RecipeView extends FragmentActivity {
 
     public static RecipeView recipeView;
-
+    public static String TAG_STATUS = "android.bignerdranch.com.myapplication.STATUS";
     private ImageView recipeImage;
     private ProgressBar progressBar;
     private TextView fecha;
+    private Button chefButton;
+    private Receta receta;
 
     public byte[] bit;
 
@@ -44,13 +46,27 @@ public class RecipeView extends FragmentActivity {
         recipeView = this;
         setContentView(R.layout.recipe_view);
 
-
-        int index = getIntent().getIntExtra(MyRecipeFragment.TAG_RECIPE, -1);
-
-        final Receta receta = DataBase.getDataBase().getListReceta().get(index);
+        receta = DataBase.getDataBase().getCurrentRecipe();
 
         ArrayList<Ingrediente>  listIngredients = receta.getIngredientes();
         ArrayList<Paso>         listStep       = receta.getPasos();
+
+        chefButton = findViewById(R.id.user_recipe_button);
+
+        chefButton.setText(receta.getChefName());
+        if(receta.chefId.equals(DataBase.getDataBase().currentUser.id))
+            chefButton.setVisibility(View.GONE);
+        chefButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(RecipeView.this, UserView.class);
+                intent.putExtra(UserView.USER_TAG, receta.chefId);
+                startActivity(intent);
+            }
+        });
+
+
 
         progressBar = findViewById(R.id.image_progress);
         recipeImage = findViewById(R.id.image_recipe_view);
@@ -143,6 +159,9 @@ public class RecipeView extends FragmentActivity {
 
         final Button delete = findViewById(R.id.delete_recipe_button);
 
+        if(!receta.chefId.equals(DataBase.getDataBase().currentUser.id))
+            delete.setVisibility(View.GONE);
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -183,5 +202,25 @@ public class RecipeView extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         recipeImage.setEnabled(true);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataBase.getDataBase().setCurrentRecipe(null);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String status =getIntent().getStringExtra(TAG_STATUS);
+        if(status != null){
+            if(status.equals("USERVIEW")){
+                Intent intent = new Intent(RecipeView.this, UserView.class);
+                intent.putExtra(UserView.USER_TAG, receta.chefId);
+                startActivity(intent);
+            }
+        }
     }
 }
