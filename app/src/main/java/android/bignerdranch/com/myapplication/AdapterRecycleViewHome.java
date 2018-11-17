@@ -91,7 +91,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
                 holder.download.setOnClickListener(new DownloadButtonClickListener(receta, holder.imagen, holder.download, holder.progressBar));
             }
             else{
-                holder.imagen.setImageBitmap(Util.scaleTo(receta.getImage(), 100));
+                holder.imagen.setImageBitmap(Util.fixSize(receta.getImage()));
                 holder.progressBar.setVisibility(View.GONE);
                 holder.imagen.setVisibility(View.VISIBLE);
                 holder.download.setVisibility(View.GONE);
