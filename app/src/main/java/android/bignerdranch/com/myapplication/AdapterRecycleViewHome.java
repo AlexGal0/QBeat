@@ -91,7 +91,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
                 holder.download.setOnClickListener(new DownloadButtonClickListener(receta, holder.imagen, holder.download, holder.progressBar));
             }
             else{
-                holder.imagen.setImageBitmap(Util.fixSize(receta.getImage(), 100));
+                holder.imagen.setImageBitmap(Util.scaleTo(receta.getImage(), 100));
                 holder.progressBar.setVisibility(View.GONE);
                 holder.imagen.setVisibility(View.VISIBLE);
                 holder.download.setVisibility(View.GONE);
@@ -133,7 +133,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
 
                         receta.setImage(bytes);
                         Log.i("DESCARGA DE IMAGENES", "AVISO!!!");
-                        imagen.setImageBitmap(Util.fixSize(bytes, 200));
+                        imagen.setImageBitmap(Util.fixSize(bytes));
                         progressBar.setVisibility(View.GONE);
                         imagen.setVisibility(View.VISIBLE);
                         download.setVisibility(View.GONE);
@@ -149,7 +149,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
 
             }
             else{
-                imagen.setImageBitmap(Util.fixSize(receta.getImage(), 200));
+                imagen.setImageBitmap(Util.fixSize(receta.getImage()));
                 progressBar.setVisibility(View.GONE);
                 imagen.setVisibility(View.VISIBLE);
                 download.setVisibility(View.GONE);

@@ -13,8 +13,6 @@ public class Usuario {
     private String email;
     private int level;
     private double currentExperience;
-    private ArrayList<String> misRecetas;
-    private ArrayList<String> misRecetasGuardadas;
     private String imageReference;
     private byte[] image;
 
@@ -24,8 +22,6 @@ public class Usuario {
 
     public Usuario(){
         id = UUID.randomUUID().toString();
-        misRecetas = new ArrayList<>();
-        misRecetasGuardadas = new ArrayList<>();
         level = 0;
         currentExperience = 0;
     }
@@ -37,8 +33,6 @@ public class Usuario {
 
     public Usuario(Usuario usuario){
         this.id = usuario.id;
-        this.misRecetas = usuario.misRecetas;
-        this.misRecetasGuardadas = usuario.misRecetasGuardadas;
         this.level = usuario.level;
         this.currentExperience = usuario.currentExperience;
         this.email = usuario.email;
@@ -66,14 +60,6 @@ public class Usuario {
 
     public int getLevel() {
         return level;
-    }
-
-    public ArrayList<String> getMisRecetas() {
-        return misRecetas;
-    }
-
-    public ArrayList<String> getMisRecetasGuardadas() {
-        return misRecetasGuardadas;
     }
 
 

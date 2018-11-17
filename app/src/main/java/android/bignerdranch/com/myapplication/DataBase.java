@@ -54,6 +54,8 @@ public class DataBase {
     private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
     private static DataBase dataBase;
+    public Map<String, ArrayList<Receta>> userTree;
+    public Map<String, Usuario> users;
     public Usuario currentUser;
     public boolean ingredientComplete;
     public boolean userComplete;
@@ -62,8 +64,9 @@ public class DataBase {
 
     public byte[] f;
 
-    public static FirebaseFirestore db= FirebaseFirestore.getInstance();
+    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     public int loadLogin;
+    private Receta currentRecipe;
 
 
     public static DataBase getDataBase(){
@@ -76,6 +79,8 @@ public class DataBase {
         loadLogin = 0;
         listRecipe = new TreeSet<>();
         listIngredients = new TreeSet<>();
+        userTree = new HashMap<>();
+        users = new HashMap<>();
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -164,9 +169,15 @@ public class DataBase {
                         for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
                             Receta receta = documentChange.getDocument().toObject(Receta.class);
 
+                            ArrayList<Receta> userR = userTree.get(receta.chefId);
+                            if(userR == null)
+                                userTree.put(receta.chefId, userR = new ArrayList<Receta>());
+
+
                             switch (documentChange.getType()){
                                 case ADDED:
                                     listRecipe.add(receta);
+                                    userR.add(receta);
                                     break;
                                 case MODIFIED:
                                     Log.i("CHANGES", "CHANGE A VALUE");
@@ -175,6 +186,7 @@ public class DataBase {
                                     break;
                                 case REMOVED:
                                     listRecipe.remove(receta);
+                                    userR.remove(receta);
                                     break;
                             }
                         }
@@ -249,5 +261,21 @@ public class DataBase {
         for(Receta e: listRecipe){
             db.collection(References.RECETAS_REFERENCE).document(e.getId()).update("create", new Date(System.currentTimeMillis()));
         }
+    }
+
+    public Receta getCurrentRecipe() {
+        return currentRecipe;
+    }
+
+    public void setCurrentRecipe(Receta currentRecipe) {
+        this.currentRecipe = currentRecipe;
+    }
+
+    public Usuario getUser(String chefId) {
+        return users.get(chefId);
+    }
+
+    public void addUserToMemory(Usuario usuario) {
+        users.put(usuario.id, usuario);
     }
 }
