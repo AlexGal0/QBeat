@@ -245,6 +245,7 @@ public class CreateRecipe extends FragmentActivity {
 
             if(bit == null || bit.length > 1024 * 1024 * 2){
                 Toast.makeText(this, "La imagen excede el tamaño", Toast.LENGTH_SHORT).show();
+                imageUri = null;
                 return;
             }
             recipeImage.setImageURI(imageUri);
@@ -301,6 +302,7 @@ public class CreateRecipe extends FragmentActivity {
         LinearLayout linearLayout = findViewById(R.id.container_ingredient);
 
         View view = getLayoutInflater().inflate(R.layout.single_ingredient, null);
+
 
 
         TextView name = view.findViewById(R.id.name_ingredient);

@@ -1,5 +1,6 @@
 package android.bignerdranch.com.myapplication;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -53,6 +54,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
             progressBar = view.findViewById(R.id.progress_card);
             download    = view.findViewById(R.id.load_button_image_card);
         }
+
     }
 
     @NonNull
@@ -63,7 +65,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AdapterRecycleViewHome.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AdapterRecycleViewHome.ViewHolder holder, final int position) {
         final Receta receta = recetas.get(position);
         holder.titulo.setText(receta.getName());
         if(receta.getChefName() == null){
@@ -95,8 +97,8 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
                 holder.download.setVisibility(View.GONE);
             }
         }
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -119,30 +121,40 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
 
         @Override
         public void onClick(View view) {
-            download.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
-            StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/"+ receta.getRecipeImage());
+            if(receta.getImage() == null) {
+                download.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                StorageReference islandRef = FirebaseStorage.getInstance().getReference().child("Recetas Images/" + receta.getRecipeImage());
 
-            final long ONE_MEGABYTE = 1024 * 1024 * 2;
-            islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
+                final long ONE_MEGABYTE = 1024 * 1024 * 2;
+                islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
 
-                    receta.setImage(bytes);
-                    Log.i("DESCARGA DE IMAGENES", "AVISO!!!");
-                    imagen.setImageBitmap(Util.fixSize(bytes));
-                    progressBar.setVisibility(View.GONE);
-                    imagen.setVisibility(View.VISIBLE);
-                    download.setVisibility(View.GONE);
+                        receta.setImage(bytes);
+                        Log.i("DESCARGA DE IMAGENES", "AVISO!!!");
+                        imagen.setImageBitmap(Util.fixSize(bytes));
+                        progressBar.setVisibility(View.GONE);
+                        imagen.setVisibility(View.VISIBLE);
+                        download.setVisibility(View.GONE);
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    progressBar.setVisibility(View.GONE);
-                    download.setVisibility(View.VISIBLE);
-                }
-            });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        progressBar.setVisibility(View.GONE);
+                        download.setVisibility(View.VISIBLE);
+                    }
+                });
+
+            }
+            else{
+                imagen.setImageBitmap(Util.fixSize(receta.getImage()));
+                progressBar.setVisibility(View.GONE);
+                imagen.setVisibility(View.VISIBLE);
+                download.setVisibility(View.GONE);
+
+            }
         }
     }
 }

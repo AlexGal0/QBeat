@@ -10,55 +10,88 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/email_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/progress" />
-
-        <EditText
             android:id="@+id/name_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Nombre"
             android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/progress" />
+
+            android:typeface="monospace"
+            android:textSize="17sp"
+            android:theme="@style/ColorLineaDeEntradaDeTexto"
+            android:background="@drawable/style_edit_text"
+            android:padding="10dp"
+            android:textColor="@color/BlackText"
+            android:textColorHint="@color/backgroundSplash"
+            android:layout_margin="5dp"
+            />
+
+        <EditText
+            android:id="@+id/email_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"
+
+            android:typeface="monospace"
+            android:textSize="17sp"
+            android:theme="@style/ColorLineaDeEntradaDeTexto"
+            android:background="@drawable/style_edit_text"
+            android:padding="10dp"
+            android:textColor="@color/BlackText"
+            android:textColorHint="@color/backgroundSplash"
+            android:layout_margin="5dp"
+            />
 
         <EditText
             android:id="@+id/password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Contraseña"
             android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/progress" />
+
+            android:typeface="monospace"
+            android:textSize="17sp"
+            android:theme="@style/ColorLineaDeEntradaDeTexto"
+            android:background="@drawable/style_edit_text"
+            android:padding="10dp"
+            android:textColor="@color/BlackText"
+            android:textColorHint="@color/backgroundSplash"
+            android:layout_margin="5dp"
+            />
 
         <EditText
             android:id="@+id/cpassword_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirmar Contraseña"
+            android:hint="Confirmar contraseña"
             android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/progress" />
+
+            android:typeface="monospace"
+            android:textSize="17sp"
+            android:theme="@style/ColorLineaDeEntradaDeTexto"
+            android:background="@drawable/style_edit_text"
+            android:padding="10dp"
+            android:textColor="@color/BlackText"
+            android:textColorHint="@color/backgroundSplash"
+            android:layout_margin="5dp"
+            />
 
         <Button
             android:id="@+id/create_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear" />
+            android:text="Crear cuenta"
+
+            android:background="@drawable/style_button"
+            android:layout_marginTop="40dp"
+            android:padding="10dp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </FrameLayout>

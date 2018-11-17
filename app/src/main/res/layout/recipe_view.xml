@@ -17,17 +17,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:text="Nombre receta"
             android:textAlignment="center"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/fecha_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha" />
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="20dp"
+            android:text="Fecha"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/user_recipe_button"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Button" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,12 +75,12 @@
             android:id="@+id/description_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
             android:text="Descripcion"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView6"

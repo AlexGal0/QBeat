@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -30,22 +32,31 @@ public class MyRecipeFragment extends Fragment {
     }
 
     private void updateRecipes(View view, LayoutInflater inflater){
-        recetas = DataBase.getDataBase().getListReceta();
+        recetas = DataBase.getDataBase().userTree.get(DataBase.getDataBase().currentUser.id);
+
         LinearLayout linearLayout = view.findViewById(R.id.my_recipe_container);
 
         linearLayout.removeAllViews();
+        if(recetas == null)
+            return;
         Log.i("INGREDIENTE", recetas.size() + "");
+
+        Collections.sort(recetas, new Comparator<Receta>() {
+            @Override
+            public int compare(Receta receta, Receta t1) {
+                return receta.getName().compareTo(t1.getName());
+            }
+        });
+
         for(int i = 0; i < recetas.size(); i++){
             Receta r = recetas.get(i);
-            if(!r.chefId.equals(DataBase.getDataBase().currentUser.id))
-                continue;
             View recipe_view = inflater.inflate(R.layout.single_recipe_list, null);
 
             Button textView = recipe_view.findViewById(R.id.my_recipe_name_list);
 
             textView.setText(r.getName());
 
-            textView.setOnClickListener(new onRecipeListClick(i));
+            textView.setOnClickListener(new onRecipeListClick(r));
 
             linearLayout.addView(recipe_view);
         }
@@ -55,22 +66,26 @@ public class MyRecipeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        DataBase.getDataBase().setCurrentRecipe(null);
         ((LinearLayout)getView().findViewById(R.id.my_recipe_container)).removeAllViews();
         updateRecipes(getView(), getLayoutInflater());
         Log.i("RECIPE_FRAGMENT", "OnResume()");
     }
 
-    private class onRecipeListClick implements View.OnClickListener{
-        private int index;
-        public onRecipeListClick(int index){
-            this.index = index;
+    public class onRecipeListClick implements View.OnClickListener{
+        private Receta receta;
+        public onRecipeListClick(Receta receta){
+            this.receta = receta;
         }
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), RecipeView.class);
-            intent.putExtra(TAG_RECIPE, index);
-
-            startActivity(intent);
+            if(DataBase.getDataBase().getCurrentRecipe() == null) {
+                DataBase.getDataBase().setCurrentRecipe(receta);
+                Intent intent = new Intent(view.getContext(), RecipeView.class);
+                startActivity(intent);
+            }
         }
     }
+
+
 }

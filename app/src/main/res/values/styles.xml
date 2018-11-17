@@ -16,4 +16,11 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+
+    <style name="ColorLineaDeEntradaDeTexto" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#717171</item>
+        <item name="colorControlActivated">#ffffff</item>
+        <item name="android:textColorHighlight">#cad46c4f</item>
+    </style>
+
 </resources>

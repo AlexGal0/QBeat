@@ -2,18 +2,23 @@ package android.bignerdranch.com.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -32,6 +37,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton addIngredient;
     private FloatingActionButton floatingActionButton;
     private RecyclerView recipeView;
+    private AdapterRecycleViewHome adapter;
 
 
     private ArrayList<Receta> recetas;
@@ -52,7 +58,7 @@ public class HomeFragment extends Fragment {
         recipeView.setLayoutManager(linearLayoutManager);
         recetas = DataBase.getDataBase().getListReceta();
 
-        final AdapterRecycleViewHome adapter = new AdapterRecycleViewHome(recetas);
+        adapter = new AdapterRecycleViewHome(recetas);
 
 
         recipeView.setAdapter(adapter);
@@ -70,19 +76,37 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-
-
-        Switch switch1 = view.findViewById(R.id.switch1);
-
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ViewPageFragment viewPager = (ViewPageFragment) container;
-                viewPager.setEnable(b);
+        final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override public boolean onSingleTapUp(MotionEvent e) {
+                boolean buttonState = e.isButtonPressed(0);
+                Log.i("CLICK", buttonState + "");
+                return true;
             }
+        });
 
+        recipeView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                CardView cardView = (CardView) rv.findChildViewUnder(e.getX(),e.getY());
+
+
+                if(cardView != null && mGestureDetector.onTouchEvent(e)){
+                    final int index = rv.getChildAdapterPosition(cardView);
+                    Receta receta = DataBase.getDataBase().getListReceta().get(index);
+                    if(DataBase.getDataBase().getCurrentRecipe() == null) {
+                        DataBase.getDataBase().setCurrentRecipe(receta);
+                        Intent intent = new Intent(getContext(), RecipeView.class);
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {}
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
         });
 
         floatingActionButton = view.findViewById(R.id.floatingActionButton);
@@ -130,9 +154,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        adapter.notifyDataSetChanged();
         floatingActionButton.setEnabled(true);
         addIngredient.setEnabled(true);
 
     }
+
+
 }

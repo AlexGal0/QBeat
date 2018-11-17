@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
 
 
-            mViewPager = new ViewPageFragment(this);
+            mViewPager = new ViewPager(this);
             mViewPager.setId(R.id.view_pager);
             mViewPager.setOffscreenPageLimit(4);
 

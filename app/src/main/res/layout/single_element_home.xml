@@ -3,62 +3,89 @@
     android:id="@+id/single_element_home_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="2dp"
     android:maxHeight="100dp"
     card_view:cardBackgroundColor="@color/card_backgroud"
-    card_view:cardCornerRadius="3dp"
-    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"
-    card_view:layout_constraintHeight_max="100dp">
+    card_view:layout_constraintHeight_max="100dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:text="Titulo"
-            android:textAlignment="center" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+
+            >
 
             <TextView
                 android:id="@+id/chef_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="5"
-                android:text="Autor" />
+                android:text="Autor"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/fecha_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="Fecha" />
+                android:text="Fecha"
+                android:textAlignment="viewEnd"
+                android:textStyle="italic" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="0dp"
+
+            android:fontFamily="@font/orangeblossoms"
+            android:padding="5dp"
+            android:text="Titulo"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/description_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Descripcion" />
+
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Descripcion"
+            android:textSize="13sp"
+            android:paddingBottom="15dp"
+            android:padding="5dp"
+            />
 
         <ImageView
             android:id="@+id/image_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="0dp"
+            android:padding="5dp"
             android:src="@mipmap/santana" />
 
         <ProgressBar
@@ -73,7 +100,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Descargar imagen" />
+            android:text="Descargar imagen"
+
+            android:background="@drawable/download_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_margin="5dp"
+            />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

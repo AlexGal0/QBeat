@@ -5,5 +5,5 @@
     <string name="title_notifications">Perfil</string>
     <string name="my_recipe">Mis Recetas</string>
     <string name="nivel_text">Nivel</string>
-    <string name="texto_inicio">¿Como desea iniciar?</string>
+    <string name="texto_inicio">Ingresar como:</string>
 </resources>
