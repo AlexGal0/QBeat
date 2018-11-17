@@ -63,7 +63,6 @@
 
             android:fontFamily="@font/orangeblossoms"
             android:textSize="20sp"
-            android:background="@drawable/tittle_background"
             />
 
 
@@ -80,12 +79,11 @@
             android:textSize="13sp"
             android:paddingBottom="15dp"
             android:padding="5dp"
-            android:background="@drawable/description_background"
             />
 
         <ImageView
             android:id="@+id/image_card"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_margin="0dp"
@@ -107,7 +105,8 @@
             android:text="Descargar imagen"
 
             android:background="@drawable/download_button"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_margin="5dp"
             />
     </LinearLayout>
