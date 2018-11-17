@@ -58,7 +58,7 @@
                         android:text="Nombre"
                         android:textColor="@color/BlackText"
                         android:textSize="30sp"
-                        android:textStyle="bold" />
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -83,7 +83,6 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/cryogenix"
                             android:gravity="left"
-
                             android:text="0"
                             android:textSize="30sp" />
 
@@ -103,9 +102,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
 
-
             </LinearLayout>
-
 
         </ScrollView>
 </LinearLayout>
