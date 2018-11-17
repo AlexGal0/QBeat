@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 public class ImageViewCompleteFragment extends FragmentActivity {
     public static final String KEY_IMAGE = "android.bignerdranch.com.myapplication.KEY";
+    public static final String KEY_USER = "android.bignerdranch.com.myapplication.USER";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,8 @@ public class ImageViewCompleteFragment extends FragmentActivity {
             bit = ProfileFragment.profileFragment.bit;
         else if(num == 2)
             bit = RecipeView.recipeView.bit;
-
+        else if(num == 3)
+            bit = DataBase.getDataBase().getUser(getIntent().getStringExtra(KEY_USER)).getImage();
         if(bit == null){
             finish();
         }

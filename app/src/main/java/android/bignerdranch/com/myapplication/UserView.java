@@ -121,7 +121,8 @@ public class UserView extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(UserView.this, ImageViewCompleteFragment.class);
-                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 1);
+                i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 3);
+                i.putExtra(ImageViewCompleteFragment.KEY_USER, usuario.id);
                 startActivity(i);
             }
         });
