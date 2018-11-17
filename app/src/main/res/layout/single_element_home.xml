@@ -7,7 +7,7 @@
     android:layout_marginBottom="2dp"
     android:maxHeight="100dp"
     card_view:cardBackgroundColor="@color/card_backgroud"
-    card_view:cardCornerRadius="0dp"
+    card_view:cardCornerRadius="2dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"
     card_view:layout_constraintHeight_max="100dp"
@@ -49,21 +49,19 @@
 
         <TextView
             android:id="@+id/title_card"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titulo"
 
-            android:textAlignment="textStart"
-            android:padding="4dp"
-
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_marginBottom="0dp"
 
             android:fontFamily="@font/orangeblossoms"
+            android:padding="5dp"
+            android:text="Titulo"
             android:textSize="20sp"
-            />
+            android:textStyle="bold" />
 
 
         <TextView
@@ -83,7 +81,7 @@
 
         <ImageView
             android:id="@+id/image_card"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_margin="0dp"
