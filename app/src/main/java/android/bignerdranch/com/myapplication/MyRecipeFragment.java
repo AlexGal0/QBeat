@@ -33,9 +33,12 @@ public class MyRecipeFragment extends Fragment {
 
     private void updateRecipes(View view, LayoutInflater inflater){
         recetas = DataBase.getDataBase().userTree.get(DataBase.getDataBase().currentUser.id);
+
         LinearLayout linearLayout = view.findViewById(R.id.my_recipe_container);
 
         linearLayout.removeAllViews();
+        if(recetas == null)
+            return;
         Log.i("INGREDIENTE", recetas.size() + "");
 
         Collections.sort(recetas, new Comparator<Receta>() {

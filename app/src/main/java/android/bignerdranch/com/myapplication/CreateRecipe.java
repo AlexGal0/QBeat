@@ -245,6 +245,7 @@ public class CreateRecipe extends FragmentActivity {
 
             if(bit == null || bit.length > 1024 * 1024 * 2){
                 Toast.makeText(this, "La imagen excede el tamaño", Toast.LENGTH_SHORT).show();
+                imageUri = null;
                 return;
             }
             recipeImage.setImageURI(imageUri);

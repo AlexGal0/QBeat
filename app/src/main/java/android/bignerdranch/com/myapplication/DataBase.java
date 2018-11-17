@@ -245,6 +245,8 @@ public class DataBase {
     public void cleanUser() {
         currentUser = null;
         listRecipe.clear();
+        userTree.clear();
+        users.clear();
         loadLogin = 0;
     }
 

@@ -134,26 +134,28 @@ public class UserView extends FragmentActivity {
         container = findViewById(R.id.chef_recipe_container);
         recetas = DataBase.getDataBase().userTree.get(usuario.id);
 
-        Log.i("INGREDIENTE", recetas.size() + "");
+        if(recetas != null){
+            Log.i("INGREDIENTE", recetas.size() + "");
 
-        Collections.sort(recetas, new Comparator<Receta>() {
-            @Override
-            public int compare(Receta receta, Receta t1) {
-                return receta.getName().compareTo(t1.getName());
+            Collections.sort(recetas, new Comparator<Receta>() {
+                @Override
+                public int compare(Receta receta, Receta t1) {
+                    return receta.getName().compareTo(t1.getName());
+                }
+            });
+
+            for(int i = 0; i < recetas.size(); i++){
+                Receta r = recetas.get(i);
+                View recipe_view = getLayoutInflater().inflate(R.layout.single_recipe_list, null);
+
+                Button textView = recipe_view.findViewById(R.id.my_recipe_name_list);
+
+                textView.setText(r.getName());
+
+                textView.setOnClickListener(new onRecipeListClick(r));
+
+                container.addView(recipe_view);
             }
-        });
-
-        for(int i = 0; i < recetas.size(); i++){
-            Receta r = recetas.get(i);
-            View recipe_view = getLayoutInflater().inflate(R.layout.single_recipe_list, null);
-
-            Button textView = recipe_view.findViewById(R.id.my_recipe_name_list);
-
-            textView.setText(r.getName());
-
-            textView.setOnClickListener(new onRecipeListClick(r));
-
-            container.addView(recipe_view);
         }
 
 
