@@ -52,15 +52,14 @@
                 android:id="@+id/image_recipe_view"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
+                android:background="@color/home_background"
+                android:backgroundTint="@color/home_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@android:drawable/alert_dark_frame"
-                android:background="@color/home_background"/>
+                app:srcCompat="@android:drawable/alert_dark_frame" />
 
             <ProgressBar
                 android:id="@+id/image_progress"

@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(progressBar);
 
         progressBar.setIndeterminate(true);
+
+
     }
 
 
@@ -65,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < 4; i++){
             menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.transparent));
         }
-        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary
-        ));
+        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary));
     }
 
     private void setInitialFragment() {
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             fragments[1] = new SearchFragment();
             fragments[2] = new MyRecipeFragment();
             fragments[3] = new ProfileFragment();
+
+
+            DataBase.getDataBase().myRecipeFragment = (MyRecipeFragment) fragments[2];
         }
 
         if(menu == null){

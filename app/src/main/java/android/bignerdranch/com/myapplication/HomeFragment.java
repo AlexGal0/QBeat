@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -147,6 +148,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals("TrU66plo94hHO8PpPOh0vKR5lgD3")){
+            floatingActionButton.setVisibility(View.GONE);
+            addIngredient.setVisibility(View.GONE);
+        }
 
         return view;
     }

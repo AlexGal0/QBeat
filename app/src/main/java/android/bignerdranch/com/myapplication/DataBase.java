@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.util.Printer;
@@ -57,9 +58,10 @@ public class DataBase {
     public Map<String, ArrayList<Receta>> userTree;
     public Map<String, Usuario> users;
     public Usuario currentUser;
-    public boolean ingredientComplete;
     public boolean userComplete;
     public boolean recipeComplete;
+
+    public MyRecipeFragment myRecipeFragment;
 
 
     public byte[] f;
@@ -190,6 +192,10 @@ public class DataBase {
                                     break;
                             }
                         }
+
+                        if(DataBase.getDataBase().myRecipeFragment != null && DataBase.getDataBase().myRecipeFragment.getView() != null)
+                            DataBase.getDataBase().myRecipeFragment.notifyDataChange();
+
 
                         Log.i("CHANGES", "NOTIFY CHANGE IN DATABASE");
 

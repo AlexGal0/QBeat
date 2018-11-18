@@ -6,4 +6,5 @@
     <string name="my_recipe">Mis Recetas</string>
     <string name="nivel_text">Nivel</string>
     <string name="texto_inicio">Ingresar como:</string>
+    <string name="invitado_my_recipe">Registrese para crear y compartir recetas.</string>
 </resources>

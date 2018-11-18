@@ -9,6 +9,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;

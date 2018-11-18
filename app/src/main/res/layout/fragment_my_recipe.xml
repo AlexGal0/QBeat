@@ -24,6 +24,13 @@
             android:fontFamily="@font/orangeblossoms"
             />
 
+        <TextView
+            android:id="@+id/invitado_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invitado_my_recipe"
+            android:visibility="visible" />
+
         <LinearLayout
             android:id="@+id/my_recipe_container"
             android:layout_width="match_parent"
