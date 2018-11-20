@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] fragments;
     private ImageButton[] menu;
 
+    private int progress;
     public ProgressBar progressBar;
-
+    public ProgressBar progressBar2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -54,10 +55,13 @@ public class MainActivity extends AppCompatActivity {
             DataBase.getDataBase().updateLogin(this);
 
 
-        progressBar = new ProgressBar(this);
-        setContentView(progressBar);
+        setContentView(R.layout.load_screen);
+        progressBar = findViewById(R.id.progress_bar_title);
+        progressBar2 = findViewById(R.id.progress_bar_title2);
 
-        progressBar.setIndeterminate(true);
+        progressBar2.setMax(100);
+        progress = 0;
+        progressBar2.setProgress(0);
 
 
     }
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateFrame(){
-        if(DataBase.getDataBase().loadLogin == (1<<2) - 1){
+        if(DataBase.getDataBase().loadLogin == (1<<4) - 1){
             setContentView(R.layout.activity_main);
 
 
@@ -160,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageScrollStateChanged(int state) { }
             });
+        }
+        else{
+            progress += 25;
+            progressBar2.setProgress(progress);
         }
     }
 

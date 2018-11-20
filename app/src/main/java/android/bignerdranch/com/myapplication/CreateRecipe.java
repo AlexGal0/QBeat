@@ -170,7 +170,7 @@ public class CreateRecipe extends FragmentActivity {
                     progressBar.setVisibility(View.GONE);
                 }
                 else{
-                    final Receta receta = new Receta();
+                    final Receta receta = new Receta(DataBase.getDataBase().currentUser.id);
                     receta.setName(name.getText().toString());
                     receta.setDescription(description.getText().toString());
                     receta.setIngredientes(ingredientes);

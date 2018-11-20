@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.Printer;
 import android.widget.ListView;
@@ -51,24 +52,34 @@ import static android.content.ContentValues.TAG;
 
 public class DataBase {
 
+    private static DataBase dataBase;
+
     private Receta receta;
+
     private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
-    private static DataBase dataBase;
+    private Set<Usuario> listUsers;
+
     public Map<String, ArrayList<Receta>> userTree;
     public Map<String, Usuario> users;
+
     public Usuario currentUser;
-    public boolean userComplete;
-    public boolean recipeComplete;
 
     public MyRecipeFragment myRecipeFragment;
-
 
     public byte[] f;
 
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public int loadLogin;
     private Receta currentRecipe;
+
+    public int loadLogin;
+    /*
+        0  =  Ingredients
+        1  =  Recipes
+        2  =  Users
+        3  =  CurrentUser
+
+     */
 
 
     public static DataBase getDataBase(){
@@ -81,6 +92,7 @@ public class DataBase {
         loadLogin = 0;
         listRecipe = new TreeSet<>();
         listIngredients = new TreeSet<>();
+        listUsers = new TreeSet<>();
         userTree = new HashMap<>();
         users = new HashMap<>();
         Log.i("INGREDIENTE","COMPLETE :)");
@@ -150,6 +162,7 @@ public class DataBase {
 
                     if ((loadLogin & 1) == 0) {
                         loadLogin |= 1;
+                        Log.i("LOAD", "COMPLETE TASK 0");
                         mainActivity.updateFrame();
                     }
                 }
@@ -158,7 +171,6 @@ public class DataBase {
     }
 
     private void getRecetaDB(final MainActivity mainActivity){
-        recipeComplete = false;
         CollectionReference collectionReference = db.collection(References.RECETAS_REFERENCE);
         collectionReference
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -202,6 +214,7 @@ public class DataBase {
                         if ((loadLogin & (1 << 1)) == 0) {
                             loadLogin |= 1 << 1;
                             mainActivity.updateFrame();
+                            Log.i("LOAD", "COMPLETE TASK 1");
                         }
                     }
                 });
@@ -229,15 +242,15 @@ public class DataBase {
 
         String email = currentUser.getEmail();
         Log.i("LOGIN", email);
-        userComplete = false;
 
         Task<QuerySnapshot> documentSnapshotTask = db.collection(References.USERS_REFERENCE).whereEqualTo("email", email).get();
         documentSnapshotTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 DataBase.this.currentUser = queryDocumentSnapshots.getDocuments().get(0).toObject(Usuario.class);
-                getRecetaDB(mainActivity);
-                userComplete = true;
+                loadLogin |= (1<<3);
+                Log.i("LOAD", "COMPLETE TASK 3");
+                mainActivity.updateFrame();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -248,11 +261,52 @@ public class DataBase {
 
     }
 
+    private void getUsersDB(final MainActivity mainActivity) {
+        CollectionReference collectionReference = db.collection(References.USERS_REFERENCE);
+        collectionReference
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(e != null){
+                            Log.w("ERROR", "Listen ERROR", e);
+                            return;
+                        }
+                        for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
+                            Usuario usuario = documentChange.getDocument().toObject(Usuario.class);
+
+                            if(userTree.get(usuario.id) == null)
+                                userTree.put(usuario.id, new ArrayList<Receta>());
+
+
+                            switch (documentChange.getType()){
+                                case ADDED:
+                                    listUsers.add(usuario);
+                                    break;
+                                case MODIFIED:
+                                    Log.i("CHANGES", "CHANGE A VALUE IN USER");
+                                    listUsers.remove(usuario);
+                                    listUsers.add(usuario);
+                                    break;
+                                case REMOVED:
+                                    break;
+                            }
+                        }
+
+                        if ((loadLogin & (1 << 2)) == 0) {
+                            loadLogin |= 1 << 2;
+                            Log.i("LOAD", "COMPLETE TASK 2");
+                            mainActivity.updateFrame();
+                        }
+                    }
+                });
+    }
+
     public void cleanUser() {
         currentUser = null;
         listRecipe.clear();
         userTree.clear();
         users.clear();
+        listUsers.clear();
         loadLogin = 0;
     }
 
@@ -261,9 +315,13 @@ public class DataBase {
     }
 
     public void updateLogin(MainActivity mainActivity) {
-        this.setUser(mainActivity);
-        this.getIngredientesDB(mainActivity);
+        this.getIngredientesDB(mainActivity); // 0
+        this.getRecetaDB(mainActivity);       // 1
+        this.getUsersDB(mainActivity);        // 2
+        this.setUser(mainActivity);           // 3
     }
+
+
 
     public void updateAllRecipes() {
         for(Receta e: listRecipe){
@@ -285,5 +343,9 @@ public class DataBase {
 
     public void addUserToMemory(Usuario usuario) {
         users.put(usuario.id, usuario);
+    }
+
+    public ArrayList<Usuario> getlistUsers() {
+        return new ArrayList<>(listUsers);
     }
 }

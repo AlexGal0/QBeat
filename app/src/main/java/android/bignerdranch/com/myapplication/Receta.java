@@ -27,7 +27,6 @@ public class Receta implements Comparable {
      */
     public Receta(){
         this.id = UUID.randomUUID().toString();
-        this.chefId = DataBase.getDataBase().currentUser.id;
     };
     public Receta(String chefId){
         this();
