@@ -77,7 +77,7 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
         }
         holder.descripcion.setText(receta.getDescription());
 
-        holder.fecha.setText(new SimpleDateFormat("hh/MM/dd").format(receta.getCreate()));
+        holder.fecha.setText(new SimpleDateFormat("yy/MM/dd").format(receta.getCreate()));
 
         holder.imagen.setVisibility(View.GONE);
         holder.download.setVisibility(View.VISIBLE);
