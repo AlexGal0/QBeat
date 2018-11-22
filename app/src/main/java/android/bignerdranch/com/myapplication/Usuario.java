@@ -110,6 +110,6 @@ public class Usuario implements Comparable{
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return getName().compareTo(((Usuario)o).getName());
+        return id.compareTo(((Usuario)o).id);
     }
 }

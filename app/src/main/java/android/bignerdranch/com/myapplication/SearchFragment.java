@@ -209,6 +209,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
+
+
         adapter2.notifyDataSetChanged();
 
         if(recetas.size() == 0)

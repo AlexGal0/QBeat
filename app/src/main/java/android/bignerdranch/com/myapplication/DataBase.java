@@ -110,6 +110,8 @@ public class DataBase {
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).set(receta);
     }
     public void addUser(Usuario usuario) {
+        if(usuario.getImage() != null)
+            usuario = new Usuario(usuario);
         db.collection(References.USERS_REFERENCE).document(usuario.id).set(usuario);
     }
 

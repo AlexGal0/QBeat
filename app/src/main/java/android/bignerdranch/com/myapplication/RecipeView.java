@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -38,6 +39,8 @@ public class RecipeView extends FragmentActivity {
     private Button chefButton;
     private Button editRecipe;
     private Receta receta;
+
+    private FloatingActionButton playButton;
 
     public byte[] bit;
 
@@ -213,6 +216,19 @@ public class RecipeView extends FragmentActivity {
             }
         });
 
+
+        playButton = findViewById(R.id.play_button);
+
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBase.getDataBase().receta = receta;
+                finish();
+                Intent intent = new Intent(RecipeView.this, PlayRecipe.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
