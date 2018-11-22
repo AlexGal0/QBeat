@@ -24,7 +24,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/image_search_user"
-        android:text="Titulo" />
+        android:text="Titulo"
+
+        android:textStyle="bold"
+        android:textColor="@color/backgroundSplash"/>
 
     <TextView
         android:id="@+id/search_level_text"
@@ -35,7 +38,9 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:singleLine="false"
-        android:text="Nivel:" />
+        android:text="Nivel:"
+
+        android:textStyle="bold|italic"/>
 
     <ProgressBar
         android:id="@+id/single_search_progressbar_user"
@@ -54,6 +59,8 @@
         android:layout_below="@+id/chef_name_search"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/search_level_text"
-        android:text="TextView" />
+        android:text="TextView"
+
+        android:textStyle="bold|italic"/>
 
 </RelativeLayout>

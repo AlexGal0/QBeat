@@ -11,7 +11,13 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Busqueda" />
+        android:text="Busqueda"
+
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/backgroundSplash"
+        android:fontFamily="@font/orangeblossoms"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,11 +28,15 @@
             android:id="@+id/search_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_weight="30"
             android:ems="10"
             android:hint="Buscar"
-            android:inputType="textCapSentences|textAutoComplete" />
+            android:inputType="textCapSentences|textAutoComplete"
+
+            android:background="@drawable/style_edit_text"
+            android:padding="10dp"
+            />
 
         <ImageButton
             android:id="@+id/search_button"
@@ -35,7 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="0dp"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@android:drawable/ic_menu_search"
+            android:background="@drawable/background_progressbar"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            />
 
     </LinearLayout>
 
@@ -43,7 +57,12 @@
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recetas" />
+        android:text="Recetas"
+
+        android:layout_margin="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/backgroundSplash"
+        android:fontFamily="@font/orangeblossoms"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recycle"
@@ -64,13 +83,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No se encontraron resultados"
+
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chefs" />
+        android:text="Chefs"
+
+        android:layout_margin="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/backgroundSplash"
+        android:fontFamily="@font/orangeblossoms"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recycle_user"
@@ -91,6 +119,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No se encontraron resultados"
+
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+
         android:visibility="gone" />
 
 </LinearLayout>

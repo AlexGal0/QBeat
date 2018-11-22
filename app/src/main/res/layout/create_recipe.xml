@@ -5,18 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container">
+    android:id="@+id/container"
+    android:background="@color/home_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/home_background">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear receta"/>
+            android:text="Crear receta"
+
+
+            android:textAlignment="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="18sp"
+            android:textColor="@color/backgroundSplash"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            />
 
 
         <EditText
@@ -25,7 +38,15 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nombre"
-            android:inputType="textCapSentences|textAutoComplete" />
+
+            android:inputType="textCapSentences|textAutoComplete"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:background="@drawable/style_create_recipe_input_text"
+            android:textColorHint="@color/backgroundSplash"
+            />
+
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -35,17 +56,38 @@
                 android:id="@+id/description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Descripcion" />
+                android:hint="Descripción"
+
+                android:inputType="textCapSentences|textAutoComplete"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/style_create_recipe_input_text"
+                android:textColorHint="@color/backgroundSplash"
+                />
 
 
 
         </android.support.design.widget.TextInputLayout>
+
+
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ingredientes" />
+            android:text="Ingredientes"
+
+            android:textAlignment="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="15sp"
+            android:textColor="@color/backgroundSplash"
+            android:textAllCaps="false"
+            />
+
+
+
         <LinearLayout
             android:id="@+id/container_ingredient"
             android:layout_width="match_parent"
@@ -60,13 +102,33 @@
             android:id="@+id/add_ingredient_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Añadir Ingrediente" />
+            android:text="Añadir Ingrediente"
+
+
+            android:background="@drawable/style_button"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pasos" />
+            android:text="Pasos"
+
+            android:textAlignment="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="15sp"
+            android:textColor="@color/backgroundSplash"
+            android:textAllCaps="false" />
 
         <LinearLayout
             android:id="@+id/step_container"
@@ -80,7 +142,18 @@
             android:id="@+id/add_step"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Añadir paso" />
+            android:text="Añadir paso"
+
+            android:background="@drawable/style_button"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -115,6 +188,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="48dp"
                 android:src="@android:drawable/ic_menu_delete"
+                android:background="@drawable/background_progressbar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_create_recipe"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -125,12 +199,34 @@
             android:id="@+id/create_recipe_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear Receta" />
+            android:text="Crear Receta"
+
+            android:background="@drawable/style_button"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <Button
             android:id="@+id/update_recipe_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizar Receta" />
+            android:text="Actualizar Receta"
+
+            android:background="@drawable/style_button"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textSize="11sp"/>
     </LinearLayout>
 </ScrollView>
