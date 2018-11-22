@@ -109,11 +109,16 @@ public class PlayRecipe extends FragmentActivity {
                             finish();
 
                             Usuario usuario = DataBase.getDataBase().currentUser;
-                            double randomEXP = Math.random()*100.0/2.0;
-                            usuario.addExperience(randomEXP);
 
-                            DataBase.getDataBase().addUser(usuario);
-                            Toast.makeText(PlayRecipe.this, "Felicidades: +" + randomEXP+ ".", Toast.LENGTH_SHORT).show();
+                            if(!usuario.id.equals("5f2929fe-09cf-4677-bb9a-28a5c15b228c")) {
+                                double randomEXP = Math.random()*100.0/2.0;
+                                usuario.addExperience(randomEXP);
+                                DataBase.getDataBase().addUser(usuario);
+                                Toast.makeText(PlayRecipe.this, "Felicidades: +" + randomEXP+ ".", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                Toast.makeText(PlayRecipe.this, "Registrese para ganar experiencia", Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     builder.setNegativeButton("No", null);
