@@ -17,8 +17,8 @@
             android:id="@+id/name_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="30dp"
             android:text="Nombre receta"
             android:textAlignment="center"
             android:textSize="32sp"
@@ -71,6 +71,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_media_play" />
 
         <TextView
             android:id="@+id/description_recipe_view"
@@ -128,16 +137,38 @@
             android:layout_margin="15dp"
             android:dividerPadding="15dp"
             android:orientation="vertical"
-            android:textAlignment="center"></LinearLayout>
+            android:textAlignment="center">
 
-        <Button
-            android:id="@+id/delete_recipe_button"
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/ColorSecundary"
-            android:text="Eliminar receta"
-            android:textAlignment="center" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/edit_recipe_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
+                android:drawableLeft="@android:drawable/ic_menu_edit"
+                android:paddingLeft="10dp"
+                android:text="Editar receta"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/delete_recipe_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/ColorSecundary"
+                android:text="Eliminar receta"
+                android:textAlignment="center" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

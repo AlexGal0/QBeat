@@ -36,6 +36,7 @@ public class RecipeView extends FragmentActivity {
     private ProgressBar progressBar;
     private TextView fecha;
     private Button chefButton;
+    private Button editRecipe;
     private Receta receta;
 
     public byte[] bit;
@@ -194,6 +195,24 @@ public class RecipeView extends FragmentActivity {
                 builder.show();
             }
         });
+
+
+        editRecipe = findViewById(R.id.edit_recipe_button);
+
+        if(!receta.chefId.equals(DataBase.getDataBase().currentUser.id))
+            editRecipe.setVisibility(View.GONE);
+
+        editRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBase.getDataBase().receta = new Receta(receta);
+                Intent intent = new Intent(RecipeView.this, CreateRecipe.class);
+                intent.putExtra(CreateRecipe.TAG_TYPE, 1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
 
     }

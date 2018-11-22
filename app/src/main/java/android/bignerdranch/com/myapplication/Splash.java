@@ -59,7 +59,7 @@ public class Splash extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 String email = "invitado@invitado.com";
-                final String pass = "invitadoadmin";
+                final String pass = "111111111";
 
                 progressBar.setVisibility(View.VISIBLE);
                 userButton.setEnabled(false);

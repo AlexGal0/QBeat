@@ -46,26 +46,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CreateRecipe extends FragmentActivity {
-    public static final String TAG_INGREDIENTES = "android.qbeat.create_recipe.ingredientes";
+    public static final String TAG_TYPE = "android.qbeat.create_recipe.type";
     public static final String TAG_NUMBER_STEP = "android.qbeat.create_recipe.number_step";
     public static final String TAG_DESCRIPTION_STEP = "android.qbeat.create_recipe.description_step";
     private static final int RESULT_LOAD_IMAGE = 12;
 
-    public static ArrayList<Paso> pasos;
-    public static ArrayList<Ingrediente> ingredientes;
+    private int type;
 
 
     private EditText name;
     private TextInputEditText description;
     private Button addIngredient;
     private Button addStep;
+
     private Button create;
+    private Button update;
+
 
     private ImageView recipeImage;
     private ProgressBar progressBar;
+    private ImageButton removeImage;
 
     private Uri imageUri;
 
+    private Receta receta;
 
 
     @Override
@@ -73,23 +77,39 @@ public class CreateRecipe extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_recipe);
 
-        SetIngredientes.reset();
-        pasos = new ArrayList<>();
-        ingredientes = new ArrayList<>();
+        type = getIntent().getIntExtra(TAG_TYPE, -1);
 
+        create = findViewById(R.id.create_recipe_button);
+        update = findViewById(R.id.update_recipe_button);
 
+        if(type == 0){
+            receta = new Receta(DataBase.getDataBase().currentUser.id);
+            DataBase.getDataBase().rest = DataBase.getDataBase().getListIngredients();
+
+            create.setVisibility(View.VISIBLE);
+            update.setVisibility(View.GONE);
+
+        }
+        else if(type == 1){
+            receta = DataBase.getDataBase().receta;
+            DataBase.getDataBase().rest = DataBase.getDataBase().getListIngredients();
+            DataBase.getDataBase().rest.removeAll(receta.getIngredientes());
+
+            create.setVisibility(View.GONE);
+            update.setVisibility(View.VISIBLE);
+        }
+
+        DataBase.getDataBase().receta = receta;
         name = findViewById(R.id.name_edit_text);
-
-
         description = findViewById(R.id.description_text);
-
         addIngredient = findViewById(R.id.add_ingredient_button);
-        Log.i("INGREDIENTE", SetIngredientes.size()+ "");
+        removeImage = findViewById(R.id.remove_image_button);
+
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addIngredient.setEnabled(false);
                 Intent i = new Intent(CreateRecipe.this, SelectIngredientActivity.class);
-
                 startActivityForResult(i, Activity.RESULT_OK);
             }
         });
@@ -102,7 +122,7 @@ public class CreateRecipe extends FragmentActivity {
                 LinearLayout linearLayout = findViewById(R.id.step_container);
 
                 Paso step = new Paso();
-                pasos.add(step);
+                receta.addPaso(step);
                 View newStep = getLayoutInflater().inflate(R.layout.single_step_list, null);
 
                 TextView numberStep = newStep.findViewById(R.id.number_step);
@@ -141,8 +161,6 @@ public class CreateRecipe extends FragmentActivity {
 
 
 
-        create = findViewById(R.id.create_recipe_button);
-
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,29 +177,25 @@ public class CreateRecipe extends FragmentActivity {
                     create.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
                 }
-                else if(ingredientes.size() == 0) {
+                else if(receta.getIngredientes().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Ingredientes vacios", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
                 }
-                else if(pasos.size() == 0) {
+                else if(receta.getPasos().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Pasos vacios", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
                 }
                 else{
-                    final Receta receta = new Receta(DataBase.getDataBase().currentUser.id);
-                    receta.setName(name.getText().toString());
-                    receta.setDescription(description.getText().toString());
-                    receta.setIngredientes(ingredientes);
-                    receta.setPasos(pasos);
-                    receta.setCreate(new Date(System.currentTimeMillis()));
-                    receta.setChefName(DataBase.getDataBase().currentUser.getName());
-
-
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
 
+
+                    receta.setName(name.getText().toString());
+                    receta.setDescription(description.getText().toString());
+                    receta.setCreate(new Date(System.currentTimeMillis()));
+                    receta.setChefName(DataBase.getDataBase().currentUser.getName());
 
 
                     if(imageUri != null){
@@ -189,11 +203,6 @@ public class CreateRecipe extends FragmentActivity {
                         final StorageReference riversRef = storageRef.child("Recetas Images/" + imageUri.getLastPathSegment() + System.currentTimeMillis());
 
                         receta.setRecipeImage(riversRef.getName());
-
-                        ingredientes = null;
-                        pasos = null;
-
-
                         final UploadTask uploadTask = riversRef.putFile(imageUri);
 
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -226,6 +235,93 @@ public class CreateRecipe extends FragmentActivity {
             }
         });
 
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                update.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
+
+                if(name.getText().length() == 0){
+                    Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if(description.getText().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if(receta.getIngredientes().size() == 0) {
+                    Toast.makeText(getApplicationContext(), "Ingredientes vacios", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if(receta.getPasos().size() == 0) {
+                    Toast.makeText(getApplicationContext(), "Pasos vacios", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                }
+                else{
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+
+
+                    receta.setName(name.getText().toString());
+                    receta.setDescription(description.getText().toString());
+                    receta.setCreate(new Date(System.currentTimeMillis()));
+                    receta.setChefName(DataBase.getDataBase().currentUser.getName());
+
+
+                    if(imageUri != null){
+
+                        final StorageReference riversRef = storageRef.child("Recetas Images/" + imageUri.getLastPathSegment() + System.currentTimeMillis());
+
+                        receta.setRecipeImage(riversRef.getName());
+                        final UploadTask uploadTask = riversRef.putFile(imageUri);
+
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(CreateRecipe.this, "Fallo al actulizar la receta", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressBar.setVisibility(View.GONE);
+                                Log.i("Upload Image", riversRef.getName());
+                                Toast.makeText(getApplicationContext(), "Receta actualizar exitosamente!", Toast.LENGTH_SHORT).show();
+                                DataBase.getDataBase().addRecipe(receta);
+                                finish();
+                            }
+                        });
+                    }
+                    else{
+                        DataBase.getDataBase().addRecipe(receta);
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Receta actualizada exitosamente!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                }
+            }
+        });
+
+
+        removeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageUri = null;
+                recipeImage.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_report_image));
+                receta.setImage(null);
+                receta.setRecipeImage(null);
+                removeImage.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
     @Override
@@ -249,72 +345,90 @@ public class CreateRecipe extends FragmentActivity {
                 imageUri = null;
                 return;
             }
-            recipeImage.setImageURI(imageUri);
+
+            recipeImage.setImageBitmap(Util.fixSizeRectangle(bit));
+            receta.setImage(bit);
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(SetIngredientes.removed != null)
-          inflateIngrediente();
+        addIngredient.setEnabled(true);
+        receta = DataBase.getDataBase().receta;
+        updateView();
+    }
 
-        updateStep();
+    private void updateView() {
+        if(receta.getName() != null)
+            name.setText(receta.getName());
+        if(receta.getDescription() != null)
+            description.setText(receta.getDescription());
+
         updateIngredient();
+        updateStep();
+
+        removeImage.setVisibility(View.VISIBLE);
+        if(receta.getImage() != null){
+            recipeImage.setImageBitmap(Util.fixSizeRectangle(receta.getImage()));
+        }
+        else if(imageUri == null)
+            removeImage.setVisibility(View.GONE);
+
     }
 
     private void updateIngredient() {
         LinearLayout linearLayout = findViewById(R.id.container_ingredient);
+        linearLayout.removeAllViews();
+        ArrayList<Ingrediente> ingredientes = receta.getIngredientes();
+
+        if(ingredientes == null)
+            receta.setIngredientes(ingredientes = new ArrayList<>());
+
         Collections.sort(ingredientes);
 
-        for(int i = 0; i < linearLayout.getChildCount(); i++){
-            View view = linearLayout.getChildAt(i);
+        for(int i = 0; i < ingredientes.size(); i++){
+            Ingrediente ingrediente = ingredientes.get(i);
+            View view = getLayoutInflater().inflate(R.layout.single_ingredient, null);
 
             TextView name_ingredient = view.findViewById(R.id.name_ingredient);
-            name_ingredient.setText(ingredientes.get(i).getName());
+            name_ingredient.setText(ingrediente.getName());
+
+            ImageButton cancel = view.findViewById(R.id.remove_ingredient_button);
+
+            linearLayout.addView(view);
+            cancel.setOnClickListener(new RemoveIngredientClick(ingrediente, linearLayout, view));
         }
     }
 
     private void updateStep(){
         LinearLayout linearLayout = findViewById(R.id.step_container);
+        linearLayout.removeAllViews();
 
-        for(int i = 0; i < linearLayout.getChildCount(); i++){
-            View view = linearLayout.getChildAt(i);
+        ArrayList<Paso> pasos = receta.getPasos();
+
+        if(pasos == null)
+            receta.setPasos(pasos = new ArrayList<>());
+
+        Log.i("COUNTSTEP", pasos.size() + "");
+        for(int i = 0; i < pasos.size(); i++){
+            View view = getLayoutInflater().inflate(R.layout.single_step_list, null);
 
             TextView number = view.findViewById(R.id.number_step);
             number.setText((i + 1) + "");
 
             TextView description = view.findViewById(R.id.description_step);
 
-            //if(pasos.get(i).getDescription().trim().length() != 0)
-                description.setText(pasos.get(i).getDescription());
+            description.setText(pasos.get(i).getDescription());
+            linearLayout.addView(view);
+
+
+            ImageButton removeButton = view.findViewById(R.id.remove_step);
+            removeButton.setOnClickListener(new RemoveStepClick(linearLayout, view));
+
+            ImageButton editButton = view.findViewById(R.id.edit_step);
+            editButton.setOnClickListener(new EditStepClick(linearLayout, view, pasos.get(i)));
         }
-    }
-
-
-    private void inflateIngrediente() {
-        final Ingrediente ingrediente = SetIngredientes.removed;
-        SetIngredientes.removed = null;
-        Log.i("INGREDIENTE", "RESULT");
-
-        Log.i("INGREDIENTE", ingrediente.getName()+ "");
-
-
-        LinearLayout linearLayout = findViewById(R.id.container_ingredient);
-
-        View view = getLayoutInflater().inflate(R.layout.single_ingredient, null);
-
-
-
-        TextView name = view.findViewById(R.id.name_ingredient);
-        name.setText(ingrediente.getName());
-
-        ImageButton cancel = view.findViewById(R.id.remove_ingredient_button);
-
-        linearLayout.addView(view);
-        cancel.setOnClickListener(new RemoveIngredientClick(ingrediente, linearLayout, view));
-        ingredientes.add(ingrediente);
-
     }
 
     private class RemoveIngredientClick implements View.OnClickListener{
@@ -329,11 +443,13 @@ public class CreateRecipe extends FragmentActivity {
         @Override
         public void onClick(View view) {
             Log.i("INGREDIENTE", "BUTTON PRESSED");
-            SetIngredientes.add(ingrediente);
-            ingredientes.remove(ingrediente);
+            receta.getIngredientes().remove(ingrediente);
+            DataBase.getDataBase().rest.add(ingrediente);
             linearLayout.removeView(root);
         }
     }
+
+
 
     private class RemoveStepClick implements View.OnClickListener{
         private  LinearLayout linearLayout;
@@ -346,7 +462,7 @@ public class CreateRecipe extends FragmentActivity {
         public void onClick(View view) {
             Log.i("INGREDIENTE", "BUTTON PRESSED");
             int index = linearLayout.indexOfChild(root);
-            pasos.remove(index);
+            receta.removePaso(index);
             linearLayout.removeView(root);
             updateStep();
         }
@@ -369,6 +485,7 @@ public class CreateRecipe extends FragmentActivity {
 
             i.putExtra(TAG_NUMBER_STEP, linearLayout.indexOfChild(root));
 
+            DataBase.getDataBase().receta = receta;
             startActivity(i);
         }
     }

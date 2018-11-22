@@ -54,7 +54,9 @@ public class DataBase {
 
     private static DataBase dataBase;
 
-    private Receta receta;
+    public Receta receta;
+    public ArrayList<Ingrediente> rest;
+
 
     private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
@@ -70,6 +72,7 @@ public class DataBase {
     public byte[] f;
 
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private Receta currentRecipe;
 
     public int loadLogin;
@@ -98,28 +101,16 @@ public class DataBase {
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
-    public static void Buscar (Usuario user){
-        CollectionReference userRef = db.collection(References.USERS_REFERENCE);
-        Query query = userRef.whereEqualTo("name", user.getName());
-    }
 
     public void addRecipe(Receta receta){
+        if(receta.getImage() != null){
+            receta = new Receta(receta);
+            receta.setImage(null);
+        }
         db.collection(References.RECETAS_REFERENCE).document(receta.getId()).set(receta);
     }
     public void addUser(Usuario usuario) {
         db.collection(References.USERS_REFERENCE).document(usuario.id).set(usuario);
-    }
-
-    public Receta getRecipe (String id){
-        DocumentReference docRer= db.collection(References.RECETAS_REFERENCE).document(id);
-        docRer.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-               receta = documentSnapshot.toObject(Receta.class);
-                ArrayList<Paso> pasos = receta.getPasos();
-            }
-        });
-        return new Receta(receta);
     }
 
     public void setCampo(String campo, String newValue){
@@ -197,6 +188,8 @@ public class DataBase {
                                     Log.i("CHANGES", "CHANGE A VALUE");
                                     listRecipe.remove(receta);
                                     listRecipe.add(receta);
+                                    userR.remove(receta);
+                                    userR.add(receta);
                                     break;
                                 case REMOVED:
                                     listRecipe.remove(receta);
@@ -347,5 +340,9 @@ public class DataBase {
 
     public ArrayList<Usuario> getlistUsers() {
         return new ArrayList<>(listUsers);
+    }
+
+    public Set<Ingrediente> getSetIngredientes(){
+        return new TreeSet<Ingrediente>(listIngredients);
     }
 }

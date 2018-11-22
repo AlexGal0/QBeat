@@ -64,7 +64,7 @@ public class MyRecipeFragment extends Fragment {
             linearLayout.addView(recipe_view);
         }
 
-        if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals("TrU66plo94hHO8PpPOh0vKR5lgD3")){
+        if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3")){
             TextView textView = view.findViewById(R.id.invitado_text);
             textView.setVisibility(View.GONE);
         }

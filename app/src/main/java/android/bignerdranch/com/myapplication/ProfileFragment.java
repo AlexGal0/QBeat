@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
         userImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(bit != null && !FirebaseAuth.getInstance().getCurrentUser().getUid().equals("TrU66plo94hHO8PpPOh0vKR5lgD3")){
+                if(bit != null && !FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3")){
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(android.content.Context.VIBRATOR_SERVICE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals("TrU66plo94hHO8PpPOh0vKR5lgD3"))
+                if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3"))
                     return;
                 Intent i = new Intent(getContext(), ImageViewCompleteFragment.class);
                 i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 1);

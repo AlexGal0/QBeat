@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container">
@@ -87,11 +88,11 @@
 
             <ImageView
                 android:id="@+id/image_create_recipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
-                android:src="@android:drawable/ic_input_add"
+                android:src="@android:drawable/ic_menu_report_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,13 +100,25 @@
 
             <ProgressBar
                 android:id="@+id/progressBarCreateRecipe"
-                style="?android:attr/progressBarStyle"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/remove_image_button"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="48dp"
+                android:src="@android:drawable/ic_menu_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_create_recipe"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
 
         <Button
@@ -113,5 +126,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Crear Receta" />
+
+        <Button
+            android:id="@+id/update_recipe_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Receta" />
     </LinearLayout>
 </ScrollView>
