@@ -38,6 +38,7 @@ public class Usuario implements Comparable{
         this.currentExperience = usuario.currentExperience;
         this.email = usuario.email;
         this.imageReference = usuario.imageReference;
+        this.name = usuario.name;
     }
 
 
