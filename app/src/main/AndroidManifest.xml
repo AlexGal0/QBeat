@@ -35,6 +35,7 @@
         <activity android:name=".Add_Ingredient"            android:screenOrientation="portrait"/>
         <activity android:name=".UserView"                  android:screenOrientation="portrait"/>
         <activity android:name=".PlayRecipe"                android:screenOrientation="portrait"/>
+        <activity android:name=".Tips"                      android:screenOrientation="portrait"/>
         <activity android:name=".ImageViewCompleteFragment"/>
 
     </application>

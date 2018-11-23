@@ -1,6 +1,7 @@
 package android.bignerdranch.com.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private Fragment[] fragments;
     private ImageButton[] menu;
+    private Menu menuBar;
 
     private int progress;
     public ProgressBar progressBar;
@@ -159,16 +162,42 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     setChecked(position);
+                    if(position == 0){
+                        menuBar.getItem(0 ).setVisible(true);
+                    }
+
+                    else
+                        menuBar.getItem(0 ).setVisible(false);
+
                 }
 
                 @Override
                 public void onPageScrollStateChanged(int state) { }
             });
+
+            menuBar.getItem(0).setVisible(true);
+
         }
         else{
             progress += 25;
             progressBar2.setProgress(progress);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        menu.getItem(0).setVisible(false);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent i = new Intent(MainActivity.this, Tips.class);
+                startActivity(i);
+                return false;
+            }
+        });
+        menuBar = menu;
+        return true;
     }
 
     @Override
