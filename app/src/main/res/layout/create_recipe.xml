@@ -188,17 +188,16 @@
             android:text="Añadir Ingrediente"
 
 
-            android:background="@android:color/transparent"
+            android:background="@drawable/style_button"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:textColor="@color/backgroundSplash"
+            android:textColor="@color/white"
             android:textAllCaps="true"
-            android:textSize="11sp"
-            android:fontFamily="@font/cryogenix"
-            />
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -228,17 +227,16 @@
             android:layout_height="wrap_content"
             android:text="Añadir paso"
 
-            android:background="@android:color/transparent"
+            android:background="@drawable/style_button"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:textColor="@color/backgroundSplash"
+            android:textColor="@color/white"
             android:textAllCaps="true"
-            android:textSize="11sp"
-            android:fontFamily="@font/cryogenix"
-            />
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/textView14"
@@ -268,17 +266,16 @@
             android:layout_height="wrap_content"
             android:text="Añadir Tag"
 
-            android:background="@android:color/transparent"
+            android:background="@drawable/style_button"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:textColor="@color/backgroundSplash"
+            android:textColor="@color/white"
             android:textAllCaps="true"
-            android:textSize="11sp"
-            android:fontFamily="@font/cryogenix"
-            />
+            android:textStyle="italic"
+            android:textSize="11sp"/>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
