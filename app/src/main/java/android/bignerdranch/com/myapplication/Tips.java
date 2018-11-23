@@ -50,9 +50,13 @@ public class Tips extends FragmentActivity{
                     else
                         progressBar2.setProgress(progressBar2.getProgress() + 100/n);
 
-                    TextView textView = new TextView(Tips.this);
-                    textView.setText("Tip #" + (container.getChildCount() + 1) +":\t" + doc.get("tip") + "");
-                    container.addView(textView);
+                    View view = getLayoutInflater().inflate(R.layout.single_tip, null);
+                    TextView numberTip = view.findViewById(R.id.number_tip);
+                    TextView textTip = view.findViewById(R.id.text_tip);
+
+                    numberTip.setText("Tip #" + (container.getChildCount() + 1));
+                    textTip.setText(doc.get("tip") + "");
+                    container.addView(view);
                 }
                 container.setVisibility(View.VISIBLE);
                 progressBar2.setVisibility(View.GONE);
