@@ -35,7 +35,9 @@
             android:inputType="textCapSentences|textAutoComplete"
 
             android:background="@drawable/style_edit_text"
-            android:padding="10dp"
+            android:padding="5dp"
+            android:layout_gravity="center"
+
             />
 
         <ImageButton
