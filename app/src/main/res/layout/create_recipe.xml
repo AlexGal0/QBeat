@@ -75,7 +75,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Dificultad" />
+            android:text="Dificultad"
+
+            android:layout_margin="10dp"
+            android:fontFamily="@font/orangeblossoms"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,18 +91,20 @@
 
             <SeekBar
                 android:id="@+id/picker_dificult"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_weight="2"
                 android:max="10" />
 
             <TextView
                 android:id="@+id/dificult_view_create_recipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:text="0"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
@@ -107,7 +114,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tiempo" />
+            android:text="Tiempo"
+
+            android:layout_margin="10dp"
+            android:fontFamily="@font/orangeblossoms"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp"/>
 
         <LinearLayout
         android:layout_width="match_parent"
@@ -117,26 +129,30 @@
 
             <SeekBar
                 android:id="@+id/picker_time"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_weight="2"
                 android:max="200" />
 
             <TextView
                 android:id="@+id/time_view_create_recipe"
                 android:layout_width="11dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="0"
-                android:textAlignment="textEnd" />
+                android:textAlignment="textEnd"
+                android:paddingRight="2dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:layout_weight="1"
-                android:text="Min" />
+                android:layout_weight="0.5"
+                android:text="Min"
+                android:textAlignment="textStart"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
@@ -172,16 +188,17 @@
             android:text="Añadir Ingrediente"
 
 
-            android:background="@drawable/style_button"
+            android:background="@android:color/transparent"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/backgroundSplash"
             android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textSize="11sp"/>
+            android:textSize="11sp"
+            android:fontFamily="@font/cryogenix"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -211,16 +228,17 @@
             android:layout_height="wrap_content"
             android:text="Añadir paso"
 
-            android:background="@drawable/style_button"
+            android:background="@android:color/transparent"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/backgroundSplash"
             android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textSize="11sp"/>
+            android:textSize="11sp"
+            android:fontFamily="@font/cryogenix"
+            />
 
         <TextView
             android:id="@+id/textView14"
@@ -248,18 +266,19 @@
             android:id="@+id/add_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:text="Añadir Tag"
 
+            android:background="@android:color/transparent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/style_button"
             android:padding="10dp"
-            android:text="Añadir Tag"
+            android:textColor="@color/backgroundSplash"
             android:textAllCaps="true"
-            android:textColor="@color/white"
             android:textSize="11sp"
-            android:textStyle="italic" />
+            android:fontFamily="@font/cryogenix"
+            />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
