@@ -167,12 +167,12 @@ public class CreateRecipe extends FragmentActivity {
                 create.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
 
-                if(name.getText().length() == 0){
+                if(name.getText().toString().trim().length() == 0){
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
                 }
-                else if(description.getText().length() == 0) {
+                else if(description.getText().toString().trim().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
@@ -242,12 +242,12 @@ public class CreateRecipe extends FragmentActivity {
                 update.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
 
-                if(name.getText().length() == 0){
+                if(name.getText().toString().trim().length() == 0){
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
                 }
-                else if(description.getText().length() == 0) {
+                else if(description.getText().toString().trim().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
