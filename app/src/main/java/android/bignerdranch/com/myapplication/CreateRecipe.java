@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,14 +59,25 @@ public class CreateRecipe extends FragmentActivity {
     private TextInputEditText description;
     private Button addIngredient;
     private Button addStep;
+    private Button addTag;
 
     private Button create;
     private Button update;
+
+    private SeekBar dificultPicker;
+    private SeekBar timePicker;
+
+
+    TextView dificultView;
+    TextView timeView;
+
 
 
     private ImageView recipeImage;
     private ProgressBar progressBar;
     private ImageButton removeImage;
+    private LinearLayout tagContainer;
+
 
     private Uri imageUri;
 
@@ -82,10 +94,10 @@ public class CreateRecipe extends FragmentActivity {
         create = findViewById(R.id.create_recipe_button);
         update = findViewById(R.id.update_recipe_button);
 
+        DataBase.getDataBase().currTags = DataBase.getDataBase().getTags();
         if(type == 0){
             receta = new Receta(DataBase.getDataBase().currentUser.id);
             DataBase.getDataBase().rest = DataBase.getDataBase().getListIngredients();
-
             create.setVisibility(View.VISIBLE);
             update.setVisibility(View.GONE);
 
@@ -104,6 +116,47 @@ public class CreateRecipe extends FragmentActivity {
         description = findViewById(R.id.description_text);
         addIngredient = findViewById(R.id.add_ingredient_button);
         removeImage = findViewById(R.id.remove_image_button);
+
+
+        dificultPicker = findViewById(R.id.picker_dificult);
+        dificultView = findViewById(R.id.dificult_view_create_recipe);
+
+        dificultPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                dificultView.setText(i + "");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                receta.setDificult(seekBar.getProgress());
+            }
+        });
+
+
+        timePicker = findViewById(R.id.picker_time);
+        timeView = findViewById(R.id.time_view_create_recipe);
+
+        timePicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                timeView.setText(i + "");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                receta.setTime(seekBar.getProgress());
+            }
+        });
 
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +196,18 @@ public class CreateRecipe extends FragmentActivity {
             }
         });
 
+        addTag = findViewById(R.id.add_tag);
+
+        addTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tagContainer = findViewById(R.id.tags_container);
+
+                Intent i = new Intent(CreateRecipe.this, SelectTag.class);
+                startActivity(i);
+            }
+        });
+
 
         progressBar = findViewById(R.id.progressBarCreateRecipe);
         progressBar.setVisibility(View.GONE);
@@ -165,29 +230,30 @@ public class CreateRecipe extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 create.setEnabled(false);
-                progressBar.setVisibility(View.VISIBLE);
 
                 if(name.getText().toString().trim().length() == 0){
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(description.getText().toString().trim().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(receta.getIngredientes().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Ingredientes vacios", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(receta.getPasos().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Pasos vacios", Toast.LENGTH_SHORT).show();
                     create.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
+                }
+                else if(receta.getTags() == null) {
+                    Toast.makeText(getApplicationContext(), "Tag vacio", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
                 }
                 else{
+                    progressBar.setVisibility(View.VISIBLE);
+
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
 
@@ -240,36 +306,36 @@ public class CreateRecipe extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 update.setEnabled(false);
-                progressBar.setVisibility(View.VISIBLE);
 
                 if(name.getText().toString().trim().length() == 0){
                     Toast.makeText(getApplicationContext(), "Nombre vacio", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(description.getText().toString().trim().length() == 0) {
                     Toast.makeText(getApplicationContext(), "Descricion vacia", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(receta.getIngredientes().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Ingredientes vacios", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if(receta.getPasos().size() == 0) {
                     Toast.makeText(getApplicationContext(), "Pasos vacios", Toast.LENGTH_SHORT).show();
                     update.setEnabled(true);
-                    progressBar.setVisibility(View.GONE);
+                }
+                else if(receta.getTags() == null) {
+                    Toast.makeText(getApplicationContext(), "Tag vacio", Toast.LENGTH_SHORT).show();
+                    update.setEnabled(true);
                 }
                 else{
+                    progressBar.setVisibility(View.VISIBLE);
+
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
 
 
                     receta.setName(name.getText().toString());
                     receta.setDescription(description.getText().toString());
-                    receta.setCreate(new Date(System.currentTimeMillis()));
                     receta.setChefName(DataBase.getDataBase().currentUser.getName());
 
 
@@ -367,6 +433,10 @@ public class CreateRecipe extends FragmentActivity {
 
         updateIngredient();
         updateStep();
+        updateTags();
+
+        dificultPicker.setProgress(receta.getDificult());
+        timePicker.setProgress(receta.getTime());
 
         removeImage.setVisibility(View.VISIBLE);
         if(receta.getImage() != null){
@@ -374,6 +444,30 @@ public class CreateRecipe extends FragmentActivity {
         }
         else if(imageUri == null)
             removeImage.setVisibility(View.GONE);
+
+    }
+
+    private void updateTags() {
+        LinearLayout linearLayout = findViewById(R.id.tags_container);
+        linearLayout.removeAllViews();
+        String tag = receta.getTags();
+
+        if(tag == null){
+            addTag.setVisibility(View.VISIBLE);
+            return;
+        }
+
+
+        addTag.setVisibility(View.GONE);
+        View view = getLayoutInflater().inflate(R.layout.single_element_tag_crete_recipe, null);
+        TextView tagsName = view.findViewById(R.id.name_tag);
+        tagsName.setText(tag);
+
+        ImageButton cancel = view.findViewById(R.id.remove_tag);
+
+        linearLayout.addView(view);
+        cancel.setOnClickListener(new RemoveTagClick(tag, linearLayout, view));
+
 
     }
 
@@ -506,5 +600,25 @@ public class CreateRecipe extends FragmentActivity {
         });
         builder.setNegativeButton("No", null);
         builder.show();
+    }
+
+    private class RemoveTagClick implements View.OnClickListener {
+        private final String tag;
+        private final LinearLayout linearLayour;
+        private final View root;
+
+        public RemoveTagClick(String tag, LinearLayout linearLayout, View view) {
+            this.tag = tag;
+            this.linearLayour = linearLayout;
+            this.root = view;
+        }
+
+        @Override
+        public void onClick(View view) {
+            receta.setTags(null);
+            DataBase.getDataBase().currTags.add(tag);
+            linearLayour.removeView(root);
+            addTag.setVisibility(View.VISIBLE);
+        }
     }
 }

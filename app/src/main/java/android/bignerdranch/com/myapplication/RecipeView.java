@@ -40,6 +40,10 @@ public class RecipeView extends FragmentActivity {
     private Button editRecipe;
     private Receta receta;
 
+    private TextView dificult;
+    private TextView time;
+    private TextView tag;
+
     private FloatingActionButton playButton;
 
     public byte[] bit;
@@ -125,6 +129,17 @@ public class RecipeView extends FragmentActivity {
 
         fecha = findViewById(R.id.fecha_recipe_view);
         fecha.setText("Fecha de subida: " + new SimpleDateFormat("yy/MM/dd HH:mm").format(receta.getCreate()));
+
+        dificult = findViewById(R.id.difficult_recipe_view);
+        time = findViewById(R.id.time_recipe_view);
+        tag = findViewById(R.id.tag_recipe_view);
+
+        dificult.setText(receta.getDificult() + "");
+        time.setText(receta.getTime() + " minutos.");
+        tag.setText(receta.getTags());
+
+
+
 
         LinearLayout ingredientsContainer   = findViewById(R.id.ingredients_container_recipe_view);
         LinearLayout stepContainer          = findViewById(R.id.step_container_recipe_view);

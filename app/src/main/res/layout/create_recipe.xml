@@ -71,22 +71,89 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Dificultad" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+
+            <SeekBar
+                android:id="@+id/picker_dificult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:max="10" />
+
+            <TextView
+                android:id="@+id/dificult_view_create_recipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ingredientes"
+            android:text="Tiempo" />
 
-            android:textAlignment="center"
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+            <SeekBar
+                android:id="@+id/picker_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:max="200" />
+
+            <TextView
+                android:id="@+id/time_view_create_recipe"
+                android:layout_width="11dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"
+                android:textAlignment="textEnd" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:text="Min" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:padding="5dp"
+            android:layout_weight="1"
+
             android:fontFamily="@font/orangeblossoms"
-            android:textSize="15sp"
-            android:textColor="@color/backgroundSplash"
+            android:padding="5dp"
+            android:text="Ingredientes"
+            android:textAlignment="center"
             android:textAllCaps="false"
-            />
-
-
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:id="@+id/container_ingredient"
@@ -154,6 +221,45 @@
             android:textAllCaps="true"
             android:textStyle="italic"
             android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+
+            android:fontFamily="@font/orangeblossoms"
+            android:padding="5dp"
+            android:text="Tag"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/tags_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/style_button"
+            android:padding="10dp"
+            android:text="Añadir Tag"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="italic" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

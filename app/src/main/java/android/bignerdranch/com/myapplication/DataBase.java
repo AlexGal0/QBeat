@@ -61,6 +61,7 @@ public class DataBase {
     private Set<Ingrediente> listIngredients;
     private Set<Receta> listRecipe;
     private Set<Usuario> listUsers;
+    private Set<String> tags;
 
     public Map<String, ArrayList<Receta>> userTree;
     public Map<String, Usuario> users;
@@ -76,11 +77,13 @@ public class DataBase {
     private Receta currentRecipe;
 
     public int loadLogin;
+    public ArrayList<String> currTags;
     /*
         0  =  Ingredients
         1  =  Recipes
         2  =  Users
         3  =  CurrentUser
+        4  =  Tags
 
      */
 
@@ -96,8 +99,10 @@ public class DataBase {
         listRecipe = new TreeSet<>();
         listIngredients = new TreeSet<>();
         listUsers = new TreeSet<>();
+        tags = new TreeSet<>();
         userTree = new HashMap<>();
         users = new HashMap<>();
+
         Log.i("INGREDIENTE","COMPLETE :)");
     }
 
@@ -302,6 +307,7 @@ public class DataBase {
         userTree.clear();
         users.clear();
         listUsers.clear();
+        tags.clear();
         loadLogin = 0;
     }
 
@@ -314,13 +320,42 @@ public class DataBase {
         this.getRecetaDB(mainActivity);       // 1
         this.getUsersDB(mainActivity);        // 2
         this.setUser(mainActivity);           // 3
+        this.getTags(mainActivity);
     }
 
+    private void getTags(final MainActivity mainActivity) {
+        CollectionReference collectionReference = db.collection(References.TAGS_REFERENCE);
+        collectionReference
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(e != null){
+                            Log.w("ERROR", "Listen ERROR", e);
+                            return;
+                        }
+                        for(DocumentChange documentChange: queryDocumentSnapshots.getDocumentChanges()){
+                            String tag = documentChange.getDocument().getString("Tag");
+
+                            switch (documentChange.getType()){
+                                case ADDED:
+                                    tags.add(tag);
+                                    break;
+                            }
+                        }
+
+                        if ((loadLogin & (1 << 4)) == 0) {
+                            loadLogin |= 1 << 4;
+                            Log.i("LOAD", "COMPLETE TASK 5");
+                            mainActivity.updateFrame();
+                        }
+                    }
+                });
+    }
 
 
     public void updateAllRecipes() {
         for(Receta e: listRecipe){
-            db.collection(References.RECETAS_REFERENCE).document(e.getId()).update("create", new Date(System.currentTimeMillis()));
+            db.collection(References.RECETAS_REFERENCE).document(e.getId()).update("tags", "Almuerzos");
         }
     }
 
@@ -346,5 +381,9 @@ public class DataBase {
 
     public Set<Ingrediente> getSetIngredientes(){
         return new TreeSet<Ingrediente>(listIngredients);
+    }
+
+    public ArrayList<String> getTags() {
+        return new ArrayList<>(tags);
     }
 }

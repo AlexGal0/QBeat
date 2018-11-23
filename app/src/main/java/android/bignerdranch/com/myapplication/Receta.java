@@ -19,7 +19,9 @@ public class Receta implements Comparable {
     private String recipeImage;
     private byte[] image;
     private Date create;
-
+    private int dificult;
+    private String tags;
+    private int time;
 
     /*
         constructors
@@ -50,6 +52,9 @@ public class Receta implements Comparable {
         this.recipeImage = receta.recipeImage;
         this.image = receta.getImage();
         this.create = receta.getCreate();
+        this.dificult = receta.dificult;
+        this.tags = receta.tags;
+        this.time = receta.time;
     }
 
     /*
@@ -165,5 +170,30 @@ public class Receta implements Comparable {
 
     public void setCreate(Date create) {
         this.create = create;
+    }
+
+    public int getDificult() {
+        return dificult;
+    }
+
+    public void setDificult(int dificult) {
+        this.dificult = dificult;
+    }
+
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }

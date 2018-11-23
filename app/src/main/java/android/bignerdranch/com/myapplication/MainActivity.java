@@ -30,6 +30,9 @@ import android.widget.ProgressBar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         progressBar2.setMax(100);
         progress = 0;
         progressBar2.setProgress(0);
-
-
     }
 
 
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateFrame(){
-        if(DataBase.getDataBase().loadLogin == (1<<4) - 1){
+        if(DataBase.getDataBase().loadLogin == (1<<5) - 1){
             setContentView(R.layout.activity_main);
 
 
@@ -176,10 +177,11 @@ public class MainActivity extends AppCompatActivity {
             });
 
             menuBar.getItem(0).setVisible(true);
+           //DataBase.getDataBase().updateAllRecipes();
 
         }
         else{
-            progress += 25;
+            progress += 100/5;
             progressBar2.setProgress(progress);
         }
     }

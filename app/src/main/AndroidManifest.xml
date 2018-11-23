@@ -36,6 +36,8 @@
         <activity android:name=".UserView"                  android:screenOrientation="portrait"/>
         <activity android:name=".PlayRecipe"                android:screenOrientation="portrait"/>
         <activity android:name=".Tips"                      android:screenOrientation="portrait"/>
+        <activity android:name=".SelectTag"                 android:screenOrientation="portrait"/>
+
         <activity android:name=".ImageViewCompleteFragment"/>
 
     </application>
