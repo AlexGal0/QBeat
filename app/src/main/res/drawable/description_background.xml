@@ -2,17 +2,19 @@
     android:shape="rectangle">
 
     <corners
-        android:bottomRightRadius="10dp"
-        android:bottomLeftRadius="10dp"
-        android:radius="0dp" />
+        android:radius="5dp" />
 
     <gradient
-        android:angle="270"
-        android:startColor="#ffc96c"
-        android:endColor="#ffe46d"
-        android:type="linear" />
+        android:angle="90"
+        android:startColor="#fad3b5"
+        android:centerColor="#ffc59d"
+        android:endColor="#e2ac6d"
+        android:type="radial"
+        android:gradientRadius="180dp"
+        />
 
     <stroke
-        android:width="0dp"
-        android:color="#660000" />
+        android:width="1dp"
+        android:color="@color/colorAccent"
+        />
 </shape>

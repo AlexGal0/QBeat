@@ -42,6 +42,10 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
         public ImageView imagen;
         public ProgressBar progressBar;
         public Button download;
+        public TextView dificult;
+        public TextView time;
+        public TextView tag;
+
 
 
         public ViewHolder(CardView view) {
@@ -49,10 +53,13 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
             titulo      = view.findViewById(R.id.title_card);
             chef        = view.findViewById(R.id.chef_card);
             descripcion = view.findViewById(R.id.description_card);
-            fecha = view.findViewById(R.id.fecha_card);
+            fecha       = view.findViewById(R.id.fecha_card);
             imagen      = view.findViewById(R.id.image_card);
             progressBar = view.findViewById(R.id.progress_card);
             download    = view.findViewById(R.id.load_button_image_card);
+            dificult    = view.findViewById(R.id.difficult_card_view);
+            time        = view.findViewById(R.id.time_card_view);
+            tag         = view.findViewById(R.id.tag_card_view);
         }
 
     }
@@ -77,7 +84,12 @@ public class AdapterRecycleViewHome extends RecyclerView.Adapter<AdapterRecycleV
         }
         holder.descripcion.setText(receta.getDescription());
 
-        holder.fecha.setText(new SimpleDateFormat("hh/MM/dd").format(receta.getCreate()));
+        holder.fecha.setText(new SimpleDateFormat("yy/MM/dd").format(receta.getCreate()));
+
+
+        holder.dificult.setText(receta.getDificult() + "");
+        holder.time.setText(receta.getTime() + " min");
+        holder.tag.setText(receta.getTags());
 
         holder.imagen.setVisibility(View.GONE);
         holder.download.setVisibility(View.VISIBLE);

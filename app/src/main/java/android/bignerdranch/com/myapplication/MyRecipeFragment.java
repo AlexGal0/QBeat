@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,15 +64,31 @@ public class MyRecipeFragment extends Fragment {
             linearLayout.addView(recipe_view);
         }
 
+        if(!FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3")){
+            TextView textView = view.findViewById(R.id.invitado_text);
+            textView.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         DataBase.getDataBase().setCurrentRecipe(null);
+        Log.i("RECIPE_FRAGMENT", "OnResume()");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        notifyDataChange();
+    }
+
+    public void notifyDataChange() {
         ((LinearLayout)getView().findViewById(R.id.my_recipe_container)).removeAllViews();
         updateRecipes(getView(), getLayoutInflater());
-        Log.i("RECIPE_FRAGMENT", "OnResume()");
+        Log.i("RECIPE_FRAGMENT", "NotifyDataChange()");
+
     }
 
     public class onRecipeListClick implements View.OnClickListener{

@@ -45,6 +45,50 @@
                 android:text="Fecha"
                 android:textAlignment="viewEnd"
                 android:textStyle="italic" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dificultad:" />
+
+            <TextView
+                android:id="@+id/difficult_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Duración:" />
+
+            <TextView
+                android:id="@+id/time_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="200" />
+
+            <TextView
+                android:id="@+id/tag_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tag" />
         </LinearLayout>
 
         <TextView
@@ -52,10 +96,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginBottom="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
 
             android:fontFamily="@font/orangeblossoms"
             android:padding="5dp"
@@ -63,21 +107,19 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-
         <TextView
             android:id="@+id/description_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Descripcion"
-            android:textSize="13sp"
-            android:paddingBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="0dp"
             android:padding="5dp"
-            />
+            android:paddingBottom="15dp"
+            android:text="Descripcion"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/image_card"

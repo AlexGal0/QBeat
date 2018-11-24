@@ -26,12 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HomeFragment extends Fragment {
     private FloatingActionButton addIngredient;
@@ -57,6 +60,12 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recipeView.setLayoutManager(linearLayoutManager);
         recetas = DataBase.getDataBase().getListReceta();
+        Collections.sort(recetas, new Comparator<Receta>() {
+            @Override
+            public int compare(Receta receta, Receta t1) {
+                return -receta.getCreate().compareTo(t1.getCreate());
+            }
+        });
 
         adapter = new AdapterRecycleViewHome(recetas);
 
@@ -71,7 +80,14 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 Log.i("CHANGES", "NOTIFY CHANGE IN HOMEFRAGMENT");
-                adapter.recetas = DataBase.getDataBase().getListReceta();
+                recetas = DataBase.getDataBase().getListReceta();
+                Collections.sort(recetas, new Comparator<Receta>() {
+                    @Override
+                    public int compare(Receta receta, Receta t1) {
+                        return -receta.getCreate().compareTo(t1.getCreate());
+                    }
+                });
+                adapter.recetas = recetas;
                 adapter.notifyDataSetChanged();
             }
         });
@@ -93,7 +109,7 @@ public class HomeFragment extends Fragment {
 
                 if(cardView != null && mGestureDetector.onTouchEvent(e)){
                     final int index = rv.getChildAdapterPosition(cardView);
-                    Receta receta = DataBase.getDataBase().getListReceta().get(index);
+                    Receta receta = recetas.get(index);
                     if(DataBase.getDataBase().getCurrentRecipe() == null) {
                         DataBase.getDataBase().setCurrentRecipe(receta);
                         Intent intent = new Intent(getContext(), RecipeView.class);
@@ -121,7 +137,7 @@ public class HomeFragment extends Fragment {
                         Log.i("FAIL", "Fragment Activity in NULL");
                     }
                     Intent i = new Intent(activity, CreateRecipe.class);
-
+                    i.putExtra(CreateRecipe.TAG_TYPE, 0);
                     activity.startActivity(i);
                 }
             }
@@ -147,6 +163,11 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3")){
+            floatingActionButton.setVisibility(View.GONE);
+            addIngredient.setVisibility(View.GONE);
+        }
 
         return view;
     }

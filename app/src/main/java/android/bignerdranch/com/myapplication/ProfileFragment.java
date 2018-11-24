@@ -50,8 +50,13 @@ public class ProfileFragment extends Fragment {
 
     private ImageView userImage;
     private ProgressBar progressBar;
+    private TextView level;
+    private ProgressBar bar;
 
     public byte[] bit;
+
+    private Usuario user;
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         setRetainInstance(true);
 
-        final Usuario user = DataBase.getDataBase().currentUser;
+        user = DataBase.getDataBase().currentUser;
 
 
         progressBar = v.findViewById(R.id.progressBarUser);
@@ -72,7 +77,7 @@ public class ProfileFragment extends Fragment {
         userImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(bit != null){
+                if(bit != null && !FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3")){
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(android.content.Context.VIBRATOR_SERVICE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -90,6 +95,8 @@ public class ProfileFragment extends Fragment {
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals("V7bVcf7wQrOayyKzYX4ofeLPGeC3"))
+                    return;
                 Intent i = new Intent(getContext(), ImageViewCompleteFragment.class);
                 i.putExtra(ImageViewCompleteFragment.KEY_IMAGE, 1);
                 startActivity(i);
@@ -141,11 +148,11 @@ public class ProfileFragment extends Fragment {
         TextView nombre = v.findViewById(R.id.username_profile);
         nombre.setText(user.getName());
 
-        ProgressBar bar = v.findViewById(R.id.progressbar_profile);
+        bar = v.findViewById(R.id.progressbar_profile);
         bar.setProgress((int) user.getCurrentExperience());
 
-        TextView nivel = v.findViewById(R.id.number_level);
-        nivel.setText("" + user.getLevel());
+        level = v.findViewById(R.id.number_level);
+        level.setText("" + user.getLevel());
 
         Button logout = v.findViewById(R.id.logout);
 
@@ -219,5 +226,12 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        level.setText(user.getLevel() +"");
+        bar.setProgress((int) user.getCurrentExperience());
     }
 }

@@ -1,12 +1,13 @@
 package android.bignerdranch.com.myapplication;
 
+import android.support.annotation.NonNull;
 import android.util.MonthDisplayHelper;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Usuario {
+public class Usuario implements Comparable{
     public final static double MAX_EXP = 100.0;
     public String id;
     private String name;
@@ -37,6 +38,7 @@ public class Usuario {
         this.currentExperience = usuario.currentExperience;
         this.email = usuario.email;
         this.imageReference = usuario.imageReference;
+        this.name = usuario.name;
     }
 
 
@@ -105,5 +107,10 @@ public class Usuario {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return id.compareTo(((Usuario)o).id);
     }
 }

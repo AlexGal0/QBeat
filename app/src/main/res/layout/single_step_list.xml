@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp">
 
     <TextView
         android:id="@+id/number_step"
@@ -13,15 +15,18 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:fontFamily="@font/cryogenix"/>
 
     <TextView
         android:id="@+id/description_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginRight="16dp"
-        android:layout_weight="100"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1000"
         android:hint="Ingrese una descripcion" />
 
     <ImageButton
@@ -30,7 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:layout_weight="10"
-        android:src="@android:drawable/ic_menu_edit" />
+        android:src="@android:drawable/ic_menu_edit"
+
+        android:background="@drawable/download_button"
+        android:layout_margin="5dp"
+        android:padding="2dp"
+        android:minWidth="40dp"/>
+
+        <!--android:background="@drawable/download_button"
+        android:layout_margin="5dp"
+        android:padding="2dp"-->
+
 
     <ImageButton
         android:id="@+id/remove_step"
@@ -38,6 +53,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
         android:layout_weight="10"
-        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+
+        android:background="@drawable/download_button"
+        android:layout_margin="5dp"
+        android:padding="2dp"
+        android:minWidth="40dp"
+        />
 
 </LinearLayout>

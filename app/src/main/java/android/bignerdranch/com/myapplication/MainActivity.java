@@ -1,6 +1,7 @@
 package android.bignerdranch.com.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,9 @@ import android.widget.ProgressBar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private Fragment[] fragments;
     private ImageButton[] menu;
+    private Menu menuBar;
 
+    private int progress;
     public ProgressBar progressBar;
-
+    public ProgressBar progressBar2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -54,10 +61,13 @@ public class MainActivity extends AppCompatActivity {
             DataBase.getDataBase().updateLogin(this);
 
 
-        progressBar = new ProgressBar(this);
-        setContentView(progressBar);
+        setContentView(R.layout.load_screen);
+        progressBar = findViewById(R.id.progress_bar_title);
+        progressBar2 = findViewById(R.id.progress_bar_title2);
 
-        progressBar.setIndeterminate(true);
+        progressBar2.setMax(100);
+        progress = 0;
+        progressBar2.setProgress(0);
     }
 
 
@@ -65,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < 4; i++){
             menu[i].setBackgroundTintList(getResources().getColorStateList(R.color.transparent));
         }
-        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary
-        ));
+        menu[position].setBackgroundTintList(getResources().getColorStateList(R.color.ColorSecundary));
     }
 
     private void setInitialFragment() {
@@ -76,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
             fragments[1] = new SearchFragment();
             fragments[2] = new MyRecipeFragment();
             fragments[3] = new ProfileFragment();
+
+
+            DataBase.getDataBase().myRecipeFragment = (MyRecipeFragment) fragments[2];
         }
 
         if(menu == null){
@@ -117,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateFrame(){
-        if(DataBase.getDataBase().loadLogin == (1<<2) - 1){
+        if(DataBase.getDataBase().loadLogin == (1<<5) - 1){
             setContentView(R.layout.activity_main);
 
 
@@ -151,12 +163,43 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     setChecked(position);
+                    if(position == 0){
+                        menuBar.getItem(0 ).setVisible(true);
+                    }
+
+                    else
+                        menuBar.getItem(0 ).setVisible(false);
+
                 }
 
                 @Override
                 public void onPageScrollStateChanged(int state) { }
             });
+
+            menuBar.getItem(0).setVisible(true);
+           //DataBase.getDataBase().updateAllRecipes();
+
         }
+        else{
+            progress += 100/5;
+            progressBar2.setProgress(progress);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        menu.getItem(0).setVisible(false);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent i = new Intent(MainActivity.this, Tips.class);
+                startActivity(i);
+                return false;
+            }
+        });
+        menuBar = menu;
+        return true;
     }
 
     @Override

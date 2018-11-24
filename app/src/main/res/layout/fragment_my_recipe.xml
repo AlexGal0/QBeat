@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/home_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,6 +23,18 @@
             android:textColor="@color/backgroundSplash"
             android:fontFamily="@font/orangeblossoms"
             />
+
+        <TextView
+            android:id="@+id/invitado_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/invitado_my_recipe"
+            android:visibility="visible"
+            android:layout_margin="5dp"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textStyle="italic|bold"/>
 
         <LinearLayout
             android:id="@+id/my_recipe_container"

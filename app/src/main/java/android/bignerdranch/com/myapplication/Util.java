@@ -59,4 +59,15 @@ public class Util {
     }
 
 
+    public static Bitmap fixSizeRectangle(byte[] bytes) {
+        Bitmap bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        int X = bit.getWidth();
+        int Y = bit.getHeight();
+
+        int min = Math.min(X,Y);
+
+        if(Y > X)
+            bit = Bitmap.createBitmap(bit, 0, 0, min, min);
+        return bit;
+    }
 }

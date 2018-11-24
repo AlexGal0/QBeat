@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Set;
 
 public class SelectIngredient extends ListFragment {
     public final static String SELECT_INGREDIENT = "android.bignerdranch.com.myapplication.select_ingredient";
@@ -27,14 +28,14 @@ public class SelectIngredient extends ListFragment {
     public  void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ingredientes = DataBase.getDataBase().rest;
+        Collections.sort(ingredientes);
 
-        ingredientes = SetIngredientes.getListIngredientes();
-
-
-
+        /*
         for(Ingrediente i: ingredientes){
             Log.i("INGREDIENTE", i.getName() + " " + i.getId());
         }
+        */
 
         Log.i("INGREDIENTE", ingredientes.size() + "");
         IngredientAdapter adapter = new IngredientAdapter(ingredientes);
@@ -44,7 +45,8 @@ public class SelectIngredient extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        SetIngredientes.remove(ingredientes.get(position));
+        DataBase.getDataBase().receta.addIngrediente(ingredientes.get(position));
+        DataBase.getDataBase().rest.remove(position);
         getActivity().finish();
     }
 

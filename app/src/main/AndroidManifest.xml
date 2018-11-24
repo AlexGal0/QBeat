@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="android.bignerdranch.com.myapplication">
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -32,6 +34,10 @@
         <activity android:name=".Registrar"                 android:screenOrientation="portrait"/>
         <activity android:name=".Add_Ingredient"            android:screenOrientation="portrait"/>
         <activity android:name=".UserView"                  android:screenOrientation="portrait"/>
+        <activity android:name=".PlayRecipe"                android:screenOrientation="portrait"/>
+        <activity android:name=".Tips"                      android:screenOrientation="portrait"/>
+        <activity android:name=".SelectTag"                 android:screenOrientation="portrait"/>
+
         <activity android:name=".ImageViewCompleteFragment"/>
 
     </application>

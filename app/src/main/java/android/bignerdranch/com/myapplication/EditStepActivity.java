@@ -23,7 +23,7 @@ public class EditStepActivity extends FragmentActivity{
         setContentView(R.layout.edit_step_view);
 
         int index = getIntent().getIntExtra(CreateRecipe.TAG_NUMBER_STEP, -1);
-        step = CreateRecipe.pasos.get(index);
+        step = DataBase.getDataBase().receta.getPasos().get(index);
 
         final TextView number = findViewById(R.id.number_edit_step);
 

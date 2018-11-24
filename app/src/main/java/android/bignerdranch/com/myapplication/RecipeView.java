@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -36,7 +37,14 @@ public class RecipeView extends FragmentActivity {
     private ProgressBar progressBar;
     private TextView fecha;
     private Button chefButton;
+    private Button editRecipe;
     private Receta receta;
+
+    private TextView dificult;
+    private TextView time;
+    private TextView tag;
+
+    private FloatingActionButton playButton;
 
     public byte[] bit;
 
@@ -122,6 +130,17 @@ public class RecipeView extends FragmentActivity {
         fecha = findViewById(R.id.fecha_recipe_view);
         fecha.setText("Fecha de subida: " + new SimpleDateFormat("yy/MM/dd HH:mm").format(receta.getCreate()));
 
+        dificult = findViewById(R.id.difficult_recipe_view);
+        time = findViewById(R.id.time_recipe_view);
+        tag = findViewById(R.id.tag_recipe_view);
+
+        dificult.setText(receta.getDificult() + "");
+        time.setText(receta.getTime() + " minutos.");
+        tag.setText(receta.getTags());
+
+
+
+
         LinearLayout ingredientsContainer   = findViewById(R.id.ingredients_container_recipe_view);
         LinearLayout stepContainer          = findViewById(R.id.step_container_recipe_view);
 
@@ -192,6 +211,37 @@ public class RecipeView extends FragmentActivity {
                 });
 
                 builder.show();
+            }
+        });
+
+
+        editRecipe = findViewById(R.id.edit_recipe_button);
+
+        if(!receta.chefId.equals(DataBase.getDataBase().currentUser.id))
+            editRecipe.setVisibility(View.GONE);
+
+        editRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBase.getDataBase().receta = new Receta(receta);
+                Intent intent = new Intent(RecipeView.this, CreateRecipe.class);
+                intent.putExtra(CreateRecipe.TAG_TYPE, 1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        playButton = findViewById(R.id.play_button);
+
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataBase.getDataBase().receta = receta;
+                finish();
+                Intent intent = new Intent(RecipeView.this, PlayRecipe.class);
+                startActivity(intent);
             }
         });
 

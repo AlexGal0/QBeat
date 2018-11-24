@@ -15,24 +15,23 @@ public class Receta implements Comparable {
     private ArrayList<Paso> pasos;
     private String name;
     private String description;
-    private ArrayList<ImageView> images;
     private ArrayList<Ingrediente> ingredientes;
     private String recipeImage;
     private byte[] image;
     private Date create;
-
+    private int dificult;
+    private String tags;
+    private int time;
 
     /*
         constructors
      */
     public Receta(){
         this.id = UUID.randomUUID().toString();
-        this.chefId = DataBase.getDataBase().currentUser.id;
     };
     public Receta(String chefId){
         this();
         this.pasos = new ArrayList<>();
-        this.images = new ArrayList<>();
         this.chefId = chefId;
     }
 
@@ -43,19 +42,26 @@ public class Receta implements Comparable {
     }
 
     public Receta(Receta receta){
-        this(receta.name, receta.description, receta.chefId);
-        setPasos(receta.getPasos());
-        setIngredientes(receta.ingredientes);
-        setRecipeImage(receta.recipeImage);
-        setChefName(receta.getChefName());
-        setCreate(receta.getCreate());
+        this.id = receta.id;
+        this.chefId = receta.chefId;
+        this.chefName = receta.chefName;
+        this.pasos = receta.getPasos();
+        this.name = receta.name;
+        this.description = receta.description;
+        this.ingredientes = receta.getIngredientes();
+        this.recipeImage = receta.recipeImage;
+        this.image = receta.getImage();
+        this.create = receta.getCreate();
+        this.dificult = receta.dificult;
+        this.tags = receta.tags;
+        this.time = receta.time;
     }
 
     /*
         getters and setters
      */
     public String getName() {
-        return name + "";
+        return name;
     }
 
     public String getId() {
@@ -63,7 +69,7 @@ public class Receta implements Comparable {
     }
 
     public String getDescription() {
-        return description + "";
+        return description;
     }
 
     public ArrayList<Paso> getPasos() {
@@ -84,16 +90,22 @@ public class Receta implements Comparable {
     }
 
 
-    public boolean addImage(ImageView imageView){
-        if(imageView == null)
-            throw new NullPointerException();
-        return this.images.add(imageView);
-    }
-
     public boolean addPaso(Paso paso){
         if(paso == null)
             throw new NullPointerException();
         return this.pasos.add(paso);
+    }
+
+    public boolean addIngrediente(Ingrediente ingrediente){
+        if(ingrediente == null)
+            return false;
+        return this.ingredientes.add(ingrediente);
+    }
+
+    public void removePaso(int index){
+        if(index >= pasos.size() || index < 0)
+            return;
+        pasos.remove(index);
     }
 
     public boolean setPasos(ArrayList<Paso> pasos){
@@ -125,9 +137,7 @@ public class Receta implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        if(this.create.equals(((Receta)o).create))
-            return this.name.compareTo(((Receta)o).name);
-        return -this.create.compareTo(((Receta)o).create);
+        return this.id.compareTo(((Receta)o).id);
     }
 
     public String getRecipeImage() {
@@ -160,5 +170,30 @@ public class Receta implements Comparable {
 
     public void setCreate(Date create) {
         this.create = create;
+    }
+
+    public int getDificult() {
+        return dificult;
+    }
+
+    public void setDificult(int dificult) {
+        this.dificult = dificult;
+    }
+
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }
