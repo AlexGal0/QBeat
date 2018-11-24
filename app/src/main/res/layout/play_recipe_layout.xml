@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/home_background">
+    android:background="@color/card_backgroud">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/tittle_background"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/image_view_play_recipe"
@@ -26,8 +27,9 @@
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:padding="1dp"
+            android:background="@drawable/tittle_background"
             >
 
             <android.support.design.widget.FloatingActionButton
@@ -45,7 +47,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:src="@android:drawable/ic_lock_silent_mode_off" />
+                android:src="@android:drawable/ic_lock_silent_mode_off"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/next_step_play"

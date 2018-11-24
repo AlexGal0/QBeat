@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_background"
+    android:background="@color/card_backgroud"
     >
 
     <LinearLayout
@@ -17,12 +17,15 @@
             android:id="@+id/name_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Nombre receta"
             android:textAlignment="center"
-            android:textSize="32sp"
-            android:textStyle="bold|italic" />
+            android:textSize="20sp"
+            android:fontFamily="@font/cryogenix"
+            android:textColor="@color/backgroundSplash"/>
 
         <TextView
             android:id="@+id/fecha_recipe_view"
@@ -31,7 +34,9 @@
             android:layout_marginTop="1dp"
             android:layout_marginBottom="5dp"
             android:text="Fecha"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="15sp"/>
 
         <Button
             android:id="@+id/user_recipe_button"
@@ -39,27 +44,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Button" />
+            android:text="Button"
+            android:fontFamily="@font/orangeblossoms"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:textColor="@color/backgroundSplash"/>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:background="@color/common_google_signin_btn_text_dark_default">
+            android:background="@color/card_backgroud"
+            >
 
             <ImageView
                 android:id="@+id/image_recipe_view"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:background="@color/home_background"
-                android:backgroundTint="@color/home_background"
+                android:backgroundTint="@color/card_backgroud"
+                android:layout_margin="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@android:drawable/alert_dark_frame" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ProgressBar
                 android:id="@+id/image_progress"
@@ -86,37 +96,70 @@
             android:id="@+id/textView18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dificultad" />
+            android:text="Dificultad"
+
+            android:layout_margin="8dp"
+            android:fontFamily="@font/cryogenix"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/difficult_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+
+            android:fontFamily="@font/bitmapfont"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tiempo" />
+            android:text="Tiempo"
+
+            android:layout_margin="8dp"
+            android:fontFamily="@font/cryogenix"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/time_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+
+            android:fontFamily="@font/bitmapfont"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
 
         <TextView
             android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tag" />
+            android:text="Tag"
+
+            android:layout_margin="8dp"
+            android:fontFamily="@font/cryogenix"
+            android:textColor="@color/backgroundSplash"
+            android:textSize="15sp"
+            />
 
         <TextView
             android:id="@+id/tag_recipe_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+
+            android:fontFamily="@font/bitmapfont"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
 
         <TextView
             android:id="@+id/description_recipe_view"
@@ -125,9 +168,12 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:text="Descripcion"
             android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/orangeblossoms"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -139,10 +185,13 @@
             android:drawableEnd="@drawable/ic_cosecha"
             android:text="Ingredientes"
             android:textAlignment="center"
-            android:textSize="23sp"
-            android:textStyle="bold|italic"
+            android:textSize="15sp"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:textColor="@color/backgroundSplash"
+            android:fontFamily="@font/bitmapfont"/>
 
         <LinearLayout
             android:id="@+id/ingredients_container_recipe_view"
@@ -152,7 +201,8 @@
             android:divider="@color/ColorSecundary"
             android:dividerPadding="20dp"
             android:orientation="vertical"
-            android:textAlignment="center"></LinearLayout>
+            android:textAlignment="center"
+            ></LinearLayout>
 
         <TextView
             android:id="@+id/textView7"
@@ -162,10 +212,13 @@
             android:layout_marginRight="60dp"
             android:drawableStart="@drawable/ic_preparacion"
             android:drawableEnd="@drawable/ic_preparacion"
-            android:text="Preparación"
+            android:text="Preparacion"
             android:textAlignment="center"
-            android:textSize="23sp"
-            android:textStyle="bold|italic" />
+            android:textSize="15sp"
+
+            android:textColor="@color/backgroundSplash"
+            android:fontFamily="@font/bitmapfont"
+            />
 
         <LinearLayout
             android:id="@+id/step_container_recipe_view"
@@ -189,7 +242,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/edit_recipe_button"
+                android:textColor="@color/white"
                 android:drawableLeft="@android:drawable/ic_menu_edit"
                 android:paddingLeft="10dp"
                 android:text="Editar receta"
@@ -201,7 +255,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/ColorSecundary"
+                android:background="@drawable/tittle_background"
+                android:textColor="@color/white"
                 android:text="Eliminar receta"
                 android:textAlignment="center" />
 
