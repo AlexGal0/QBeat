@@ -35,7 +35,8 @@
             android:layout_marginBottom="5dp"
             android:text="Fecha"
             android:textAlignment="center"
-            android:fontFamily="@font/bitmapfont" />
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/user_recipe_button"
@@ -98,7 +99,7 @@
             android:text="Dificultad"
 
             android:layout_margin="8dp"
-            android:fontFamily="@font/orangeblossoms"
+            android:fontFamily="@font/cryogenix"
             android:textColor="@color/backgroundSplash"
             android:textSize="15sp"
             />
@@ -109,7 +110,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
 
-            android:fontFamily="@font/cryogenix"
+            android:fontFamily="@font/bitmapfont"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />
@@ -121,7 +122,7 @@
             android:text="Tiempo"
 
             android:layout_margin="8dp"
-            android:fontFamily="@font/orangeblossoms"
+            android:fontFamily="@font/cryogenix"
             android:textColor="@color/backgroundSplash"
             android:textSize="15sp"
             />
@@ -132,7 +133,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
 
-            android:fontFamily="@font/cryogenix"
+            android:fontFamily="@font/bitmapfont"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />
@@ -144,7 +145,7 @@
             android:text="Tag"
 
             android:layout_margin="8dp"
-            android:fontFamily="@font/orangeblossoms"
+            android:fontFamily="@font/cryogenix"
             android:textColor="@color/backgroundSplash"
             android:textSize="15sp"
             />
@@ -155,7 +156,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
 
-            android:fontFamily="@font/cryogenix"
+            android:fontFamily="@font/bitmapfont"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             />
@@ -171,7 +172,8 @@
             android:layout_marginLeft="10dp"
             android:text="Descripcion"
             android:textAlignment="center"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:fontFamily="@font/orangeblossoms"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -183,13 +185,13 @@
             android:drawableEnd="@drawable/ic_cosecha"
             android:text="Ingredientes"
             android:textAlignment="center"
-            android:textSize="23sp"
+            android:textSize="15sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
             android:textColor="@color/backgroundSplash"
-            android:fontFamily="@font/cryogenix"/>
+            android:fontFamily="@font/bitmapfont"/>
 
         <LinearLayout
             android:id="@+id/ingredients_container_recipe_view"
@@ -209,13 +211,13 @@
             android:layout_marginRight="60dp"
             android:drawableStart="@drawable/ic_preparacion"
             android:drawableEnd="@drawable/ic_preparacion"
-            android:text="Preparación"
+            android:text="Preparacion"
             android:textAlignment="center"
-            android:textSize="23sp"
+            android:textSize="15sp"
             android:textStyle="bold|italic"
 
             android:textColor="@color/backgroundSplash"
-            android:fontFamily="@font/cryogenix"
+            android:fontFamily="@font/bitmapfont"
             />
 
         <LinearLayout
