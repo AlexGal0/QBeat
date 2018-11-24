@@ -27,7 +27,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
 
-        android:background="@drawable/tittle_background">
+        android:background="@drawable/description_background">
 
         <TextView
             android:id="@+id/number_tip"
