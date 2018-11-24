@@ -23,7 +23,7 @@
             android:layout_marginRight="5dp"
             android:text="Nombre receta"
             android:textAlignment="center"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:fontFamily="@font/cryogenix"
             android:textColor="@color/backgroundSplash"/>
 
@@ -36,7 +36,7 @@
             android:text="Fecha"
             android:textAlignment="center"
             android:fontFamily="@font/orangeblossoms"
-            android:textSize="16sp"/>
+            android:textSize="15sp"/>
 
         <Button
             android:id="@+id/user_recipe_button"
@@ -172,7 +172,7 @@
             android:layout_marginLeft="10dp"
             android:text="Descripcion"
             android:textAlignment="center"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:fontFamily="@font/orangeblossoms"/>
 
         <TextView
@@ -186,7 +186,7 @@
             android:text="Ingredientes"
             android:textAlignment="center"
             android:textSize="15sp"
-            android:textStyle="bold|italic"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
@@ -201,7 +201,8 @@
             android:divider="@color/ColorSecundary"
             android:dividerPadding="20dp"
             android:orientation="vertical"
-            android:textAlignment="center"></LinearLayout>
+            android:textAlignment="center"
+            ></LinearLayout>
 
         <TextView
             android:id="@+id/textView7"
@@ -214,7 +215,6 @@
             android:text="Preparacion"
             android:textAlignment="center"
             android:textSize="15sp"
-            android:textStyle="bold|italic"
 
             android:textColor="@color/backgroundSplash"
             android:fontFamily="@font/bitmapfont"
@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/tittle_background"
+                android:background="@drawable/edit_recipe_button"
                 android:textColor="@color/white"
                 android:drawableLeft="@android:drawable/ic_menu_edit"
                 android:paddingLeft="10dp"

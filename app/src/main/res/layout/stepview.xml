@@ -12,7 +12,8 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView9"
@@ -22,7 +23,8 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="1"
             android:textAlignment="center"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:fontFamily="@font/cryogenix"/>
 
         <TextView
             android:id="@+id/textView10"
@@ -32,6 +34,8 @@
             android:layout_marginLeft="0dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="TextView"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="16sp"/>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

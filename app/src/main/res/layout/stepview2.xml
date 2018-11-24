@@ -22,7 +22,8 @@
             android:layout_gravity="right"
             android:gravity="center"
             android:text="2"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:fontFamily="@font/cryogenix"/>
 
         <TextView
             android:id="@+id/textView8"
@@ -30,6 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TextView"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:fontFamily="@font/orangeblossoms"
+            android:textSize="16sp"/>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
