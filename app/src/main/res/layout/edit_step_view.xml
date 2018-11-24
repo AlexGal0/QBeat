@@ -25,10 +25,12 @@
             android:id="@+id/new_description_step"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:layout_margin="8dp"
+            android:background="@drawable/style_edit_text"
+            android:inputType="textCapSentences"
             android:padding="6dp"
-            android:background="@drawable/style_edit_text"/>
+            android:singleLine="false"
+            android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
