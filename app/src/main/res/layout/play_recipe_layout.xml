@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/backgroundSplash"
-        android:paddingTop="10dp">
+        android:background="@drawable/tittle_background"
+        android:paddingTop="10dp"
+        android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/image_view_play_recipe"
@@ -63,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/background_progressbar"
+        android:background="@drawable/tittle_background"
         android:layout_margin="15dp"
         android:padding="15dp">
 
