@@ -29,6 +29,7 @@
             android:background="@drawable/style_edit_text"
             android:inputType="textCapSentences"
             android:padding="6dp"
+            android:singleLine="false"
             android:textSize="18sp" />
     </android.support.design.widget.TextInputLayout>
 
